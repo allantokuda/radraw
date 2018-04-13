@@ -3,8 +3,23 @@
 }
 
 .App-header {
-  background-color: #eee;
+  background-color: #222;
   height: 50px;
   padding: 20px;
   color: white;
+}
+
+.react-draggable {
+  cursor: default;
+  padding: 30px;
+}
+
+.react-draggable:hover {
+  background: #eee;
+}
+
+.operator {
+  width: 60px;
+  height: 60px;
+  border: 1px solid black;
 }
