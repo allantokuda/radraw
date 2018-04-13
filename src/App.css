@@ -11,15 +11,24 @@
 
 .react-draggable {
   cursor: default;
-  padding: 30px;
-}
-
-.react-draggable:hover {
-  background: #eee;
+  padding: 1px;
 }
 
 .operator {
-  width: 60px;
-  height: 60px;
-  border: 1px solid black;
+  fill: #d8e0f8;
+  stroke: black;
+  stroke-width: 1;
+  position: relative;
+  width: 100px;
+  margin: auto;
+}
+
+.operator input {
+  position: absolute;
+  top: 30px;
+  width: 90px;
+  left: 5px;
+  background: none;
+  border: none;
+  text-align: center;
 }
