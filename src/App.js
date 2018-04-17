@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import Draggable from 'react-draggable';
-import './App.css';
+import React, { Component } from 'react'
+import PrecedenceChart from './PrecedenceChart.js'
+import './App.css'
+import { createStore } from 'redux'
 
 class App extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       text: 'example'
@@ -12,7 +13,7 @@ class App extends Component {
   }
 
   handleChange(event) {
-    this.setState({ text: event.target.value });
+    this.setState({ text: event.target.value })
   }
 
   render() {
@@ -21,17 +22,10 @@ class App extends Component {
         <header className="App-header">
           radraw
         </header>
-        <Draggable handle=".handle">
-          <div className="operator">
-            <input name="name" value={this.state.text} onChange={this.handleChange.bind(this)}/>
-            <svg className="handle" height="100" width="100">
-              <polygon points="0,0, 100,20 100,100 0,100" />
-            </svg>
-          </div>
-        </Draggable>
+        <PrecedenceChart />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
