@@ -1,19 +1,13 @@
-import React, { Component } from 'react'
-import { createStore } from 'redux'
-import rootReducer from './reducers/index'
-import DraggableNode from './DraggableNode'
+import React from 'react'
+import { connect } from 'react-redux'
+import ChartNode from './ChartNode'
 
-const store = createStore(rootReducer)
-
-class PrecedenceChart extends Component {
-  render() {
-    console.log(store.getState())
-    return (
-      <div>
-        {store.getState().nodes.map(node => (<DraggableNode data={node} onChange={this.handleNodeChange} />))}
-      </div>
-    )
-  }
+let PrecedenceChart = ({ state }) => {
+  return <div>
+    {state.nodes.map(node => <ChartNode key={node.id} node={node} />)}
+  </div>
 }
+
+PrecedenceChart = connect(state => ({state}))(PrecedenceChart);
 
 export default PrecedenceChart

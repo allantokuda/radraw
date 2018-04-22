@@ -1,12 +1,11 @@
 import {
-  MOVE_NODE
+  RENAME_NODE
 } from '../actions'
 
 // temporary
 const initialState = [
   {
     id: 1,
-    x: 100, y: 100,
     operator: {},
     relation: {
       name: 'Achievement'
@@ -14,8 +13,6 @@ const initialState = [
   },
   {
     id: 2,
-    x: 100,
-    y: 200,
     operator: {
       type: 'Match Join',
       shape: 'HalfHouseRight',
@@ -30,12 +27,14 @@ const initialState = [
 
 export default function nodes(state = initialState, action) {
   switch (action.type) {
-    case MOVE_NODE:
-      return state.map((node, nodeId) => {
-        if (node.id === nodeId) {
-          node.x += action.dx;
-          node.y += action.dy;
+    case RENAME_NODE:
+      return state.map(node => {
+        if (node.id === action.nodeId) {
+          return Object.assign({}, node, {
+            relation: { name: action.name }
+          })
         }
+        return node;
       });
     default:
       return state

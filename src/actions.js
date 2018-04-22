@@ -2,12 +2,12 @@
  * action types
  */
 
-export const MOVE_NODE = 'MOVE_NODE'
+export const RENAME_NODE = 'RENAME_NODE'
 
 /*
  * action creators
  */
 
-export function moveNode(nodeId, dx, dy) {
-  return { type: MOVE_NODE, nodeId, dx, dy }
+export function renameNode(nodeId, name) {
+  return { type: RENAME_NODE, nodeId, name }
 }

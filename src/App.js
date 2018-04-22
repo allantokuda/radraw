@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PrecedenceChart from './PrecedenceChart.js'
 import './App.css'
-import { createStore } from 'redux'
 
 class App extends Component {
   constructor() {
