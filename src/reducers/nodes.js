@@ -1,5 +1,6 @@
 import {
-  RENAME_NODE
+  RENAME_NODE,
+  UPDATE_OPERATOR_PARAM
 } from '../actions'
 
 // temporary
@@ -16,7 +17,10 @@ const initialState = [
     operator: {
       type: 'Match Join',
       shape: 'HalfHouseRight',
-      text: "Aid(S): Skill_code\nBid(E): Skill_code"
+      params: {
+        Aid: ['Skill_code'],
+        Bid: ['Skill_code']
+      }
     },
     relation: {
       id: 5,
@@ -36,6 +40,23 @@ export default function nodes(state = initialState, action) {
         }
         return node;
       });
+
+    case UPDATE_OPERATOR_PARAM:
+      return state.map(node => {
+        if (node.id === action.nodeId) {
+          let val = {}
+          val[action.paramName] = action.value
+          return (
+            Object.assign({}, node,
+              Object.assign({}, node.operator,
+                Object.assign({}, node.operator.params, { val })
+              )
+            )
+          )
+        }
+        return node;
+      });
+
     default:
       return state
   }

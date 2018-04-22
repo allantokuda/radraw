@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import { renameNode } from './actions'
+import RelationalOperator from './RelationalOperator'
 
 let ChartNode = ({ node, dispatch }) => {
   const handleEditName = (event) => {
@@ -10,11 +11,7 @@ let ChartNode = ({ node, dispatch }) => {
 
   return (
     <div className="node">
-      <div className="operator">
-        <svg height="100" width="100">
-          <polygon points="0,0, 100,20 100,100 0,100" />
-        </svg>
-      </div>
+      <RelationalOperator nodeId={node.id} operator={node.operator}/>
       <ContentEditable className="relation" html={node.relation.name} onChange={handleEditName}/>
     </div>
   )

@@ -19,7 +19,6 @@
   stroke: black;
   stroke-width: 1;
   position: relative;
-  width: 100px;
   margin: auto;
 }
 
@@ -31,4 +30,18 @@
   padding: 4px;
   margin: 3px;
   border: 1px solid #ccc;
+}
+
+.operatorContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20px;
+}
+
+.operator-param {
+  display: inline-block;
+  min-width: 50px;
+  max-width: 150px;
+  vertical-align: text-top;
 }
