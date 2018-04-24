@@ -14,14 +14,6 @@
   padding: 1px;
 }
 
-.operator {
-  fill: #d8e0f8;
-  stroke: black;
-  stroke-width: 1;
-  position: relative;
-  margin: auto;
-}
-
 .relation {
   text-align: center;
   min-width: 50px;
@@ -32,14 +24,34 @@
   border: 1px solid #ccc;
 }
 
-.operatorContent {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 20px;
+.operator {
+  fill: #d8e0f8;
+  stroke: black;
+  stroke-width: 1;
+  position: relative;
 }
 
-.operator-param {
+.operatorContent {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.operatorParamRow {
+  display: flex;
+  min-width: 100px;
+  max-width: 200px;
+}
+
+.operatorParamLabel {
+  text-align: left;
+  max-width: 50px;
+}
+
+.operatorParamValue {
+  text-align: left;
   display: inline-block;
   min-width: 50px;
   max-width: 150px;
