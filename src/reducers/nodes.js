@@ -18,8 +18,9 @@ const initialState = [
       type: 'Match Join',
       shape: 'HalfHouseRight',
       params: {
-        Aid: ['Skill_code'],
-        Bid: ['Skill_code']
+        Aid: ['XYZ_Skill_code'],
+        Bid: ['Skill_code'],
+        Carry: ['ABC']
       }
     },
     relation: {
@@ -47,11 +48,11 @@ export default function nodes(state = initialState, action) {
           let val = {}
           val[action.paramName] = action.value
           return (
-            Object.assign({}, node,
-              Object.assign({}, node.operator,
-                Object.assign({}, node.operator.params, { val })
-              )
-            )
+            Object.assign({}, node, { operator:
+              Object.assign({}, node.operator, { params:
+                Object.assign({}, node.operator.params, val)
+              })
+            })
           )
         }
         return node;
