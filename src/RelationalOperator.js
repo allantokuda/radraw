@@ -1,50 +1,72 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import operatorShape from './operatorShape'
 import { updateOperatorParam } from './actions'
 
-let RelationalOperator = ({ nodeId, operator, dispatch }) => {
-  const charWidth = Math.max(
-    operator.params && operator.params.Aid.length,
-    operator.params && operator.params.Bid.length
-  )
+class RelationalOperator extends Component {
+  constructor(props) {
+    super(props)
 
-  const width = Math.max(Math.min(charWidth * 8.0 + 50, 200), 120);
-  const height = Math.max(charWidth * 0.85 + 120, 100);
-
-  const shapeSvg = operator.type ? (
-    <svg height={height} width={width}>
-      <polygon points={operatorShape(operator.shape, width, height)} />
-    </svg>
-  ) : null
-
-  const updateParam = (paramName, event) => {
-    dispatch(updateOperatorParam(nodeId, paramName, event.target.value))
+    this.state = {
+      width: 100,
+      height: 100
+    }
   }
 
-  const operatorParams = Object.keys(operator.params || {})
+  updateSize = () => {
+    let width = this.contentRef.clientWidth
+    let height = this.contentRef.clientHeight
+    this.setState({ width, height })
+  }
 
-  return (
-    <div className="operator">
-      <table className="operatorContent">
-        <tbody>
-          <tr>
-            <td colSpan="2" className="operatorName">{operator.type}</td>
-          </tr>
-          {operatorParams.map(param => <tr className="operatorParamRow" key={param}>
-            <td className="operatorParamLabel">{param}:&nbsp;</td>
-            <td>
-              <ContentEditable className="operatorParamValue"
-                               html={operator.params[param]}
-                               onChange={updateParam.bind(this, param)}/>
-            </td>
-          </tr>)}
-        </tbody>
-      </table>
-      {shapeSvg}
-    </div>
-  )
+  componentDidMount() {
+    this.updateSize()
+  }
+
+  render() {
+    let { nodeId, operator, dispatch } = this.props
+
+    const width = Math.max(Math.min(this.state.width + 30, 200), 120);
+    const height = Math.max(this.state.height + 30, 100);
+    const paddingTop = width * 0.1;
+
+    const shapeSvg = operator.type ? (
+      <svg height={height} width={width}>
+        <polygon points={operatorShape(operator.shape, width, height)} />
+      </svg>
+    ) : null
+
+    const updateParam = (paramName, event) => {
+      dispatch(updateOperatorParam(nodeId, paramName, event.target.value))
+      setTimeout(this.updateSize)
+    }
+
+    const operatorParams = Object.keys(operator.params || {})
+
+    return (
+      <div className="operator">
+        <table className="operatorContent"
+               style={{ paddingTop }}
+               ref={(contentRef) => this.contentRef = contentRef}>
+          <tbody>
+            <tr>
+              <td colSpan="2" className="operatorName">{operator.type}</td>
+            </tr>
+            {operatorParams.map(param => <tr className="operatorParamRow" key={param}>
+              <td className="operatorParamLabel">{param}:&nbsp;</td>
+              <td>
+                <ContentEditable className="operatorParamValue"
+                                 html={operator.params[param]}
+                                 onChange={updateParam.bind(this, param)}/>
+              </td>
+            </tr>)}
+          </tbody>
+        </table>
+        {shapeSvg}
+      </div>
+    )
+  }
 }
 
 RelationalOperator = connect()(RelationalOperator)

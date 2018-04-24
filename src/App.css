@@ -39,10 +39,15 @@
   transform: translate(-50%, 0);
 }
 
+.operatorName {
+  padding-bottom: 10px;
+}
+
 .operatorParamRow {
   display: flex;
   min-width: 100px;
   max-width: 200px;
+  margin-bottom: 10px;
 }
 
 .operatorParamLabel {
