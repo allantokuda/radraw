@@ -18,9 +18,9 @@ const initialState = [
       type: 'Match Join',
       shape: 'HalfHouseRight',
       params: {
-        Aid: ['XYZ_Skill_code'],
-        Bid: ['Skill_code'],
-        Carry: ['ABC']
+        Aid: 'XYZ_Skill_code',
+        Bid: 'Skill_code',
+        Carry: 'ABC'
       }
     },
     relation: {

@@ -5,11 +5,17 @@ import operatorShape from './operatorShape'
 import { updateOperatorParam } from './actions'
 
 let RelationalOperator = ({ nodeId, operator, dispatch }) => {
-  const width = Math.max(operator.params && operator.params.Aid.length, ...[100])
+  const charWidth = Math.max(
+    operator.params && operator.params.Aid.length,
+    operator.params && operator.params.Bid.length
+  )
+
+  const width = Math.max(Math.min(charWidth * 8.0 + 50, 200), 120);
+  const height = Math.max(charWidth * 0.85 + 120, 100);
 
   const shapeSvg = operator.type ? (
-    <svg height="100" width="100">
-      <polygon points={operatorShape(operator.shape, 100)} />
+    <svg height={height} width={width}>
+      <polygon points={operatorShape(operator.shape, width, height)} />
     </svg>
   ) : null
 
