@@ -16,7 +16,7 @@ const initialState = [
     id: 2,
     operator: {
       type: 'Match Join',
-      shape: 'HalfHouseRight',
+      shape: 'FullHouse',
       params: {
         Aid: 'XYZ_Skill_code',
         Bid: 'Skill_code',

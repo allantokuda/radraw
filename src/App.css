@@ -40,14 +40,14 @@
 }
 
 .operatorName {
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
 .operatorParamRow {
   display: flex;
   min-width: 100px;
   max-width: 200px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .operatorParamLabel {

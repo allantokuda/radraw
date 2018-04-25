@@ -27,13 +27,13 @@ class RelationalOperator extends Component {
   render() {
     let { nodeId, operator, dispatch } = this.props
 
-    const width = Math.max(Math.min(this.state.width + 30, 200), 120);
+    const width = Math.max(Math.min(this.state.width, 200), 80) + 10;
     const height = Math.max(this.state.height + 30, 100);
     const paddingTop = width * 0.1;
 
     const shapeSvg = operator.type ? (
-      <svg height={height} width={width}>
-        <polygon points={operatorShape(operator.shape, width, height)} />
+      <svg height={height} width={width+10}>
+        <polygon points={operatorShape(operator.shape, width+10, height)} />
       </svg>
     ) : null
 
