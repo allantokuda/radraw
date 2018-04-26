@@ -32,7 +32,7 @@ class RelationalOperator extends Component {
     const paddingTop = width * 0.1;
 
     const shapeSvg = operator.type ? (
-      <svg height={height} width={width+10}>
+      <svg className="handle" height={height} width={width+10}>
         <polygon points={operatorShape(operator.shape, width+10, height)} />
       </svg>
     ) : null
@@ -50,11 +50,11 @@ class RelationalOperator extends Component {
                style={{ paddingTop }}
                ref={(contentRef) => this.contentRef = contentRef}>
           <tbody>
-            <tr>
+            <tr className="handle">
               <td colSpan="2" className="operatorName">{operator.type}</td>
             </tr>
             {operatorParams.map(param => <tr className="operatorParamRow" key={param}>
-              <td className="operatorParamLabel">{param}:&nbsp;</td>
+              <td className="operatorParamLabel handle">{param}:&nbsp;</td>
               <td>
                 <ContentEditable className="operatorParamValue"
                                  html={operator.params[param]}
