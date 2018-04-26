@@ -6,7 +6,7 @@ import Arrow from './Arrow'
 let PrecedenceChart = ({ state }) => {
   return <div className="precedenceChart">
     {state.nodes.map(node => <ChartNode key={node.id} node={node} />)}
-    {state.arrows.map(arrow => <Arrow {...arrow} />)}
+    {state.arrows.map(arrow => <Arrow {...arrow} key={arrow.from + '-' + arrow.to} />)}
   </div>
 }
 
