@@ -11,7 +11,7 @@ let ChartNode = ({ node, dispatch }) => {
   }
 
   return (
-    <div className="chartNode">
+    <div className="chartNode" style={{left: node.x, top: node.y}}>
       <RelationalOperator nodeId={node.id} operator={node.operator}/>
       <Arrow x1={0} y1={0} x2={0} y2={30} />
       <ContentEditable className="relation" html={node.relation.name} onChange={handleEditName}/>

@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
 }
 
 .App-header {
@@ -19,7 +18,14 @@
 }
 
 .chartNode {
-  position: relative;
+  text-align: center;
+
+  /* Position an invisible box around the node absolutely within the chart,
+     using the centerpoint of its top edge as reference */
+  position: absolute;
+  display: inline-block;
+  width: 240px;
+  margin-left: -120px;
 }
 
 .relation {
@@ -49,6 +55,7 @@
 }
 
 .operatorName {
+  text-align: center;
   padding-bottom: 5px;
 }
 
@@ -70,6 +77,10 @@
   min-width: 50px;
   max-width: 150px;
   vertical-align: text-top;
+}
+
+.precedenceChart > .arrow {
+  position: absolute;
 }
 
 .arrowLine {

@@ -13,8 +13,7 @@ const Arrow = ({ x1, y1, x2, y2 }) => {
     height: arrowDy * 2,
     left: (x2 + x1) / 2 - length / 2,
     top: (y2 + y1) / 2 - arrowDy,
-    transform: 'rotate(' + Math.atan2(y2 - y1, x2 - x1) + 'rad)',
-    position: 'absolute'
+    transform: 'rotate(' + Math.atan2(y2 - y1, x2 - x1) + 'rad)'
   }
    
   return <svg className="arrow" style={svgStyle}>
