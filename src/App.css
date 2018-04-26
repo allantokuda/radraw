@@ -14,6 +14,14 @@
   padding: 1px;
 }
 
+.precedenceChart {
+  position: relative;
+}
+
+.chartNode {
+  position: relative;
+}
+
 .relation {
   text-align: center;
   min-width: 50px;
@@ -62,4 +70,14 @@
   min-width: 50px;
   max-width: 150px;
   vertical-align: text-top;
+}
+
+.arrowLine {
+  stroke: black;
+  stroke-width: 1;
+}
+
+.arrowHead {
+  stroke: none;
+  fill: black;
 }
