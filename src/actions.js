@@ -4,6 +4,7 @@
 
 export const MOVE_NODE = 'MOVE_NODE'
 export const RENAME_NODE = 'RENAME_NODE'
+export const RESIZE_NODE = 'RESIZE_NODE'
 export const UPDATE_OPERATOR_PARAM = 'UPDATE_OPERATOR_PARAM'
 
 /*
@@ -16,6 +17,10 @@ export function moveNode(nodeId, dx, dy) {
 
 export function renameNode(nodeId, name) {
   return { type: RENAME_NODE, nodeId, name }
+}
+
+export function resizeNode(nodeId, width, height) {
+  return { type: RESIZE_NODE, nodeId, width, height }
 }
 
 export function updateOperatorParam(nodeId, paramName, value) {

@@ -5,6 +5,7 @@ export default {
       id: 1,
       x: 100,
       y: 100,
+      height: 111,
       operator: {},
       relation: {
         name: 'Achievement'
@@ -14,6 +15,7 @@ export default {
       id: 3,
       x: 300,
       y: 100,
+      height: 111,
       operator: {},
       relation: {
         name: 'Skill'
@@ -22,7 +24,8 @@ export default {
     {
       id: 2,
       x: 200,
-      y: 200,
+      y: 230,
+      height: 212,
       operator: {
         type: 'Match Join',
         shape: 'FullHouse',
@@ -39,8 +42,8 @@ export default {
     }
   ],
   arrows: [
-    { from: 1, to: 2, connection: 0, x1: 300, y1: 400, x2: 400, y2: 300 },
-    { from: 3, to: 2, connection: 0, x1: 300, y1: 400, x2: 400, y2: 300 },
+    { from: 1, to: 2, connection: 0, x1: 100, y1: 211, x2: 200, y2: 230 },
+    { from: 3, to: 2, connection: 0, x1: 300, y1: 211, x2: 200, y2: 230 },
   ]
 }
 

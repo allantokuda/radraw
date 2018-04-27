@@ -18,10 +18,12 @@ class RelationalOperator extends Component {
     let width = this.contentRef.clientWidth
     let height = this.contentRef.clientHeight
     this.setState({ width, height })
+    this.props.onResize()
   }
 
   componentDidMount() {
     this.updateSize()
+    setTimeout(this.props.onResize)
   }
 
   render() {
@@ -42,7 +44,7 @@ class RelationalOperator extends Component {
       <div className="operator">
         <table className="operatorContent"
                style={{ paddingTop }}
-               ref={(contentRef) => this.contentRef = contentRef}>
+               ref={contentRef => this.contentRef = contentRef}>
           <tbody>
             <tr className="handle">
               <td colSpan="2" className="operatorName">{operator.type}</td>
