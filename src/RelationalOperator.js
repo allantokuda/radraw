@@ -28,14 +28,8 @@ class RelationalOperator extends Component {
     let { nodeId, operator, dispatch } = this.props
 
     const width = Math.max(Math.min(this.state.width, 200), 80) + 10;
-    const height = Math.max(this.state.height + 30, 100);
+    const height = Math.max(this.state.height + 30, 0);
     const paddingTop = width * 0.1;
-
-    const shapeSvg = operator.type ? (
-      <svg className="handle" height={height} width={width+10}>
-        <polygon points={operatorShape(operator.shape, width+10, height)} />
-      </svg>
-    ) : null
 
     const updateParam = (paramName, event) => {
       dispatch(updateOperatorParam(nodeId, paramName, event.target.value))
@@ -63,7 +57,11 @@ class RelationalOperator extends Component {
             </tr>)}
           </tbody>
         </table>
-        {shapeSvg}
+        <svg className="handle" height={height} width={width+10}>
+          {operator.type ? <polygon points={operatorShape(operator.shape, width+10, height)} />
+                         : <circle cx="50%" cy="50%" r="20" />
+          }
+        </svg>
       </div>
     )
   }

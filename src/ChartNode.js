@@ -19,7 +19,7 @@ let ChartNode = ({ node, dispatch }) => {
     <Draggable handle=".handle" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
       <div className="chartNode">
         <RelationalOperator nodeId={node.id} operator={node.operator}/>
-        <Arrow x1={0} y1={0} x2={0} y2={30} />
+        <div><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
         <ContentEditable className="relation" html={node.relation.name} onChange={handleEditName}/>
       </div>
     </Draggable>
