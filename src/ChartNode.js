@@ -2,25 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import Draggable from 'react-draggable'
-import { renameNode, moveNode, resizeNode } from './actions'
-import RelationalOperator from './RelationalOperator'
+import { renameNode, moveNode, resizeNode, updateOperatorParam } from './actions'
+import operatorShape from './operatorShape'
 import Arrow from './Arrow'
 
 class ChartNode extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      width: 100,
-      height: 100
-    }
-  }
 
   updateSize = () => {
-    let width = this.nodeRef.clientWidth
-    let height = this.nodeRef.clientHeight
+    let nodeHeight = this.nodeRef.clientHeight
+    let operatorWidth = this.operatorRef.clientWidth
+    let operatorHeight = this.operatorRef.clientHeight
     this.props.dispatch(
-      resizeNode(this.props.node.id, width, height)
+      resizeNode(this.props.node.id, nodeHeight, operatorWidth, operatorHeight)
     )
   }
 
@@ -29,10 +22,16 @@ class ChartNode extends Component {
   }
 
   render() {
-    let { node, dispatch } = this.props
+    const { node, dispatch } = this.props
+    const operator = node.operator
 
     const handleEditName = (event) => {
       dispatch(renameNode(node.id, event.target.value))
+      setTimeout(this.updateSize)
+    }
+
+    const handleEditParam = (paramName, event) => {
+      dispatch(updateOperatorParam(node.id, paramName, event.target.value))
       setTimeout(this.updateSize)
     }
 
@@ -40,14 +39,37 @@ class ChartNode extends Component {
       dispatch(moveNode(node.id, event.movementX, event.movementY))
     }
 
-    const handleOperatorResize = () => {
-      setTimeout(this.updateSize)
-    }
+    const verticalOffset = operator.width * 0.1 || 0
 
     return (
       <Draggable handle=".handle" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
-          <RelationalOperator nodeId={node.id} operator={node.operator} onResize={handleOperatorResize}/>
+          <div className="operator">
+            <table className="operatorContent"
+                   style={{ paddingTop: verticalOffset }}
+                   ref={operatorRef => this.operatorRef = operatorRef}>
+              <tbody>
+                <tr className="handle">
+                  <td colSpan="2" className="operatorName">{operator.type}</td>
+                </tr>
+                {Object.keys(operator.params || {}).map(param =>
+                <tr className="operatorParamRow" key={param}>
+                  <td className="operatorParamLabel handle">{param}:&nbsp;</td>
+                  <td>
+                    <ContentEditable className="operatorParamValue"
+                                     html={operator.params[param]}
+                                     onChange={handleEditParam.bind(this, param)}/>
+                  </td>
+                </tr>)}
+              </tbody>
+            </table>
+
+            <svg className="handle" width={operator.width || 100} height={(operator.height || 20) + 22}>
+              {operator.type ? <polygon points={operatorShape(operator)} />
+                             : <circle cx="50%" cy="50%" r="20" />
+              }
+            </svg>
+          </div>
           <div><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
           <ContentEditable className="relation" html={node.relation.name} onChange={handleEditName}/>
         </div>

@@ -19,8 +19,8 @@ export function renameNode(nodeId, name) {
   return { type: RENAME_NODE, nodeId, name }
 }
 
-export function resizeNode(nodeId, width, height) {
-  return { type: RESIZE_NODE, nodeId, width, height }
+export function resizeNode(nodeId, nodeHeight, operatorWidth, operatorHeight) {
+  return { type: RESIZE_NODE, nodeId, nodeHeight, operatorWidth, operatorHeight }
 }
 
 export function updateOperatorParam(nodeId, paramName, value) {

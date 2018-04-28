@@ -5,6 +5,8 @@ import {
   UPDATE_OPERATOR_PARAM
 } from './actions'
 
+import operatorShape from './operatorShape'
+
 // temporary
 import initialState from './initial-state'
 
@@ -21,7 +23,14 @@ const nodes = (state, action) => state.nodes.map(node => {
         break
 
       case RESIZE_NODE:
-        changes = { width: action.width, height: action.height }
+        let hasOperator = Object.keys(node.operator).length > 0
+        changes = {
+          height: action.nodeHeight,
+          operator: hasOperator ? Object.assign({}, node.operator, {
+            width: action.operatorWidth,
+            height: action.operatorHeight
+          }) : {}
+        }
         break
 
       case UPDATE_OPERATOR_PARAM:
@@ -48,6 +57,8 @@ const arrows = (state, action) => {
     if (arrow.from === action.nodeId) {
       return Object.assign({}, arrow, { x1: changedNode.x, y1: changedNode.y + (changedNode.height || 0) })
     } else if (arrow.to === action.nodeId) {
+      //TODO
+      let points = operatorShape(changedNode)
       return Object.assign({}, arrow, { x2: changedNode.x, y2: changedNode.y })
     }
     return arrow
@@ -55,7 +66,7 @@ const arrows = (state, action) => {
 }
 
 export default function reducer(state = initialState, action) {
-  console.log(state)
+  //console.log(state)
   return {
     nodes: nodes(state, action),
     arrows: arrows(state, action)
