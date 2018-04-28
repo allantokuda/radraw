@@ -42,7 +42,7 @@ class ChartNode extends Component {
     const verticalOffset = operator.width * 0.1 + 20 || 0
 
     return (
-      <Draggable handle=".handle" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
+      <Draggable cancel=".noDrag" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
           <div className="operator">
             <div className="operatorContent"
@@ -51,14 +51,14 @@ class ChartNode extends Component {
 
               <table>
                 <tbody>
-                  <tr className="handle">
+                  <tr>
                     <td colSpan="2" className="operatorName">{operator.type}</td>
                   </tr>
                   {Object.keys(operator.params || {}).map(param =>
                   <tr className="operatorParamRow" key={param}>
-                    <td className="operatorParamLabel handle">{param}:&nbsp;</td>
+                    <td className="operatorParamLabel">{param}:&nbsp;</td>
                     <td>
-                      <ContentEditable className="operatorParamValue"
+                      <ContentEditable className="operatorParamValue noDrag"
                                        html={operator.params[param]}
                                        onChange={handleEditParam.bind(this, param)}/>
                     </td>
@@ -66,7 +66,7 @@ class ChartNode extends Component {
                 </tbody>
               </table>
             </div>
-            <svg className="operatorShape handle" width={operator.width || 100} height={(operator.height || 20) + 22}>
+            <svg className="operatorShape" width={operator.width || 100} height={(operator.height || 20) + 22}>
               <g transform={"translate(" + (operator.width || 100) / 2 + ",0)"}>
                 {operator.type ? <polygon points={polygonPoints(operator)} />
                                : <circle cx="0" cy="50%" r="20" />
@@ -75,7 +75,7 @@ class ChartNode extends Component {
             </svg>
           </div>
           <div><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
-          <ContentEditable className="relation" html={node.relation.name} onChange={handleEditName}/>
+          <ContentEditable className="relation noDrag" html={node.relation.name} onChange={handleEditName}/>
         </div>
       </Draggable>
     )
