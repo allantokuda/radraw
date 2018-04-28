@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import Draggable from 'react-draggable'
 import { renameNode, moveNode, resizeNode, updateOperatorParam } from './actions'
-import operatorShape from './operatorShape'
+import { polygonPoints } from './operatorShape'
 import Arrow from './Arrow'
 
 class ChartNode extends Component {
@@ -67,9 +67,11 @@ class ChartNode extends Component {
               </table>
             </div>
             <svg className="operatorShape handle" width={operator.width || 100} height={(operator.height || 20) + 22}>
-              {operator.type ? <polygon points={operatorShape(operator)} />
-                             : <circle cx="50%" cy="50%" r="20" />
-              }
+              <g transform={"translate(" + (operator.width || 100) / 2 + ",0)"}>
+                {operator.type ? <polygon points={polygonPoints(operator)} />
+                               : <circle cx="0" cy="50%" r="20" />
+                }
+              </g>
             </svg>
           </div>
           <div><Arrow x1={0} y1={0} x2={0} y2={30} /></div>

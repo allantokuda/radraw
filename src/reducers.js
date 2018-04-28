@@ -5,7 +5,7 @@ import {
   UPDATE_OPERATOR_PARAM
 } from './actions'
 
-import operatorShape from './operatorShape'
+import { connectionPoints } from './operatorShape'
 
 // temporary
 import initialState from './initial-state'
@@ -57,9 +57,9 @@ const arrows = (state, action) => {
     if (arrow.from === action.nodeId) {
       return Object.assign({}, arrow, { x1: changedNode.x, y1: changedNode.y + (changedNode.height || 0) })
     } else if (arrow.to === action.nodeId) {
-      //TODO
-      let points = operatorShape(changedNode)
-      return Object.assign({}, arrow, { x2: changedNode.x, y2: changedNode.y })
+      let points = connectionPoints(changedNode.operator)
+      let connectionPoint = points[arrow.connection]
+      return Object.assign({}, arrow, { x2: changedNode.x + connectionPoint.x, y2: changedNode.y + connectionPoint.y })
     }
     return arrow
   })
