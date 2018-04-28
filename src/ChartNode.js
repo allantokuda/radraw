@@ -45,8 +45,8 @@ class ChartNode extends Component {
       <Draggable cancel=".noDrag" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
           <div className="operator">
-            <div className="operatorContent"
-                 style={{ paddingTop: verticalOffset }}
+            <div className="operatorContent bottomFix4"
+                 style={{ paddingTop: verticalOffset, minHeight: 30 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
 
               <table>
@@ -66,7 +66,7 @@ class ChartNode extends Component {
                 </tbody>
               </table>
             </div>
-            <svg className="operatorShape" width={operator.width || 100} height={(operator.height || 20) + 22}>
+            <svg className="operatorShape" width={operator.width || 100} height={(operator.height || 42)}>
               <g transform={"translate(" + (operator.width || 100) / 2 + ",0)"}>
                 {operator.type ? <polygon points={polygonPoints(operator)} />
                                : <circle cx="0" cy="50%" r="20" />
@@ -74,7 +74,7 @@ class ChartNode extends Component {
               </g>
             </svg>
           </div>
-          <div><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
+          <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
           <ContentEditable className="relation noDrag" html={node.relation.name} onChange={handleEditName}/>
         </div>
       </Draggable>
