@@ -39,32 +39,34 @@ class ChartNode extends Component {
       dispatch(moveNode(node.id, event.movementX, event.movementY))
     }
 
-    const verticalOffset = operator.width * 0.1 || 0
+    const verticalOffset = operator.width * 0.1 + 20 || 0
 
     return (
       <Draggable handle=".handle" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
           <div className="operator">
-            <table className="operatorContent"
-                   style={{ paddingTop: verticalOffset }}
-                   ref={operatorRef => this.operatorRef = operatorRef}>
-              <tbody>
-                <tr className="handle">
-                  <td colSpan="2" className="operatorName">{operator.type}</td>
-                </tr>
-                {Object.keys(operator.params || {}).map(param =>
-                <tr className="operatorParamRow" key={param}>
-                  <td className="operatorParamLabel handle">{param}:&nbsp;</td>
-                  <td>
-                    <ContentEditable className="operatorParamValue"
-                                     html={operator.params[param]}
-                                     onChange={handleEditParam.bind(this, param)}/>
-                  </td>
-                </tr>)}
-              </tbody>
-            </table>
+            <div className="operatorContent"
+                 style={{ paddingTop: verticalOffset }}
+                 ref={operatorRef => this.operatorRef = operatorRef}>
 
-            <svg className="handle" width={operator.width || 100} height={(operator.height || 20) + 22}>
+              <table>
+                <tbody>
+                  <tr className="handle">
+                    <td colSpan="2" className="operatorName">{operator.type}</td>
+                  </tr>
+                  {Object.keys(operator.params || {}).map(param =>
+                  <tr className="operatorParamRow" key={param}>
+                    <td className="operatorParamLabel handle">{param}:&nbsp;</td>
+                    <td>
+                      <ContentEditable className="operatorParamValue"
+                                       html={operator.params[param]}
+                                       onChange={handleEditParam.bind(this, param)}/>
+                    </td>
+                  </tr>)}
+                </tbody>
+              </table>
+            </div>
+            <svg className="operatorShape handle" width={operator.width || 100} height={(operator.height || 20) + 22}>
               {operator.type ? <polygon points={operatorShape(operator)} />
                              : <circle cx="50%" cy="50%" r="20" />
               }

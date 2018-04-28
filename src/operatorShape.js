@@ -2,7 +2,6 @@ export default ({ shape, width, height }) => {
   let h1 = width * 0.1
   let h2 = width * 0.2
   let points
-  height = height + 20
 
   switch(shape) {
     case 'HalfHouseLeft':

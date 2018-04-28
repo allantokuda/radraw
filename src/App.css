@@ -38,19 +38,21 @@
   background: #eee;
 }
 
-.operator {
+.operatorShape {
   fill: #d8e0f8;
   stroke: black;
   stroke-width: 1;
-  position: relative;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .operatorContent {
   display: inline-block;
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translate(-50%, 0);
+  padding: 10px;
 }
 
 .operatorName {
