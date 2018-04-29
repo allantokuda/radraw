@@ -39,7 +39,7 @@ class ChartNode extends Component {
       dispatch(moveNode(node.id, event.movementX, event.movementY))
     }
 
-    const verticalOffset = operator.width * 0.1 + 20 || 0
+    const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 20 : 0
 
     return (
       <Draggable cancel=".noDrag" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>

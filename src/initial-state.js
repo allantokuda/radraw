@@ -24,7 +24,7 @@ export default {
     {
       id: 2,
       x: 200,
-      y: 230,
+      y: 250,
       height: 212,
       operator: {
         type: 'Match Join',

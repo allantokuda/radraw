@@ -23,7 +23,7 @@ const updatedNode = (node, action) => {
       break
 
     case RESIZE_NODE:
-      let hasOperator = Object.keys(node.operator).length > 0
+      let hasOperator = !!node.operator.type
       changes = {
         height: action.nodeHeight,
         operator: hasOperator ? Object.assign({}, node.operator, {
