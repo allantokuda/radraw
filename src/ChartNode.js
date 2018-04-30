@@ -42,11 +42,11 @@ class ChartNode extends Component {
     const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 20 : 0
 
     return (
-      <Draggable cancel=".noDrag" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
+      <Draggable cancel=".noDrag" handle=".dragHandle" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
           <div className="operator">
-            <div className="operatorContent bottomFix4"
-                 style={{ paddingTop: verticalOffset, minHeight: 30 }}
+            <div className="operatorContent bottomFix4 dragHandle"
+                 style={{ paddingTop: verticalOffset, minWidth: 30, minHeight: 30 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
 
               <table>
