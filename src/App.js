@@ -1,30 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 import PrecedenceChart from './PrecedenceChart.js'
 import './App.css'
 
-class App extends Component {
-  constructor() {
-    super()
+let App = ({ state }) => (
+  <div className="App">
+    <header className="App-header">
+      {state.editor.allowedOperations.map(operator => <span key={operator.type}>{ operator.type } </span>)}
+    </header>
+    <PrecedenceChart />
+  </div>
+)
 
-    this.state = {
-      text: 'example'
-    }
-  }
-
-  handleChange(event) {
-    this.setState({ text: event.target.value })
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          radraw
-        </header>
-        <PrecedenceChart />
-      </div>
-    )
-  }
-}
+App = connect(state => ({state}))(App);
 
 export default App
