@@ -1,9 +1,9 @@
 import { connectionPoints } from '../operatorShape'
-import { updatedNode } from './nodes'
+import { updateNode } from './nodes'
 
 export default (state, action) => {
   const oldNode = state.nodes.find(node => node.id === action.nodeId)
-  const changedNode = updatedNode(oldNode, action)
+  const changedNode = updateNode(oldNode, action)
 
   if (state.arrows === undefined) {
     return []

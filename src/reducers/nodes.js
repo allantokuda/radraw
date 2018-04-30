@@ -1,6 +1,13 @@
 import * as actions from '../actions'
 
-export const updatedNode = (node, action) => {
+const selectionChange = (node, operatorSelected, relationSelected) => {
+  return {
+    operator: Object.assign({}, node.operator, { selected: operatorSelected }),
+    relation: Object.assign({}, node.relation, { selected: relationSelected })
+  }
+}
+
+export const updateNode = (node, action) => {
   let changes
 
   switch (action.type) {
@@ -33,6 +40,10 @@ export const updatedNode = (node, action) => {
       }
       break
 
+    case actions.SELECT_RELATION:
+      changes = selectionChange(node, false, true)
+      break
+
     default:
       changes = {}
   }
@@ -42,7 +53,9 @@ export const updatedNode = (node, action) => {
 
 export default (nodes, action) => nodes.map(node => {
   if (node.id === action.nodeId) {
-    return updatedNode(node, action)
+    return updateNode(node, action)
+  } else if (action.type === actions.SELECT_RELATION) {
+    return Object.assign({}, node, selectionChange(node, false, false))
   }
   return node
 })

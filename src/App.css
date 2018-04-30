@@ -34,8 +34,13 @@
   max-width: 200px;
   display: inline-block;
   padding: 8px 10px;
-  border: 1px solid #999;
+  border: 2px solid #999;
   background: #eee;
+}
+
+.relation:focus {
+  border-color: #black;
+  background: #ccc;
 }
 
 .operatorShape {
