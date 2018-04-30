@@ -44,6 +44,10 @@ export const updateNode = (node, action) => {
       changes = selectionChange(node, false, true)
       break
 
+    case actions.DESELECT_ALL:
+      changes = selectionChange(node, false, true)
+      break
+
     default:
       changes = {}
   }
@@ -54,7 +58,7 @@ export const updateNode = (node, action) => {
 export default (nodes, action) => nodes.map(node => {
   if (node.id === action.nodeId) {
     return updateNode(node, action)
-  } else if (action.type === actions.SELECT_RELATION) {
+  } else if (action.type === actions.SELECT_RELATION || action.type === actions.DESELECT_ALL) {
     return Object.assign({}, node, selectionChange(node, false, false))
   }
   return node

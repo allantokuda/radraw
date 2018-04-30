@@ -138,4 +138,23 @@ describe('node reducer', () => {
       { id: 5, operator: { type: 'TUV', selected: false, }, relation: { name: 'GHI', selected: false }}
     ])
   })
+
+  it('should allow all relations to be deselected', () => {
+    expect(
+      reducer(
+        [
+            { id: 3, operator: { type: 'XYZ', selected: true  }, relation: { name: 'ABC', selected: false }},
+            { id: 4, operator: { type: 'QRS', selected: false }, relation: { name: 'DEF', selected: true }},
+            { id: 5, operator: { type: 'TUV', selected: false }, relation: { name: 'GHI', selected: false }}
+        ],
+        {
+          type: actions.DESELECT_ALL
+        }
+      )
+    ).toEqual([
+      { id: 3, operator: { type: 'XYZ', selected: false, }, relation: { name: 'ABC', selected: false }},
+      { id: 4, operator: { type: 'QRS', selected: false, }, relation: { name: 'DEF', selected: false }},
+      { id: 5, operator: { type: 'TUV', selected: false, }, relation: { name: 'GHI', selected: false }}
+    ])
+  })
 })

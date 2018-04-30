@@ -35,7 +35,7 @@ class ChartNode extends Component {
     }
 
     const handleRelationBlur = (event) => {
-      dispatch(actions.selectRelation(0))
+      dispatch(actions.deselectAll())
     }
 
     const handleEditParam = (paramName, event) => {
@@ -86,7 +86,8 @@ class ChartNode extends Component {
           <ContentEditable className='relation noDrag'
                            html={node.relation.name}
                            onChange={handleEditName}
-                           onFocus={handleRelationFocus}/>
+                           onFocus={handleRelationFocus}
+                           onBlur={handleRelationBlur}/>
         </div>
       </Draggable>
     )

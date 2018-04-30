@@ -27,4 +27,24 @@ describe('arrows reducer', () => {
     ])
   })
 
+  it('handles relation deselectAll operation without error even though there is no associated node', () => {
+    expect(
+      reducer({
+        nodes: [
+          { id: 1, relation: { selected: false } },
+          { id: 2, relation: { selected: true } },
+          { id: 3, relation: { selected: false } },
+        ],
+        arrows: [
+          { from: 1, to: 3, connection: 0 },
+          { from: 2, to: 3, connection: 1 },
+        ]
+      }, {
+        type: actions.DESELECT_ALL,
+      })
+    ).toEqual([
+      { from: 1, to: 3, connection: 0 },
+      { from: 2, to: 3, connection: 1 }
+    ])
+  })
 })

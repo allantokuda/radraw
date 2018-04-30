@@ -7,6 +7,7 @@ export const RENAME_NODE = 'RENAME_NODE'
 export const RESIZE_NODE = 'RESIZE_NODE'
 export const UPDATE_OPERATOR_PARAM = 'UPDATE_OPERATOR_PARAM'
 export const SELECT_RELATION = 'SELECT_RELATION'
+export const DESELECT_ALL = 'DESELECT_ALL'
 
 /*
  * action creators
@@ -32,3 +33,6 @@ export function selectRelation(nodeId) {
   return { type: SELECT_RELATION, nodeId }
 }
 
+export function deselectAll() {
+  return { type: SELECT_RELATION }
+}
