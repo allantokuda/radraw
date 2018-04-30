@@ -1,0 +1,120 @@
+import reducer from './nodes'
+import * as actions from '../actions'
+
+describe('node reducer', () => {
+  xit('should return the initial state', () => {
+    expect(reducer(undefined, {})).toEqual({
+      nodes: [],
+      arrows: []
+    })
+  })
+
+  it('should move a node', () => {
+    expect(
+      reducer(
+        [
+          { id: 7, x: 100, y: 100, relation: { name: 'Alice' } },
+          { id: 8, x: 200, y: 200, relation: { name: 'Eve'   } },
+          { id: 9, x: 300, y: 300, relation: { name: 'Bob'   } },
+        ],
+        {
+          type: actions.MOVE_NODE,
+          nodeId: 8,
+          dx: 33,
+          dy: 44
+        }
+      )
+    ).toEqual([
+      { id: 7, x: 100, y: 100, relation: { name: 'Alice' } },
+      { id: 8, x: 233, y: 244, relation: { name: 'Eve'   } },
+      { id: 9, x: 300, y: 300, relation: { name: 'Bob'   } },
+    ])
+  })
+
+  it('should rename a node', () => {
+    expect(
+      reducer(
+        [
+          { id: 1, x: 100, y: 100, relation: { name: 'Alice' } },
+          { id: 5, x: 200, y: 200, relation: { name: 'Eve'   } },
+          { id: 2, x: 300, y: 300, relation: { name: 'Bob'   } },
+        ],
+        {
+          type: actions.RENAME_NODE,
+          nodeId: 5,
+          name: 'Evelyn',
+        }
+      )
+    ).toEqual([
+      { id: 1, x: 100, y: 100, relation: { name: 'Alice'  } },
+      { id: 5, x: 200, y: 200, relation: { name: 'Evelyn' } },
+      { id: 2, x: 300, y: 300, relation: { name: 'Bob'    } },
+    ])
+  })
+
+  it('should resize a node with an operator', () => {
+    expect(
+      reducer(
+        [
+          { id: 1, x: 0, },
+          { id: 5, x: 1, operator: { type: 'xyz' }},
+          { id: 2, x: 2, },
+        ],
+        {
+          type: actions.RESIZE_NODE,
+          nodeId: 5,
+          nodeHeight: 345,
+          operatorWidth: 234,
+          operatorHeight: 123
+        }
+      )
+    ).toEqual([
+      { id: 1, x: 0 },
+      { id: 5, x: 1, height: 345, operator: { type: 'xyz', width: 234, height: 123 } },
+      { id: 2, x: 2 }
+    ])
+  })
+
+  it('should on resize take only the node height for a node with no operator', () => {
+    expect(
+      reducer(
+        [
+          { id: 1, x: 0, },
+          { id: 5, x: 1, },
+          { id: 2, x: 2, },
+        ],
+        {
+          type: actions.RESIZE_NODE,
+          nodeId: 5,
+          nodeHeight: 345,
+          operatorWidth: 234,
+          operatorHeight: 123
+        }
+      )
+    ).toEqual([
+      { id: 1, x: 0 },
+      { id: 5, x: 1, height: 345, operator: {}},
+      { id: 2, x: 2 }
+    ])
+  })
+
+  it('should allow operator text to be updated', () => {
+    expect(
+      reducer(
+        [
+          { id: 1, x: 0, operator: { params: { Aid: 'Skill_code' } } },
+          { id: 2, x: 1, operator: { params: { Bid: 'Least_Aspired_to_skill_code' } } },
+        ],
+        {
+          type: actions.UPDATE_OPERATOR_PARAM,
+          nodeId: 1,
+          paramName: 'Aid',
+          value: 'Achieved_skill_code'
+        }
+      )
+    ).toEqual([
+      { id: 1, x: 0, operator: { params: { Aid: 'Achieved_skill_code' } } },
+      { id: 2, x: 1, operator: { params: { Bid: 'Least_Aspired_to_skill_code' } } },
+    ])
+  })
+})
