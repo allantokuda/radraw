@@ -1,3 +1,12 @@
+export const OPERATOR_SHAPES = {
+  PILL: 'Pill',
+  HEXAGON: 'Hexagon',
+  FULL_HOUSE: 'FullHouse',
+  HALF_HOUSE_LEFT: 'HalfHouseLeft',
+  HALF_HOUSE_RIGHT: 'HalfHouseRight',
+  TRIANGLE: 'Triangle',
+}
+
 const operatorShape = ({ shape, width, height }) => {
   // Something default to render to avoid error
   width = width || 100
@@ -14,25 +23,66 @@ const operatorShape = ({ shape, width, height }) => {
   ]
 
   switch(shape) {
-    case 'HalfHouseLeft':
+    //case OPERATOR_SHAPES.PILL:
+    //  let w1 = Math.max(w - height * 0.4, w * 0.6)
+    //  points = [
+    //    { x: -w1, y: 0, connection: true },
+    //    { x:  w1, y: 0, connection: true },
+    //    { x:  w,  y: height / 2 },
+    //    { x:  w1, y: height },
+    //    { x: -w1, y: height },
+    //    { x: -w,  y: height / 2 }
+    //  ]
+    //  break
+
+    case OPERATOR_SHAPES.HEXAGON:
+      let w1 = Math.max(w - height * 0.4, w * 0.6)
+      points = [
+        { x: -w1, y: 0 },
+        { x:  0,  y: 0, connection: true },
+        { x:  w1, y: 0 },
+        { x:  w,  y: height / 2 },
+        { x:  w1, y: height },
+        { x: -w1, y: height },
+        { x: -w,  y: height / 2 }
+      ]
+      break
+
+    case OPERATOR_SHAPES.HALF_HOUSE_LEFT:
       points = [
         { x: -w, y:  0, connection: true },
         { x:  w, y: h2, connection: true },
       ].concat(boxBottom)
       break
 
-    case 'HalfHouseRight':
+    case OPERATOR_SHAPES.HALF_HOUSE_RIGHT:
       points = [
         { x: -w, y: h2, connection: true },
         { x:  w, y:  0, connection: true },
       ].concat(boxBottom)
       break
 
-    case 'FullHouse':
+    case OPERATOR_SHAPES.FULL_HOUSE:
       points = [
         { x: -w, y: h2, connection: true },
         { x:  0, y: h1 },
         { x:  w, y: h2, connection: true },
+      ].concat(boxBottom)
+      break
+
+    case OPERATOR_SHAPES.FULL_HOUSE:
+      points = [
+        { x: -w, y: h2, connection: true },
+        { x:  0, y: h1 },
+        { x:  w, y: h2, connection: true },
+      ].concat(boxBottom)
+      break
+
+    case OPERATOR_SHAPES.TRIANGLE:
+      points = [
+        { x:  0, y: 0, connection: true },
+        { x:  w, y: height },
+        { x: -w, y: height, connection: true },
       ].concat(boxBottom)
       break
 

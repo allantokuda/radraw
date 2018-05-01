@@ -1,11 +1,11 @@
 .App {
 }
 
-.App-header {
+.toolbar {
   background-color: #222;
   height: 50px;
   padding: 20px;
-  color: white;
+  color: #bbb;
 }
 
 .react-draggable {
@@ -47,6 +47,9 @@
   fill: #d8e0f8;
   stroke: black;
   stroke-width: 1;
+}
+
+.centerBehind {
   position: absolute;
   z-index: -1;
   left: 0;
@@ -101,4 +104,19 @@
 .arrowHead {
   stroke: none;
   fill: black;
+}
+
+.operatorButton {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  margin: 4px;
+}
+
+.operatorButton .operatorShape {
+}
+
+.operatorButton label {
+  display: block;
+  font-size: 12px;
 }

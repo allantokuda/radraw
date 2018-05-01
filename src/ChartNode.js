@@ -74,7 +74,7 @@ class ChartNode extends Component {
                 </tbody>
               </table>
             </div>
-            <svg className="operatorShape" width={operator.width || 100} height={(operator.height || 42)}>
+            <svg className="operatorShape centerBehind" width={operator.width || 100} height={(operator.height || 42)}>
               <g transform={"translate(" + (operator.width || 100) / 2 + ",0)"}>
                 {operator.type ? <polygon points={polygonPoints(operator)} />
                                : <circle cx="0" cy="50%" r="20" />
