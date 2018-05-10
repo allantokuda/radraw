@@ -109,15 +109,19 @@ export const polygonPoints = (operator) => {
 }
 
 const shapeInSvg = (operator) => {
-  if (operator == null) {
-    return null
-  } else if (operator.type == OPERATOR_SHAPES.HALF_HOUSE_RIGHT) {
-    return <polygon points={operatorShape({...operator})}/>
-  } else {
-    return <rectangle x={0} y={0} width={100} height={60} />
+  if (operator.shape == undefined) {
+    return <circle cx="0" cy="50%" r="20" />
+  } else if (operator.shape) {
+    return <polygon points={polygonPoints({...operator})}/>
   }
 }
 
 export const svgShape = (operator) => {
-  return <svg {...operator}>{shapeInSvg(operator)}</svg>
+  const width = operator.width || 100
+  const height = operator.height || 42
+  return <svg className="operatorShape" {...operator}>
+    <g transform={"translate(" + (width / 2) + ",0)"}>
+      {shapeInSvg(operator)}
+    </g>
+  </svg>
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import Draggable from 'react-draggable'
 import * as actions from './actions'
-import { polygonPoints } from './operatorShape'
+import { polygonPoints, svgShape } from './operatorShape'
 import Arrow from './Arrow'
 
 class ChartNode extends Component {
@@ -49,6 +49,8 @@ class ChartNode extends Component {
 
     const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 20 : 0
 
+    const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorShape centerBehind' })
+
     return (
       <Draggable cancel=".noDrag" handle=".dragHandle" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
@@ -74,13 +76,7 @@ class ChartNode extends Component {
                 </tbody>
               </table>
             </div>
-            <svg className="operatorShape centerBehind" width={operator.width || 100} height={(operator.height || 42)}>
-              <g transform={"translate(" + (operator.width || 100) / 2 + ",0)"}>
-                {operator.type ? <polygon points={polygonPoints(operator)} />
-                               : <circle cx="0" cy="50%" r="20" />
-                }
-              </g>
-            </svg>
+            {svgShape(svgParams)}
           </div>
           <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
           <ContentEditable className='relation noDrag'
