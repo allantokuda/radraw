@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const OPERATOR_SHAPES = {
   PILL: 'Pill',
   HEXAGON: 'Hexagon',
@@ -104,4 +106,18 @@ export const connectionPoints = (operator) => {
 export const polygonPoints = (operator) => {
   let points = operatorShape(operator)
   return points.map(point => [point.x, point.y])
+}
+
+const shapeInSvg = (operator) => {
+  if (operator == null) {
+    return null
+  } else if (operator.type == OPERATOR_SHAPES.HALF_HOUSE_RIGHT) {
+    return <polygon points={operatorShape({...operator})}/>
+  } else {
+    return <rectangle x={0} y={0} width={100} height={60} />
+  }
+}
+
+export const svgShape = (operator) => {
+  return <svg {...operator}>{shapeInSvg(operator)}</svg>
 }
