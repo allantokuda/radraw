@@ -72,14 +72,6 @@ const operatorShape = ({ shape, width, height }) => {
       ].concat(boxBottom)
       break
 
-    case OPERATOR_SHAPES.FULL_HOUSE:
-      points = [
-        { x: -w, y: h2, connection: true },
-        { x:  0, y: h1 },
-        { x:  w, y: h2, connection: true },
-      ].concat(boxBottom)
-      break
-
     case OPERATOR_SHAPES.TRIANGLE:
       points = [
         { x:  0, y: 0, connection: true },
@@ -109,7 +101,7 @@ export const polygonPoints = (operator) => {
 }
 
 const shapeInSvg = (operator) => {
-  if (operator.shape == undefined) {
+  if (operator.shape === undefined) {
     return <circle cx="0" cy="50%" r="20" />
   } else if (operator.shape) {
     return <polygon points={polygonPoints({...operator})}/>
@@ -118,7 +110,6 @@ const shapeInSvg = (operator) => {
 
 export const svgShape = (operator) => {
   const width = operator.width || 100
-  const height = operator.height || 42
   return <svg className="operatorShape" {...operator}>
     <g transform={"translate(" + (width / 2) + ",0)"}>
       {shapeInSvg(operator)}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import Draggable from 'react-draggable'
 import * as actions from './actions'
-import { polygonPoints, svgShape } from './operatorShape'
+import { svgShape } from './operatorShape'
 import Arrow from './Arrow'
 
 class ChartNode extends Component {

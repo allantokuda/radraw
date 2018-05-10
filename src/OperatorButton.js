@@ -7,7 +7,6 @@ const buttonWidth = iconWidth + 20
 const buttonHeight = iconHeight + 40
 
 const buttonStyle = { width: buttonWidth, height: buttonHeight }
-const iconStyle = { width: iconWidth, height: iconHeight }
 
 export default ({ category, type, shape }) => (
   <div className="operatorButton" style={buttonStyle}>
