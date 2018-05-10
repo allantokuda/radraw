@@ -7,6 +7,7 @@ export default {
       y: 100,
       height: 111,
       operator: {},
+      resultRelationId: 6,
       relation: {
         name: 'Achievement'
       }
@@ -17,6 +18,7 @@ export default {
       y: 100,
       height: 111,
       operator: {},
+      resultRelationId: 7,
       relation: {
         name: 'Skill'
       }
@@ -35,8 +37,8 @@ export default {
           Carry: 'ABC'
         }
       },
+      resultRelationId: 5,
       relation: {
-        id: 5,
         name: 'Achievement with Skill data'
       }
     }
@@ -44,6 +46,20 @@ export default {
   arrows: [
     { from: 1, to: 2, connection: 0, x1: 100, y1: 211, x2: 200, y2: 230 },
     { from: 3, to: 2, connection: 1, x1: 300, y1: 211, x2: 200, y2: 230 },
+  ],
+  relations: [
+    {
+      id: 6,
+      name: 'Achievement'
+    },
+    {
+      id: 7,
+      name: 'Skill'
+    },
+    {
+      id: 5,
+      name: 'Achievement with Skill data'
+    }
   ]
 }
 
