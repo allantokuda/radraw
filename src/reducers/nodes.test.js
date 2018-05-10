@@ -40,7 +40,7 @@ describe('node reducer', () => {
           { id: 2, x: 300, y: 300, relation: { name: 'Bob'   } },
         ],
         {
-          type: actions.RENAME_NODE,
+          type: actions.RENAME_RELATION,
           nodeId: 5,
           name: 'Evelyn',
         }

@@ -3,7 +3,7 @@
  */
 
 export const MOVE_NODE = 'MOVE_NODE'
-export const RENAME_NODE = 'RENAME_NODE'
+export const RENAME_RELATION = 'RENAME_RELATION'
 export const RESIZE_NODE = 'RESIZE_NODE'
 export const UPDATE_OPERATOR_PARAM = 'UPDATE_OPERATOR_PARAM'
 export const SELECT_RELATION = 'SELECT_RELATION'
@@ -17,8 +17,8 @@ export function moveNode(nodeId, dx, dy) {
   return { type: MOVE_NODE, nodeId, dx, dy }
 }
 
-export function renameNode(nodeId, name) {
-  return { type: RENAME_NODE, nodeId, name }
+export function renameRelation(nodeId, name) {
+  return { type: RENAME_RELATION, nodeId, name }
 }
 
 export function resizeNode(nodeId, nodeHeight, operatorWidth, operatorHeight) {

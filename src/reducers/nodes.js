@@ -15,7 +15,7 @@ export const updateNode = (node, action) => {
       changes = { x: node.x + action.dx, y: node.y + action.dy }
       break
 
-    case actions.RENAME_NODE:
+    case actions.RENAME_RELATION:
       changes = { relation: { name: action.name } }
       break
 
