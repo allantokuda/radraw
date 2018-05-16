@@ -32,11 +32,28 @@ export default {
         }
       },
       resultRelationId: 5,
+    },
+    {
+      id: 4,
+      x: 250,
+      y: 550,
+      height: 212,
+      operator: {
+        type: 'Divide',
+        shape: 'Triangle',
+        params: {
+          Aid: '??',
+          Bid: '??'
+        }
+      },
+      resultRelationId: 9,
     }
   ],
   arrows: [
     { from: 1, to: 2, connection: 0, x1: 100, y1: 211, x2: 200, y2: 230 },
     { from: 3, to: 2, connection: 1, x1: 300, y1: 211, x2: 200, y2: 230 },
+    { from: 2, to: 4, connection: 1, x1: 300, y1: 211, x2: 200, y2: 230 },
+    { from: 3, to: 4, connection: 0, x1: 300, y1: 211, x2: 200, y2: 230 },
   ],
   relations: [
     {
@@ -50,6 +67,10 @@ export default {
     {
       id: 5,
       name: 'Achievement with Skill data'
+    },
+    {
+      id: 9,
+      name: 'Something'
     }
   ]
 }

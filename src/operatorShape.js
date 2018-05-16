@@ -67,7 +67,7 @@ const operatorShape = ({ shape, width, height }) => {
     case OPERATOR_SHAPES.FULL_HOUSE:
       points = [
         { x: -w, y: h2, connection: true },
-        { x:  0, y: h1 },
+        { x:  0, y: 0 },
         { x:  w, y: h2, connection: true },
       ].concat(boxBottom)
       break
