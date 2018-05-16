@@ -17,10 +17,6 @@ export function moveNode(nodeId, dx, dy) {
   return { type: MOVE_NODE, nodeId, dx, dy }
 }
 
-export function renameRelation(nodeId, name) {
-  return { type: RENAME_RELATION, nodeId, name }
-}
-
 export function resizeNode(nodeId, nodeHeight, operatorWidth, operatorHeight) {
   return { type: RESIZE_NODE, nodeId, nodeHeight, operatorWidth, operatorHeight }
 }
@@ -29,8 +25,12 @@ export function updateOperatorParam(nodeId, paramName, value) {
   return { type: UPDATE_OPERATOR_PARAM, nodeId, paramName, value }
 }
 
-export function selectRelation(nodeId) {
-  return { type: SELECT_RELATION, nodeId }
+export function selectRelation(relationId) {
+  return { type: SELECT_RELATION, relationId }
+}
+
+export function renameRelation(relationId, name) {
+  return { type: RENAME_RELATION, relationId, name }
 }
 
 export function deselectAll() {

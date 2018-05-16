@@ -26,12 +26,12 @@ class ChartNode extends Component {
     const operator = node.operator
 
     const handleEditName = (event) => {
-      dispatch(actions.renameRelation(node.id, event.target.value))
+      dispatch(actions.renameRelation(node.resultRelationId, event.target.value))
       setTimeout(this.updateSize)
     }
 
     const handleRelationFocus = (event) => {
-      dispatch(actions.selectRelation(node.id))
+      dispatch(actions.selectRelation(node.resultRelationId))
     }
 
     const handleRelationBlur = (event) => {
