@@ -22,7 +22,7 @@ class ChartNode extends Component {
   }
 
   render() {
-    const { node, dispatch } = this.props
+    const { node, relation, dispatch } = this.props
     const operator = node.operator
 
     const handleEditName = (event) => {
@@ -80,7 +80,7 @@ class ChartNode extends Component {
           </div>
           <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
           <ContentEditable className='relation noDrag'
-                           html={node.relation.name}
+                           html={relation.name}
                            onChange={handleEditName}
                            onFocus={handleRelationFocus}
                            onBlur={handleRelationBlur}/>

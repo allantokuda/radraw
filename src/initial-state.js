@@ -8,9 +8,6 @@ export default {
       height: 111,
       operator: {},
       resultRelationId: 6,
-      relation: {
-        name: 'Achievement'
-      }
     },
     {
       id: 3,
@@ -19,9 +16,6 @@ export default {
       height: 111,
       operator: {},
       resultRelationId: 7,
-      relation: {
-        name: 'Skill'
-      }
     },
     {
       id: 2,
@@ -38,9 +32,6 @@ export default {
         }
       },
       resultRelationId: 5,
-      relation: {
-        name: 'Achievement with Skill data'
-      }
     }
   ],
   arrows: [
