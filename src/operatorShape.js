@@ -10,9 +10,10 @@ export const OPERATOR_SHAPES = {
 }
 
 const operatorShape = ({ shape, width, height }) => {
-  // Something default to render to avoid error
-  width = width || 100
-  height = height || 70
+  // 100x100 default size to avoid rendering error if unspecified.
+  // Subtract 2 pixels to give room for SVG borders, which expand both inward and outward from the true edge.
+  width = width - 2 || 100
+  height = height - 2 || 70
 
   let w = width / 2
   // let h1 = width * 0.1

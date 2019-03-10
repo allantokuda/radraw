@@ -22,8 +22,8 @@ describe('arrows reducer', () => {
         dy: 22
       })
     ).toEqual([
-      { from: 1, to: 3, connection: 0, x2: 103, y2: 222 },
-      { from: 2, to: 3, connection: 1, x2: 263, y2: 222 }
+      { from: 1, to: 3, connection: 0, x2: 104, y2: 222 },
+      { from: 2, to: 3, connection: 1, x2: 262, y2: 222 }
     ])
   })
 
