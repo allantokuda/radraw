@@ -18,6 +18,9 @@ class ChartNode extends Component {
   }
 
   componentDidMount() {
+    // Two initial sizing renders needed: one to set the width of the half-house shape based on text content,
+    // and another to calculate the verticalOffset of the title of the half house based on the width.
+    setTimeout(this.updateSize)
     setTimeout(this.updateSize)
   }
 
