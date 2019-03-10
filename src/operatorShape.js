@@ -15,7 +15,7 @@ const operatorShape = ({ shape, width, height }) => {
   height = height || 70
 
   let w = width / 2
-  let h1 = width * 0.1
+  // let h1 = width * 0.1
   let h2 = width * 0.2
   let points
 
