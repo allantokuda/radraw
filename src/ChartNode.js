@@ -43,8 +43,8 @@ class ChartNode extends Component {
       setTimeout(this.updateSize)
     }
 
-    const handleDrag = (event) => {
-      dispatch(actions.moveNode(node.id, event.movementX, event.movementY))
+    const handleDrag = (event, data) => {
+      dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
     const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 20 : 0
