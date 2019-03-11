@@ -28,6 +28,11 @@
   margin-left: -120px;
 }
 
+[contenteditable]:hover,
+[contenteditable]:focus {
+  background: white;
+}
+
 .relation {
   text-align: center;
   min-width: 50px;
