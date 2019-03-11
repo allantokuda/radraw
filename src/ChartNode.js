@@ -81,12 +81,14 @@ class ChartNode extends Component {
             </div>
             {svgShape(svgParams)}
           </div>
-          <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div>
-          <ContentEditable className='relation noDrag'
-                           html={relation.name}
-                           onChange={handleEditName}
-                           onFocus={handleRelationFocus}
-                           onBlur={handleRelationBlur}/>
+          { operator.type && <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
+          <div className="relation dragHandle">
+            <ContentEditable className='noDrag relationEdit'
+                             html={relation.name}
+                             onChange={handleEditName}
+                             onFocus={handleRelationFocus}
+                             onBlur={handleRelationBlur}/>
+          </div>
         </div>
       </Draggable>
     )

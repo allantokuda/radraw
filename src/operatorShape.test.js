@@ -4,12 +4,12 @@ import { OPERATOR_SHAPES, svgShape } from './operatorShape'
 describe('operator shape', () => {
   const innerShape = (svg) => svg.props.children.props.children
 
-  it('returns a circle when no type is specified', () => {
+  it('returns empty when no type is specified', () => {
     let operator = { }
     let result = svgShape(operator)
     expect(result.type).toEqual('svg')
     expect(result.props.children.type).toEqual('g')
-    expect(innerShape(result).type).toEqual('circle')
+    expect(innerShape(result)).toBeUndefined()
   })
 
   it('returns a svg polygon for a half-house operator', () => {

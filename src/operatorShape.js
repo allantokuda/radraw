@@ -102,9 +102,7 @@ export const polygonPoints = (operator) => {
 }
 
 const shapeInSvg = (operator) => {
-  if (operator.shape === undefined) {
-    return <circle cx="0" cy="50%" r="20" />
-  } else if (operator.shape) {
+  if (operator.shape) {
     return <polygon points={polygonPoints({...operator})}/>
   }
 }
