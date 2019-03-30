@@ -8,6 +8,12 @@
   color: #bbb;
 }
 
+button {
+  background: none;
+  border: none;
+  color: white;
+}
+
 .react-draggable {
   cursor: default;
   padding: 1px;
@@ -33,7 +39,8 @@
   background: white;
 }
 
-.relation {
+.relation,
+.relationButtonIcon {
   text-align: center;
   min-width: 50px;
   max-width: 200px;
@@ -46,6 +53,11 @@
 .relation:focus {
   border-color: #black;
   background: #ccc;
+}
+
+.relationButtonIcon {
+  font-size: 10px;
+  color: black;
 }
 
 .operatorShape {

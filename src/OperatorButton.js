@@ -9,8 +9,8 @@ const buttonHeight = iconHeight + 40
 const buttonStyle = { width: buttonWidth, height: buttonHeight }
 
 export default ({ category, type, shape }) => (
-  <div className="operatorButton" style={buttonStyle}>
+  <button className="operatorButton" style={buttonStyle}>
     {svgShape({ shape: shape, width: iconWidth, height: iconHeight })}
     <label>{ type }</label>
-  </div>
+  </button>
 )
