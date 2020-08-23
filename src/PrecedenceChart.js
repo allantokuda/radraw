@@ -9,7 +9,10 @@ let PrecedenceChart = ({ state, dispatch }) => {
     if (event.target.className !== 'precedenceChart') return
     let x = event.clientX - event.target.getBoundingClientRect()['x']
     let y = event.clientY - event.target.getBoundingClientRect()['y']
-    dispatch(actions.createRelation(x, y));
+
+    if (state.editor.action == 'new_relation') {
+      dispatch({ type: 'CREATE_RELATION', x, y })
+    }
   }
 
   return <div className="precedenceChart" onClick={handleChartClick}>
