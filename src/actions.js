@@ -8,6 +8,8 @@ export const RESIZE_NODE = 'RESIZE_NODE'
 export const UPDATE_OPERATOR_PARAM = 'UPDATE_OPERATOR_PARAM'
 export const SELECT_RELATION = 'SELECT_RELATION'
 export const DESELECT_ALL = 'DESELECT_ALL'
+export const NEW_RELATION_MODE = 'NEW_RELATION_MODE'
+export const CREATE_RELATION = 'CREATE_RELATION'
 
 /*
  * action creators
@@ -35,4 +37,12 @@ export function renameRelation(relationId, name) {
 
 export function deselectAll() {
   return { type: SELECT_RELATION }
+}
+
+export function newRelationMode() {
+  return { type: NEW_RELATION_MODE }
+}
+
+export function createRelation(x, y) {
+  return { type: CREATE_RELATION, x, y }
 }

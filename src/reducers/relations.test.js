@@ -22,4 +22,22 @@ describe('relations reducer', () => {
       { id: 3, name: 'Skill' },
     ])
   })
+
+  it('should create a new unnamed relation with a unique ID', () => {
+    expect(reducer(
+      {
+        relations: [
+          { id: 1, name: 'Creature' },
+          { id: 3, name: 'Achievement' },
+          { id: 5, name: 'Skill' },
+        ]
+      },
+      { type: 'CREATE_RELATION', x: 100, y: 100 }
+    )).toEqual([
+      { id: 1, name: 'Creature' },
+      { id: 3, name: 'Achievement' },
+      { id: 5, name: 'Skill' },
+      { id: 6, name: '' },
+    ])
+  })
 })

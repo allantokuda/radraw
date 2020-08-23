@@ -1,4 +1,5 @@
 import * as actions from '../actions'
+import { maxPlusOne } from './index'
 
 const selectionChange = (node, operatorSelected, relationSelected) => {
   return {
@@ -55,12 +56,29 @@ export const updateNode = (node, action) => {
   return Object.assign({}, node, changes)
 }
 
-export default (nodes, action) => nodes.map(node => {
-  if (node.id === action.nodeId) {
-    return updateNode(node, action)
-  } else if (action.type === actions.SELECT_RELATION || action.type === actions.DESELECT_ALL) {
-    return Object.assign({}, node, selectionChange(node, false, false))
+export default (state, action) => {
+  let nodes = state.nodes.map(node => {
+    if (node.id === action.nodeId) {
+      return updateNode(node, action)
+    } else if (action.type === actions.SELECT_RELATION || action.type === actions.DESELECT_ALL) {
+      return Object.assign({}, node, selectionChange(node, false, false))
+    }
+    return node
+  })
+
+  if (action.type === 'CREATE_RELATION') {
+    let nextNodeId = Math.max(...state.nodes.map((node) => node.id))
+    if (nextNodeId < 0) nextNodeId = 1
+
+    nodes = nodes.concat({
+      id: maxPlusOne(state.nodes),
+      resultRelationId: maxPlusOne(state.relations),
+      operator: {},
+      x: action.x,
+      y: action.y
+    })
   }
-  return node
-})
+  
+  return nodes
+}
 

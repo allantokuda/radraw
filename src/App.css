@@ -1,11 +1,30 @@
+#root {
+  border-top: 10px solid red;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+
 .App {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
 }
 
 .toolbar {
   background-color: #222;
-  height: 50px;
   padding: 20px;
   color: #bbb;
+}
+
+.toolbar button {
+  min-height: 30px;
+}
+
+.toolbar button.selected {
+  background: #999;
 }
 
 button {
@@ -21,6 +40,7 @@ button {
 
 .precedenceChart {
   position: relative;
+  flex: 1;
 }
 
 .chartNode {

@@ -4,14 +4,17 @@ const initialState = { editor: { action: 'select' } }
 
 export default (state = initialState, action) => {
   const allowedOperations = operators
-  const editor = Object.assign({}, state.editor, { allowedOperations })
+  let changes = {}
 
-  // TODO
-  // switch(action.type) {
-  //   case operators.PROJECT:
-  //     break
-  //   default:
-  // }
+  switch(action.type) {
+    case 'NEW_RELATION_MODE':
+      changes = { action: 'new_relation' }
+      break
+    case 'CREATE_RELATION':
+      changes = { action: 'select' }
+      break
+    default:
+  }
 
-  return editor
+  return Object.assign({}, state.editor, { allowedOperations }, changes)
 }

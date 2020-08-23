@@ -1,5 +1,8 @@
 // temporary
 export default {
+  editor: {
+    action: 'select'
+  },
   nodes: [
     {
       id: 1,

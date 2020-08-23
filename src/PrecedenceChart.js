@@ -2,9 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ChartNode from './ChartNode'
 import Arrow from './Arrow'
+import * as actions from './actions'
 
-let PrecedenceChart = ({ state }) => {
-  return <div className="precedenceChart">
+let PrecedenceChart = ({ state, dispatch }) => {
+  let handleChartClick = (event, a, b) => {
+    if (event.target.className !== 'precedenceChart') return
+    let x = event.clientX - event.target.getBoundingClientRect()['x']
+    let y = event.clientY - event.target.getBoundingClientRect()['y']
+    dispatch(actions.createRelation(x, y));
+  }
+
+  return <div className="precedenceChart" onClick={handleChartClick}>
     {state.nodes.map(node => {
       const relation = state.relations.find(relation => relation.id === node.resultRelationId)
       return <ChartNode key={node.id} node={node} relation={relation} />

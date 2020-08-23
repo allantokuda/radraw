@@ -1,10 +1,10 @@
-import * as actions from '../actions'
+import { maxPlusOne } from './index'
 
-export default (state, action) => {
-  return state.relations.map(relation => {
+export default (state, action = {}) => {
+  let relations = state.relations.map(relation => {
     if (relation.id === action.relationId) {
       switch (action.type) {
-        case actions.RENAME_RELATION:
+        case 'RENAME_RELATION':
           return Object.assign({}, relation, { name: action.name })
 
         default:
@@ -13,4 +13,10 @@ export default (state, action) => {
     }
     return relation
   })
+
+  if (action.type === 'CREATE_RELATION') {
+    relations = relations.concat({ id: maxPlusOne(state.relations), name: '' })
+  }
+
+  return relations;
 }

@@ -27,4 +27,32 @@ describe('editor reducer', () => {
       allowedOperations: operators
     })
   })
+
+
+  it('should not change editor action when no dispatch action', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select' } },
+        {}
+      ).action
+    ).toEqual('select')
+  })
+
+  it('should switch to relation mode', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select' } },
+        { type: 'NEW_RELATION_MODE' }
+      ).action
+    ).toEqual('new_relation')
+  })
+
+  it('should switch back to select mode', () => {
+    expect(
+      reducer(
+        { editor: { action: 'new_relation' } },
+        { type: 'CREATE_RELATION' }
+      ).action
+    ).toEqual('select')
+  })
 })
