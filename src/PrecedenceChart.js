@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ChartNode from './ChartNode'
 import Arrow from './Arrow'
-import * as actions from './actions'
 
 let PrecedenceChart = ({ state, dispatch }) => {
   let handleChartClick = (event, a, b) => {
@@ -10,7 +9,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
     let x = event.clientX - event.target.getBoundingClientRect()['x']
     let y = event.clientY - event.target.getBoundingClientRect()['y']
 
-    if (state.editor.action == 'new_relation') {
+    if (state.editor.action === 'new_relation') {
       dispatch({ type: 'CREATE_RELATION', x, y })
     }
   }
