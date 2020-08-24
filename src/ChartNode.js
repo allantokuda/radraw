@@ -5,6 +5,7 @@ import Draggable from 'react-draggable'
 import * as actions from './actions'
 import { svgShape } from './operatorShape'
 import Arrow from './Arrow'
+import classNames from 'classnames'
 
 class ChartNode extends Component {
 
@@ -25,7 +26,7 @@ class ChartNode extends Component {
   }
 
   render() {
-    const { node, relation, dispatch } = this.props
+    const { node, relation, state, dispatch } = this.props
     const operator = node.operator
 
     const handleEditName = (event) => {
@@ -50,12 +51,27 @@ class ChartNode extends Component {
       dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
+    const handleClick = (relation) => {
+      dispatch(actions.selectRelation(relation.id))
+    }
+
     const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 20 : 0
 
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorShape centerBehind' })
 
+    const relationClasses = classNames({
+      relation: true,
+      dragHandle: true,
+      selected: state.editor.selectedRelationIds.indexOf(relation.id) > -1
+    })
+
     return (
-      <Draggable cancel=".noDrag" handle=".dragHandle" onDrag={handleDrag} position={{ x: node.x, y: node.y }}>
+      <Draggable
+        cancel=".noDrag"
+        handle=".dragHandle"
+        onDrag={handleDrag}
+        position={{ x: node.x, y: node.y }}>
+
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
           <div className="operator">
             <div className="operatorContent bottomFix4 dragHandle"
@@ -82,7 +98,7 @@ class ChartNode extends Component {
             {svgShape(svgParams)}
           </div>
           { operator.type && <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <div className="relation dragHandle">
+          <div className={relationClasses} onClick={handleClick.bind(this, relation)}>
             <ContentEditable className='noDrag relationEdit'
                              html={relation.name}
                              onChange={handleEditName}
@@ -95,6 +111,6 @@ class ChartNode extends Component {
   }
 }
 
-ChartNode = connect()(ChartNode)
+ChartNode = connect(state => ({state}))(ChartNode)
 
 export default ChartNode

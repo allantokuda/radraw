@@ -1,7 +1,8 @@
 // temporary
 export default {
   editor: {
-    action: 'select'
+    action: 'select',
+    selectedRelationIds: []
   },
   nodes: [
     {

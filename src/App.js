@@ -8,6 +8,7 @@ let App = ({ state }) => (
   <div className="App">
     <Toolbar />
     <PrecedenceChart />
+    <div>{ JSON.stringify(state.editor) }</div>
   </div>
 )
 
