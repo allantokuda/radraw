@@ -5,8 +5,7 @@ import operators from '../operators'
 describe('editor reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
-      action: 'select',
-      allowedOperations: operators
+      action: 'select'
     })
   })
 
@@ -23,8 +22,7 @@ describe('editor reducer', () => {
       }, {
       })
     ).toEqual({
-      action: 'select',
-      allowedOperations: operators
+      action: 'select'
     })
   })
 

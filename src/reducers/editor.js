@@ -1,9 +1,6 @@
-import operators from '../operators'
-
 const initialState = { editor: { action: 'select' } }
 
 export default (state = initialState, action) => {
-  const allowedOperations = operators
   let changes = {}
 
   switch(action.type) {
@@ -16,5 +13,5 @@ export default (state = initialState, action) => {
     default:
   }
 
-  return Object.assign({}, state.editor, { allowedOperations }, changes)
+  return Object.assign({}, state.editor, changes)
 }
