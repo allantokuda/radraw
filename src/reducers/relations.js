@@ -14,8 +14,12 @@ export default (state, action = {}) => {
     return relation
   })
 
-  if (action.type === 'CREATE_RELATION') {
-    relations = relations.concat({ id: maxPlusOne(state.relations), name: '' })
+  switch (action.type) {
+    case 'CREATE_RELATION':
+    case 'ADD_OPERATOR':
+      relations = relations.concat({ id: maxPlusOne(state.relations), name: '' })
+      break
+    default:
   }
 
   return relations;

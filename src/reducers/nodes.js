@@ -1,5 +1,6 @@
 import * as actions from '../actions'
 import { maxPlusOne } from './index'
+import { operatorShape } from '../operators'
 
 const selectionChange = (node, operatorSelected, relationSelected) => {
   return {
@@ -66,18 +67,42 @@ export default (state, action) => {
     return node
   })
 
-  if (action.type === 'CREATE_RELATION') {
-    let nextNodeId = Math.max(...state.nodes.map((node) => node.id))
-    if (nextNodeId < 0) nextNodeId = 1
+  switch (action.type) {
+    case 'CREATE_RELATION':
+      let nextNodeId = Math.max(...state.nodes.map((node) => node.id))
+      if (nextNodeId < 0) nextNodeId = 1
 
-    nodes = nodes.concat({
-      id: maxPlusOne(state.nodes),
-      resultRelationId: maxPlusOne(state.relations),
-      operator: {},
-      x: action.x,
-      y: action.y
-    })
+      nodes = nodes.concat({
+        id: maxPlusOne(state.nodes),
+        resultRelationId: maxPlusOne(state.relations),
+        operator: {},
+        x: action.x,
+        y: action.y
+      })
+      break
+
+    case 'ADD_OPERATOR':
+      /* TODO cover this logic by selecting visible operators
+      if (numOperatorInputs(action.operatorType) === state.editor.selectedRelationIds.length) {
+      }
+      */
+      /* TODO: data model is wrong. Selecting relation boxes (on nodes), not relations. */
+      let selectedRelationNodes = state.editor.selectedRelationIds.map(relationId =>
+        state.nodes.find(node => node.resultRelationId === relationId)
+      )
+      nodes = nodes.concat({
+        id: maxPlusOne(state.nodes),
+        resultRelationId: maxPlusOne(state.relations),
+        operator: { type: action.operatorType, shape: operatorShape(action.operatorType) },
+        x: selectedRelationNodes[0].x,
+        y: selectedRelationNodes[0].y + 120
+      })
+      break
+    
+    default:
+
   }
+
   
   return nodes
 }

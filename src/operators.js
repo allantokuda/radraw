@@ -17,7 +17,7 @@ export const FULL_MINUS  = 'Full Minus'
 export const DIVIDE      = 'Divide'
 export const FULL_DIVIDE = 'Full Divide'
 
-export default [
+const operators = [
   { category: UNARY_OPERATOR,  type: PROJECT,     shape: OPERATOR_SHAPES.PILL },
   { category: UNARY_OPERATOR,  type: FILTER,      shape: OPERATOR_SHAPES.PILL },
   { category: UNARY_OPERATOR,  type: REDUCE,      shape: OPERATOR_SHAPES.HEXAGON },
@@ -32,3 +32,20 @@ export default [
   { category: BINARY_OPERATOR, type: DIVIDE,      shape: OPERATOR_SHAPES.TRIANGLE },
   { category: BINARY_OPERATOR, type: FULL_DIVIDE, shape: OPERATOR_SHAPES.TRIANGLE },
 ]
+
+export default operators
+
+export function operatorData(operatorType) {
+  operators.find(operator => operator.type === operatorType)
+}
+
+export function numOperatorInputs(operatorType) {
+  let op = operators.find(operator => operator.type === operatorType)
+  return op.category === UNARY_OPERATOR ? 1 : 2
+}
+
+export function operatorShape(operatorType) {
+  let op = operators.find(operator => operator.type === operatorType)
+  return op.shape
+}
+
