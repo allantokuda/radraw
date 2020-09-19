@@ -23,5 +23,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "fibers": "^5.0.0",
+    "node-sass": "^4.14.1",
+    "sass": "^1.26.11",
+    "typescript": "^3.9.7"
+  }
 }
