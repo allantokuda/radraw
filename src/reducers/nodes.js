@@ -89,12 +89,15 @@ export default (state, action) => {
       let selectedRelationNodes = state.editor.selectedRelationNodeIds.map(relationId =>
         state.nodes.find(node => node.id === relationId)
       )
+      /* TODO: test for multiple nodes */
+      let lowestNode = selectedRelationNodes.sort(node => node.y + node.height).slice(-1)[0]
+
       nodes = nodes.concat({
         id: maxPlusOne(state.nodes),
         resultRelationId: maxPlusOne(state.relations),
         operator: { type: action.operatorType, shape: operatorShape(action.operatorType) },
-        x: selectedRelationNodes[0].x,
-        y: selectedRelationNodes[0].y + 120
+        x: lowestNode.x,
+        y: lowestNode.y + lowestNode.height + 30
       })
       break
     
