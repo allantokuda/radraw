@@ -13,6 +13,9 @@ export default (state = initialState, action) => {
     case 'SELECT_RELATION':
       changes = { selectedRelationNodeIds: [action.nodeId] }
       break
+    case 'DESELECT_ALL':
+      changes = { selectedRelationNodeIds: [] }
+      break
 
     default:
   }

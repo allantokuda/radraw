@@ -37,7 +37,7 @@ export function renameRelation(relationId, name) {
 }
 
 export function deselectAll() {
-  return { type: SELECT_RELATION }
+  return { type: DESELECT_ALL }
 }
 
 export function newRelationMode() {
