@@ -1,5 +1,6 @@
 import reducer from './nodes'
 import * as actions from '../actions'
+import { REDUCE } from '../operators'
 
 describe('node reducer', () => {
   xit('should return the initial state', () => {
@@ -193,5 +194,22 @@ describe('node reducer', () => {
       { id: 7, resultRelationId: 13 },
       { id: 8, resultRelationId: 14, operator: {}, x: 100, y: 200 }
     ])
+  })
+
+  it('adds a node for operator creation', () => {
+    expect(
+      reducer(
+        {
+          relations: [{ id: 13 }],
+          nodes: [{ id: 7, resultRelationId: 13, x: 100, y: 200 }],
+          editor: { selectedRelationNodeIds: [7] }
+        },
+        { type: 'ADD_OPERATOR', operatorType: REDUCE }
+      )
+    ).toEqual([
+      { id: 7, resultRelationId: 13, x: 100, y: 200 },
+      { id: 8, resultRelationId: 14, operator: { shape: "Hexagon", type: "Reduce" }, x: 100, y: 320 }
+    ])
+
   })
 })

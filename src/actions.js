@@ -28,8 +28,8 @@ export function updateOperatorParam(nodeId, paramName, value) {
   return { type: UPDATE_OPERATOR_PARAM, nodeId, paramName, value }
 }
 
-export function selectRelation(relationId) {
-  return { type: SELECT_RELATION, relationId }
+export function selectRelation(nodeId) {
+  return { type: SELECT_RELATION, nodeId }
 }
 
 export function renameRelation(relationId, name) {

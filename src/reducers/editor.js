@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
       changes = { action: 'select' }
       break
     case 'SELECT_RELATION':
-      changes = { selectedRelationIds: [action.relationId] }
+      changes = { selectedRelationNodeIds: [action.nodeId] }
       break
 
     default:

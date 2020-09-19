@@ -58,11 +58,11 @@ describe('editor reducer', () => {
     expect(
       reducer(
         { editor: { action: 'select' } },
-        { type: 'SELECT_RELATION', relationId: 7 }
+        { type: 'SELECT_RELATION', nodeId: 7 }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationIds: [7]
+      selectedRelationNodeIds: [7]
     })
   })
 })

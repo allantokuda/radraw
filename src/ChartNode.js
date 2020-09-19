@@ -35,7 +35,7 @@ class ChartNode extends Component {
     }
 
     const handleRelationFocus = (event) => {
-      dispatch(actions.selectRelation(node.resultRelationId))
+      dispatch(actions.selectRelation(node.id))
     }
 
     const handleRelationBlur = (event) => {
@@ -51,8 +51,8 @@ class ChartNode extends Component {
       dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
-    const handleClick = (relation) => {
-      dispatch(actions.selectRelation(relation.id))
+    const handleRelationClick = (node) => {
+      dispatch(actions.selectRelation(node.id))
     }
 
     const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 20 : 0
@@ -62,7 +62,7 @@ class ChartNode extends Component {
     const relationClasses = classNames({
       relation: true,
       dragHandle: true,
-      selected: state.editor.selectedRelationIds.indexOf(relation.id) > -1
+      selected: state.editor.selectedRelationNodeIds.indexOf(node.id) > -1
     })
 
     return (
@@ -98,7 +98,7 @@ class ChartNode extends Component {
             {svgShape(svgParams)}
           </div>
           { operator.type && <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <div className={relationClasses} onClick={handleClick.bind(this, relation)}>
+          <div className={relationClasses} onClick={handleRelationClick.bind(this, node)}>
             <ContentEditable className='noDrag relationEdit'
                              html={relation.name}
                              onChange={handleEditName}

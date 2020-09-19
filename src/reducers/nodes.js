@@ -83,12 +83,11 @@ export default (state, action) => {
 
     case 'ADD_OPERATOR':
       /* TODO cover this logic by selecting visible operators
-      if (numOperatorInputs(action.operatorType) === state.editor.selectedRelationIds.length) {
+      if (numOperatorInputs(action.operatorType) === state.editor.selectedRelationNodeIds.length) {
       }
       */
-      /* TODO: data model is wrong. Selecting relation boxes (on nodes), not relations. */
-      let selectedRelationNodes = state.editor.selectedRelationIds.map(relationId =>
-        state.nodes.find(node => node.resultRelationId === relationId)
+      let selectedRelationNodes = state.editor.selectedRelationNodeIds.map(relationId =>
+        state.nodes.find(node => node.id === relationId)
       )
       nodes = nodes.concat({
         id: maxPlusOne(state.nodes),
