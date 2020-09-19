@@ -129,50 +129,6 @@ describe('node reducer', () => {
     ])
   })
 
-
-  it('should allow a relation to be selected (and auto-deselect other selected items) for subsequent operations', () => {
-    expect(
-      reducer(
-        {
-          nodes: [
-              { id: 3, operator: { type: 'XYZ', selected: true }, relation: { name: 'ABC', selected: true }},
-              { id: 4, operator: { type: 'QRS', selected: true }, relation: { name: 'DEF' }},
-              { id: 5, operator: { type: 'TUV'                 }, relation: { name: 'GHI', selected: true }}
-          ]
-        },
-        {
-          type: actions.SELECT_RELATION,
-          nodeId: 4
-        }
-      )
-    ).toEqual([
-      { id: 3, operator: { type: 'XYZ', selected: false, }, relation: { name: 'ABC', selected: false }},
-      { id: 4, operator: { type: 'QRS', selected: false, }, relation: { name: 'DEF', selected: true }},
-      { id: 5, operator: { type: 'TUV', selected: false, }, relation: { name: 'GHI', selected: false }}
-    ])
-  })
-
-  it('should allow all relations to be deselected', () => {
-    expect(
-      reducer(
-        {
-          nodes: [
-            { id: 3, operator: { type: 'XYZ', selected: true  }, relation: { name: 'ABC', selected: false }},
-            { id: 4, operator: { type: 'QRS', selected: false }, relation: { name: 'DEF', selected: true }},
-            { id: 5, operator: { type: 'TUV', selected: false }, relation: { name: 'GHI', selected: false }}
-          ]
-        },
-        {
-          type: actions.DESELECT_ALL
-        }
-      )
-    ).toEqual([
-      { id: 3, operator: { type: 'XYZ', selected: false, }, relation: { name: 'ABC', selected: false }},
-      { id: 4, operator: { type: 'QRS', selected: false, }, relation: { name: 'DEF', selected: false }},
-      { id: 5, operator: { type: 'TUV', selected: false, }, relation: { name: 'GHI', selected: false }}
-    ])
-  })
-
   it('adds a first relation node', () => {
     expect(
       reducer(

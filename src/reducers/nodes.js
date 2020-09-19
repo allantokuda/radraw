@@ -2,13 +2,6 @@ import * as actions from '../actions'
 import { maxPlusOne } from './index'
 import { operatorShape } from '../operators'
 
-const selectionChange = (node, operatorSelected, relationSelected) => {
-  return {
-    operator: Object.assign({}, node.operator, { selected: operatorSelected }),
-    relation: Object.assign({}, node.relation, { selected: relationSelected })
-  }
-}
-
 export const updateNode = (node, action) => {
   let changes
 
@@ -42,14 +35,6 @@ export const updateNode = (node, action) => {
       }
       break
 
-    case actions.SELECT_RELATION:
-      changes = selectionChange(node, false, true)
-      break
-
-    case actions.DESELECT_ALL:
-      changes = selectionChange(node, false, true)
-      break
-
     default:
       changes = {}
   }
@@ -61,8 +46,6 @@ export default (state, action) => {
   let nodes = state.nodes.map(node => {
     if (node.id === action.nodeId) {
       return updateNode(node, action)
-    } else if (action.type === actions.SELECT_RELATION || action.type === actions.DESELECT_ALL) {
-      return Object.assign({}, node, selectionChange(node, false, false))
     }
     return node
   })
