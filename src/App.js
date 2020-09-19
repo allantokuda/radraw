@@ -8,7 +8,7 @@ let App = ({ state }) => (
   <div className="App">
     <Toolbar />
     <PrecedenceChart />
-    <div>{ JSON.stringify(state) }</div>
+    <pre id='statewatch'>{ JSON.stringify(state, null, 2) }</pre>
   </div>
 )
 

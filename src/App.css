@@ -13,6 +13,14 @@
   bottom: 0;
 }
 
+#statewatch {
+  position: absolute;
+  top: 120px;
+  bottom: 0;
+  right: 0;
+  overflow: scroll;
+}
+
 .toolbar {
   background-color: #222;
   padding: 20px;
