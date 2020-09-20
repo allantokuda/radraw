@@ -78,6 +78,31 @@ describe('editor reducer', () => {
     })
   })
 
+  it('can deselect a relation', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [7] } },
+        { type: 'SELECT_RELATION', nodeId: 7 }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: []
+    })
+  })
+
+  it('can deselect one of several relations', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [7, 8, 9] } },
+        { type: 'SELECT_RELATION', nodeId: 8 }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [7, 9]
+    })
+  })
+
+
   it('selects the newest relation after creating an operator', () => {
     expect(
       reducer(
