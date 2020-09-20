@@ -152,7 +152,7 @@ describe('node reducer', () => {
     ])
   })
 
-  it('adds a new operator node at a Y coordinate that below the operand relation', () => {
+  it('adds a new unary operator node at a Y coordinate that below the operand relation', () => {
     expect(
       reducer(
         {
@@ -166,6 +166,25 @@ describe('node reducer', () => {
       { id: 7, resultRelationId: 13, x: 100, y: 200, height: 350 },
       { id: 8, resultRelationId: 14, operator: { shape: "Hexagon", type: "Reduce" }, x: 100, y: 580 }
     ])
+  })
 
+  it('adds a new binary operator node under and between the operand relations', () => {
+    expect(
+      reducer(
+        {
+          relations: [{ id: 13 }, {id: 14 }],
+          nodes: [
+            { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300 },
+            { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330 }
+          ],
+          editor: { selectedRelationNodeIds: [7, 8] }
+        },
+        { type: 'ADD_OPERATOR', operatorType: REDUCE }
+      )
+    ).toEqual([
+      { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300 },
+      { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330 },
+      { id: 9, resultRelationId: 15, operator: { shape: "Hexagon", type: "Reduce" }, x: 200, y: 580 }
+    ])
   })
 })

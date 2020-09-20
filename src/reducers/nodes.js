@@ -2,6 +2,10 @@ import * as actions from '../actions'
 import { maxPlusOne } from './index'
 import { operatorShape } from '../operators'
 
+function average(nums) {
+  return nums.reduce((a, b) => (a + b)) / nums.length;
+}
+
 export const updateNode = (node, action) => {
   let changes
 
@@ -72,15 +76,16 @@ export default (state, action) => {
       let selectedRelationNodes = state.editor.selectedRelationNodeIds.map(relationId =>
         state.nodes.find(node => node.id === relationId)
       )
-      /* TODO: test for multiple nodes */
-      let lowestNode = selectedRelationNodes.sort(node => node.y + node.height).slice(-1)[0]
+      let averageX = average(selectedRelationNodes.map(node => node.x))
+      let bottomY = Math.max(...selectedRelationNodes.map(node => node.y + node.height))
 
-      nodes = nodes.concat({
+      nodes = nodes.concat(
+      {
         id: maxPlusOne(state.nodes),
         resultRelationId: maxPlusOne(state.relations),
         operator: { type: action.operatorType, shape: operatorShape(action.operatorType) },
-        x: lowestNode.x,
-        y: lowestNode.y + lowestNode.height + 30
+        x: averageX,
+        y: bottomY + 30
       })
       break
     
