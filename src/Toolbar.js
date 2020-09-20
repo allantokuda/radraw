@@ -13,8 +13,10 @@ let Toolbar = ({ state }) => {
 
   return (
     <header className="toolbar">
-      <button onClick={newRelation} className={classNames({ selected: state.editor.action === 'new_relation' })}>
-        <div className="">New Relation</div>
+      <button onClick={newRelation} className={classNames({ operatorButton: true, selected: state.editor.action === 'new_relation' })}>
+        <div className="relation" style={{ boxSizing: 'border-box', height: '25px', width: '50px', marginTop: '10px' }}>
+        </div>
+        <label className="">New Relation</label>
       </button>
       {
         operators.filter(operator =>

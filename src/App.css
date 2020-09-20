@@ -26,9 +26,8 @@
 
 .toolbar {
   background-color: #222;
-  padding: 20px;
   color: #bbb;
-  height: 90px;
+  height: 82px;
 }
 
 .toolbar button {
@@ -171,6 +170,7 @@ button {
   position: relative;
   text-align: center;
   margin: 4px;
+  height: 75px;
 }
 
 .operatorButton label {
