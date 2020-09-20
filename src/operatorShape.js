@@ -16,8 +16,9 @@ const operatorShape = ({ shape, width, height }) => {
   height = height - 2 || 70
 
   let w = width / 2
+  let w1 = Math.max(w - height * 0.4, w * 0.6)
   // let h1 = width * 0.1
-  let h2 = width * 0.2
+  let h2 = width * 0.2 // for drawing house shapes
   let points
 
   let boxBottom = [
@@ -26,20 +27,13 @@ const operatorShape = ({ shape, width, height }) => {
   ]
 
   switch(shape) {
-    //case OPERATOR_SHAPES.PILL:
-    //  let w1 = Math.max(w - height * 0.4, w * 0.6)
-    //  points = [
-    //    { x: -w1, y: 0, connection: true },
-    //    { x:  w1, y: 0, connection: true },
-    //    { x:  w,  y: height / 2 },
-    //    { x:  w1, y: height },
-    //    { x: -w1, y: height },
-    //    { x: -w,  y: height / 2 }
-    //  ]
-    //  break
+    case OPERATOR_SHAPES.PILL:
+      points = [
+        { x: 0, y: 0, connection: true }
+      ]
+      break
 
     case OPERATOR_SHAPES.HEXAGON:
-      let w1 = Math.max(w - height * 0.4, w * 0.6)
       points = [
         { x: -w1, y: 0 },
         { x:  0,  y: 0, connection: true },
@@ -101,8 +95,26 @@ export const polygonPoints = (operator) => {
   return points.map(point => [point.x, point.y])
 }
 
+export const pillParameters = (operator) => {
+  const h = operator.height
+  const w = Math.max(operator.width, operator.height) // disallow being taller than width
+  const r = h/2 - 2
+  const x1 = w/2 - h/2 - 1
+  return [
+    'M', -x1, 1,
+    'L', x1, 1,
+    'A', r, r, 0, 0, 1, x1, h-1,
+    'L', -x1, h-1,
+    'A', r, r, 0, 0, 1, -x1, 1
+  ].join(' ')
+}
+
 const shapeInSvg = (operator) => {
-  if (operator.shape) {
+  if (operator.shape === OPERATOR_SHAPES.PILL) {
+    return (
+      <path d={pillParameters({...operator})}/>
+    )
+  } else if (operator.shape) {
     return <polygon points={polygonPoints({...operator})}/>
   }
 }

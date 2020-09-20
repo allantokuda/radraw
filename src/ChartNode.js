@@ -51,7 +51,7 @@ class ChartNode extends Component {
       dispatch(actions.selectRelation(node.id))
     }
 
-    const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 20 : 0
+    const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 10 : 0
 
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorShape centerBehind' })
 

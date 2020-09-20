@@ -49,6 +49,19 @@ export default {
         }
       },
       resultRelationId: 9,
+    },
+    {
+      id: 5,
+      x: 450,
+      y: 750,
+      height: 212,
+      operator: {
+        type: 'Project',
+        shape: 'Pill',
+        params: {
+        }
+      },
+      resultRelationId: 10,
     }
   ],
   arrows: [
@@ -56,6 +69,7 @@ export default {
     { from: 3, to: 2, connection: 1, x1: 300, y1: 211, x2: 200, y2: 230 },
     { from: 2, to: 4, connection: 0, x1: 300, y1: 211, x2: 200, y2: 230 },
     { from: 3, to: 4, connection: 1, x1: 300, y1: 211, x2: 200, y2: 230 },
+    { from: 4, to: 5, connection: 0, x1: 300, y1: 211, x2: 200, y2: 230 },
   ],
   relations: [
     {
@@ -73,6 +87,10 @@ export default {
     {
       id: 9,
       name: 'Something'
+    },
+    {
+      id: 10,
+      name: 'Another Thing'
     }
   ]
 }
