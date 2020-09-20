@@ -1,6 +1,6 @@
 import reducer from './nodes'
 import * as actions from '../actions'
-import { REDUCE } from '../operators'
+import { REDUCE, MATCH_JOIN } from '../operators'
 
 describe('node reducer', () => {
   xit('should return the initial state', () => {
@@ -149,7 +149,7 @@ describe('node reducer', () => {
     ])
   })
 
-  it('adds a new unary operator node at a Y coordinate that below the operand relation', () => {
+  it('adds a new unary operator node with default params at a Y coordinate that below the operand relation', () => {
     expect(
       reducer(
         {
@@ -161,11 +161,11 @@ describe('node reducer', () => {
       )
     ).toEqual([
       { id: 7, resultRelationId: 13, x: 100, y: 200, height: 350 },
-      { id: 8, resultRelationId: 14, operator: { shape: "Hexagon", type: "Reduce" }, x: 100, y: 580 }
+      { id: 8, resultRelationId: 14, operator: { shape: "Hexagon", type: "Reduce", params: 'id: ' }, x: 100, y: 580 }
     ])
   })
 
-  it('adds a new binary operator node under and between the operand relations', () => {
+  it('adds a new binary operator node with default params under and between the operand relations', () => {
     expect(
       reducer(
         {
@@ -176,12 +176,12 @@ describe('node reducer', () => {
           ],
           editor: { selectedRelationNodeIds: [7, 8] }
         },
-        { type: 'ADD_OPERATOR', operatorType: REDUCE }
+        { type: 'ADD_OPERATOR', operatorType: MATCH_JOIN }
       )
     ).toEqual([
       { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300 },
       { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330 },
-      { id: 9, resultRelationId: 15, operator: { shape: "Hexagon", type: "Reduce" }, x: 200, y: 580 }
+      { id: 9, resultRelationId: 15, operator: { shape: "HalfHouseLeft", type: "Match Join", params: 'Aid: \nBid: ' }, x: 200, y: 580 }
     ])
   })
 })

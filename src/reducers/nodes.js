@@ -1,6 +1,6 @@
 import * as actions from '../actions'
 import { maxPlusOne } from './index'
-import { operatorShape } from '../operators'
+import { operatorTypeProperties } from '../operators'
 
 function average(nums) {
   return nums.reduce((a, b) => (a + b)) / nums.length;
@@ -71,11 +71,16 @@ export default (state, action) => {
       let averageX = average(selectedRelationNodes.map(node => node.x))
       let bottomY = Math.max(...selectedRelationNodes.map(node => node.y + node.height))
 
-      nodes = nodes.concat(
-      {
+      const operatorProperties = operatorTypeProperties(action.operatorType)
+
+      nodes = nodes.concat({
         id: maxPlusOne(state.nodes),
         resultRelationId: maxPlusOne(state.relations),
-        operator: { type: action.operatorType, shape: operatorShape(action.operatorType) },
+        operator: {
+          type: action.operatorType,
+          shape: operatorProperties.shape,
+          params: operatorProperties.defaultParams
+        },
         x: averageX,
         y: bottomY + 30
       })

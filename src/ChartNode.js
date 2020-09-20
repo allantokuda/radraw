@@ -52,7 +52,7 @@ class ChartNode extends Component {
       dispatch(actions.selectRelation(node.id))
     }
 
-    const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorShape centerBehind' })
+    const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg centerBehind' })
 
     const relationClasses = classNames({
       relation: true,

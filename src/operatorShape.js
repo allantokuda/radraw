@@ -9,7 +9,7 @@ export const OPERATOR_SHAPES = {
   TRIANGLE: 'Triangle',
 }
 
-const operatorShape = ({ shape, width, height }) => {
+const operatorKeypoints = ({ shape, width, height }) => {
   // 100x100 default size to avoid rendering error if unspecified.
   // Subtract 2 pixels to give room for SVG borders, which expand both inward and outward from the true edge.
   width = width - 2 || 100
@@ -86,12 +86,12 @@ const operatorShape = ({ shape, width, height }) => {
 }
 
 export const connectionPoints = (operator) => {
-  let points = operatorShape(operator)
+  let points = operatorKeypoints(operator)
   return points.filter(point => point.connection)
 }
 
 export const polygonPoints = (operator) => {
-  let points = operatorShape(operator)
+  let points = operatorKeypoints(operator)
   return points.map(point => [point.x, point.y])
 }
 
@@ -121,7 +121,7 @@ const shapeInSvg = (operator) => {
 
 export const svgShape = (operator) => {
   const width = operator.width || 100
-  return <svg className="operatorShape" {...operator}>
+  return <svg className="operatorSvg" {...operator}>
     <g transform={"translate(" + (width / 2) + ",0)"}>
       {shapeInSvg(operator)}
     </g>

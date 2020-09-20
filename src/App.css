@@ -92,7 +92,7 @@ button {
   color: black;
 }
 
-.operatorShape {
+.operatorSvg {
   fill: #d8e0f8;
   stroke: black;
   stroke-width: 1;
@@ -151,9 +151,6 @@ button {
   position: relative;
   text-align: center;
   margin: 4px;
-}
-
-.operatorButton .operatorShape {
 }
 
 .operatorButton label {
