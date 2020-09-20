@@ -13,6 +13,9 @@ export default (state = initialState, action) => {
     case 'SELECT_RELATION':
       changes = { selectedRelationNodeIds: state.editor.selectedRelationNodeIds.concat(action.nodeId) }
       break
+    case 'ADD_OPERATOR':
+      changes = { selectedRelationNodeIds: [Math.max(...state.nodes.map(node => node.id))] }
+      break
     case 'DESELECT_ALL':
       changes = { selectedRelationNodeIds: [] }
       break

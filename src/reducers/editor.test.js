@@ -77,4 +77,23 @@ describe('editor reducer', () => {
       selectedRelationNodeIds: [7, 8]
     })
   })
+
+  it('selects the newest relation after creating an operator', () => {
+    expect(
+      reducer(
+        {
+          editor: { action: 'select', selectedRelationNodeIds: [6] },
+          nodes: [
+            { id: 6, x: 100, y: 200, resultRelationId: 1 },
+            { id: 7, x: 100, y: 400, resultRelationId: 2 } // assumed new node+relation
+          ],
+          relations: [{ id: 2 }, { id: 3 }]
+        },
+        { type: 'ADD_OPERATOR' }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [7]
+    })
+  })
 })

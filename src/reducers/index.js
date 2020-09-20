@@ -19,9 +19,9 @@ export default function reducer(state = initialState, action) {
   const newNodes = nodes(state, action)
   const stateWithNewNodes = Object.assign({}, state, { nodes: newNodes })
   return {
+    editor: editor(stateWithNewNodes, action),
     nodes: newNodes,
     arrows: arrows(stateWithNewNodes, action),
     relations: relations(state, action),
-    editor: editor(state, action)
   }
 }
