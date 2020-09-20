@@ -35,10 +35,6 @@ class ChartNode extends Component {
       setTimeout(this.updateSize)
     }
 
-    const handleRelationFocus = (event) => {
-      dispatch(actions.selectRelation(node.id))
-    }
-
     const handleEditParams = (event) => {
       dispatch(actions.updateOperatorParams(node.id, event.target.value))
       setTimeout(this.updateSize)
@@ -87,8 +83,7 @@ class ChartNode extends Component {
           <div className={relationClasses} onClick={handleRelationClick.bind(this, node)}>
             <ContentEditable className='noDrag relationEdit'
                              html={relation.name}
-                             onChange={handleEditName}
-                             onFocus={handleRelationFocus}/>
+                             onChange={handleEditName}/>
           </div>
         </div>
       </Draggable>
