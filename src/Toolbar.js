@@ -16,7 +16,13 @@ let Toolbar = ({ state }) => {
       <button onClick={newRelation} className={classNames({ selected: state.editor.action === 'new_relation' })}>
         <div className="">New Relation</div>
       </button>
-      {operators.map(operator => <OperatorButton key={operator.type} {...operator}/>)}
+      {
+        operators.filter(operator =>
+          operator.numInputs === state.editor.selectedRelationNodeIds.length
+        ).map(operator =>
+          <OperatorButton key={operator.type} {...operator}/>
+        )
+      }
     </header>
   )
 }
