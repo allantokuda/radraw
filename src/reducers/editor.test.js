@@ -57,12 +57,24 @@ describe('editor reducer', () => {
   it('can select a relation', () => {
     expect(
       reducer(
-        { editor: { action: 'select' } },
+        { editor: { action: 'select', selectedRelationNodeIds: [] } },
         { type: 'SELECT_RELATION', nodeId: 7 }
       )
     ).toEqual({
       action: 'select',
       selectedRelationNodeIds: [7]
+    })
+  })
+
+  it('can select a second relation', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [7] } },
+        { type: 'SELECT_RELATION', nodeId: 8 }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [7, 8]
     })
   })
 })

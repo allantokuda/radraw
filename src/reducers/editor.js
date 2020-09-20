@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
       changes = { action: 'select' }
       break
     case 'SELECT_RELATION':
-      changes = { selectedRelationNodeIds: [action.nodeId] }
+      changes = { selectedRelationNodeIds: state.editor.selectedRelationNodeIds.concat(action.nodeId) }
       break
     case 'DESELECT_ALL':
       changes = { selectedRelationNodeIds: [] }
