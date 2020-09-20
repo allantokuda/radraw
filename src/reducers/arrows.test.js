@@ -1,6 +1,6 @@
 import reducer from './arrows'
 import * as actions from '../actions'
-import { REDUCE } from '../operators'
+import { REDUCE, TIMES } from '../operators'
 
 describe('arrows reducer', () => {
 
@@ -65,6 +65,28 @@ describe('arrows reducer', () => {
       reducer({ editor, nodes, arrows }, action)
     ).toEqual([
       { from: 1, to: 2, connection: 0, x1: 100, y1: 220, x2: 100, y2: 300 },
+    ])
+  })
+
+  it('adds arrows to newly created binary operator', () => {
+    let editor = {
+      selectedRelationNodeIds: [1, 2]
+    }
+    let nodes = [
+      { id: 1, x: 100, y: 100, height: 120, relation: {} },
+      { id: 2, x: 300, y: 100, height: 130, relation: {} },
+      { id: 3, x: 200, y: 460, height: 100, relation: { type: 'TIMES' } }, // last node should have been created in the same ADD_OPERATOR action
+    ]
+    let arrows = []
+    let action = {
+      type: actions.ADD_OPERATOR,
+      operatorType: TIMES
+    }
+    expect(
+      reducer({ editor, nodes, arrows }, action)
+    ).toEqual([
+      { from: 1, to: 3, connection: 0, x1: 100, x2: 200, y1: 220, y2: 460 }, // TODO: find out if real coordinates appear in next loop or what
+      { from: 2, to: 3, connection: 1, x1: 300, x2: 200, y1: 230, y2: 460 },
     ])
   })
 })
