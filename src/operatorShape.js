@@ -127,3 +127,15 @@ export const svgShape = (operator) => {
     </g>
   </svg>
 }
+
+export const titleY = (operator) => {
+  if (!operator.shape) {
+    return 0
+  } else if (operator.shape.match('HalfHouse')) {
+    return (operator.width || 100) * 0.1 + 20
+  } else if (operator.params === undefined) {
+    return 20
+  } else {
+    return 10
+  }
+}

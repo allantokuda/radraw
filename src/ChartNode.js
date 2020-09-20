@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import Draggable from 'react-draggable'
 import * as actions from './actions'
-import { svgShape } from './operatorShape'
+import { svgShape, titleY } from './operatorShape'
+import { operatorHasParams } from './operators'
 import Arrow from './Arrow'
 import classNames from 'classnames'
 
@@ -20,7 +21,7 @@ class ChartNode extends Component {
 
   componentDidMount() {
     // Two initial sizing renders needed: one to set the width of the half-house shape based on text content,
-    // and another to calculate the verticalOffset of the title of the half house based on the width.
+    // and another to calculate the titleY (verticalOffset of the title) based on the operator width.
     setTimeout(this.updateSize)
     setTimeout(this.updateSize)
   }
@@ -38,8 +39,8 @@ class ChartNode extends Component {
       dispatch(actions.selectRelation(node.id))
     }
 
-    const handleEditParam = (paramName, event) => {
-      dispatch(actions.updateOperatorParam(node.id, paramName, event.target.value))
+    const handleEditParams = (event) => {
+      dispatch(actions.updateOperatorParams(node.id, event.target.value))
       setTimeout(this.updateSize)
     }
 
@@ -50,8 +51,6 @@ class ChartNode extends Component {
     const handleRelationClick = (node) => {
       dispatch(actions.selectRelation(node.id))
     }
-
-    const verticalOffset = !!operator.type ? (operator.width || 100) * 0.1 + 10 : 0
 
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorShape centerBehind' })
 
@@ -70,30 +69,21 @@ class ChartNode extends Component {
 
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
           <div className="operator">
-            <div className="operatorContent bottomFix4 dragHandle"
-                 style={{ paddingTop: verticalOffset, minWidth: 30, minHeight: 30 }}
+            <div className="operatorContent bottomFix dragHandle"
+                 style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
 
-              <table>
-                <tbody>
-                  <tr>
-                    <td colSpan="2" className="operatorName">{operator.type}</td>
-                  </tr>
-                  {Object.keys(operator.params || {}).map(param =>
-                  <tr className="operatorParamRow" key={param}>
-                    <td className="operatorParamLabel">{param}:&nbsp;</td>
-                    <td>
-                      <ContentEditable className="operatorParamValue noDrag"
-                                       html={operator.params[param]}
-                                       onChange={handleEditParam.bind(this, param)}/>
-                    </td>
-                  </tr>)}
-                </tbody>
-              </table>
+              <div className="operatorName">{operator.type}</div>
+              { operatorHasParams(operator.type) &&
+                <ContentEditable className="operatorParams noDrag"
+                                 html={operator.params}
+                                 tagName='pre'
+                                 onChange={handleEditParams.bind(this)}/>
+              }
             </div>
             {svgShape(svgParams)}
           </div>
-          { operator.type && <div className="bottomFix4"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
+          { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
           <div className={relationClasses} onClick={handleRelationClick.bind(this, node)}>
             <ContentEditable className='noDrag relationEdit'
                              html={relation.name}

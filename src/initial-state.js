@@ -29,11 +29,7 @@ export default {
       operator: {
         type: 'Match Join',
         shape: 'HalfHouseLeft',
-        params: {
-          Aid: 'XYZ_Skill_code',
-          Bid: 'Skill_code',
-          Carry: 'ABC'
-        }
+        params: 'Aid: XYZ_Skill_code\nBid: Skill_code'
       },
       resultRelationId: 5,
     },
@@ -45,8 +41,6 @@ export default {
       operator: {
         type: 'Times',
         shape: 'FullHouse',
-        params: {
-        }
       },
       resultRelationId: 9,
     },
@@ -58,8 +52,7 @@ export default {
       operator: {
         type: 'Project',
         shape: 'Pill',
-        params: {
-        }
+        params: ''
       },
       resultRelationId: 10,
     }

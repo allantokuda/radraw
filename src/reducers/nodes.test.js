@@ -112,20 +112,17 @@ describe('node reducer', () => {
       reducer(
         {
           nodes: [
-            { id: 1, x: 0, operator: { params: { Aid: 'Skill_code' } } },
-            { id: 2, x: 1, operator: { params: { Bid: 'Least_Aspired_to_skill_code' } } },
+            { id: 1, x: 0, operator: { params: 'Aid: Skill_code\nBid: Skill_code' } }
           ]
         },
         {
-          type: actions.UPDATE_OPERATOR_PARAM,
+          type: actions.UPDATE_OPERATOR_PARAMS,
           nodeId: 1,
-          paramName: 'Aid',
-          value: 'Achieved_skill_code'
+          value: 'Aid: Skill_code\nBid: Least_Aspired_to_skill_code'
         }
       )
     ).toEqual([
-      { id: 1, x: 0, operator: { params: { Aid: 'Achieved_skill_code' } } },
-      { id: 2, x: 1, operator: { params: { Bid: 'Least_Aspired_to_skill_code' } } },
+      { id: 1, x: 0, operator: { params: 'Aid: Skill_code\nBid: Least_Aspired_to_skill_code' }}
     ])
   })
 

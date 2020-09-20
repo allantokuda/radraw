@@ -29,13 +29,9 @@ export const updateNode = (node, action) => {
       }
       break
 
-    case actions.UPDATE_OPERATOR_PARAM:
-      let val = {}
-      val[action.paramName] = action.value
+    case actions.UPDATE_OPERATOR_PARAMS:
       changes = {
-        operator: Object.assign({}, node.operator, {
-          params: Object.assign({}, node.operator.params, val)
-        })
+        operator: Object.assign({}, node.operator, { params: action.value })
       }
       break
 
@@ -69,10 +65,6 @@ export default (state, action) => {
       break
 
     case 'ADD_OPERATOR':
-      /* TODO cover this logic by selecting visible operators
-      if (numOperatorInputs(action.operatorType) === state.editor.selectedRelationNodeIds.length) {
-      }
-      */
       let selectedRelationNodes = state.editor.selectedRelationNodeIds.map(relationId =>
         state.nodes.find(node => node.id === relationId)
       )

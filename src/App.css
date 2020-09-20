@@ -62,8 +62,8 @@ button {
      using the centerpoint of its top edge as reference */
   position: absolute;
   display: inline-block;
-  width: 240px;
-  margin-left: -120px;
+  width: 450px;
+  margin-left: -225px;
 }
 
 [contenteditable]:hover,
@@ -112,8 +112,8 @@ button {
   padding: 10px;
 }
 
-.bottomFix4 {
-  margin-bottom: -4px; /* Counteract effective bottom margin caused by inline-block */
+.bottomFix {
+  margin-bottom: -2px; /* Counteract effective bottom margin caused by inline-block */
 }
 
 .operatorName {
@@ -121,24 +121,15 @@ button {
   padding-bottom: 5px;
 }
 
-.operatorParamRow {
-  display: flex;
-  min-width: 100px;
-  max-width: 200px;
-  margin-bottom: 5px;
-}
-
-.operatorParamLabel {
-  text-align: left;
-  max-width: 50px;
-}
-
-.operatorParamValue {
+.operatorParams {
   text-align: left;
   display: inline-block;
   min-width: 50px;
-  max-width: 150px;
+  max-width: 400px;
   vertical-align: text-top;
+  font-family: sans-serif;
+  margin: 5px;
+  margin-top: 0px;
 }
 
 .precedenceChart > .arrow {
