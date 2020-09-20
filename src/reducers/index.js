@@ -16,9 +16,11 @@ export function maxPlusOne(objects) {
 
 export default function reducer(state = initialState, action) {
   //console.log(state, action)
+  const newNodes = nodes(state, action)
+  const stateWithNewNodes = Object.assign({}, state, { nodes: newNodes })
   return {
-    nodes: nodes(state, action),
-    arrows: arrows(state, action),
+    nodes: newNodes,
+    arrows: arrows(stateWithNewNodes, action),
     relations: relations(state, action),
     editor: editor(state, action)
   }
