@@ -9,7 +9,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
     let x = event.clientX - event.target.getBoundingClientRect()['x']
     let y = event.clientY - event.target.getBoundingClientRect()['y']
     if (state.editor.action === 'new_relation') {
-      dispatch({ type: 'CREATE_RELATION', x, y })
+      dispatch({ type: 'CREATE_RELATION', x, y: y - 55 })
     } else if (state.editor.action === 'select') {
       dispatch({ type: 'DESELECT_ALL' })
     }
