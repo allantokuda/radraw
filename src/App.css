@@ -61,9 +61,10 @@ button {
   /* Position an invisible box around the node absolutely within the chart,
      using the centerpoint of its top edge as reference */
   position: absolute;
-  display: inline-block;
-  width: 450px;
-  margin-left: -225px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 0;
 }
 
 [contenteditable]:hover,
@@ -104,19 +105,26 @@ button {
   color: black;
 }
 
+.centeredOnZeroWidthParent {
+  margin-left: -300px;
+  margin-right: -300px;
+}
+
+.operator {
+  position: relative; /* allow SVG to overlap exactly relative to this */
+}
+
 .operatorSvg {
   fill: #d8e0f8;
   stroke: black;
   stroke-width: 1;
 }
 
-.centerBehind {
+.underlay {
   position: absolute;
   z-index: -1;
   left: 0;
   right: 0;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .operatorContent {

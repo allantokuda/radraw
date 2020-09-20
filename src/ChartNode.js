@@ -52,7 +52,7 @@ class ChartNode extends Component {
       event.stopPropagation()
     }
 
-    const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg centerBehind' })
+    const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg underlay' })
 
     const relationClasses = classNames({
       relation: true,
@@ -67,7 +67,7 @@ class ChartNode extends Component {
         position={{ x: node.x, y: node.y }}>
 
         <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
-          <div className="operator">
+          <div className="operator centeredOnZeroWidthParent">
             <div className="operatorContent bottomFix dragHandle"
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
@@ -83,8 +83,8 @@ class ChartNode extends Component {
             {svgShape(svgParams)}
           </div>
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <div className="relationClickArea dragHandle" onClick={handleRelationClick.bind(this, node)}>
-            <div className={relationClasses}>
+          <div className="relationClickArea dragHandle centeredOnZeroWidthParent" onClick={handleRelationClick.bind(this, node)}>
+            <div className={relationClasses} ref={ref => this.relationRef = ref}>
               <ContentEditable className='noDrag relationEdit'
                                html={relation.name}
                                onClick={handleContentEditableClick}
