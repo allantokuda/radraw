@@ -11,20 +11,24 @@
   position: fixed;
   top: 0;
   bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #statewatch {
   position: absolute;
-  top: 120px;
+  top: 0;
   bottom: 0;
   right: 0;
   overflow: scroll;
+  color: #999;
 }
 
 .toolbar {
   background-color: #222;
   padding: 20px;
   color: #bbb;
+  height: 90px;
 }
 
 .toolbar button {
