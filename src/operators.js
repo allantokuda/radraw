@@ -38,5 +38,5 @@ export function operatorTypeProperties(operatorType) {
 }
 
 export function operatorHasParams(operatorType) {
-  return operatorType && [TIMES, UNION, INTERSECT, MINUS].indexOf(operatorType) == -1
+  return operatorType && [TIMES, UNION, INTERSECT, MINUS].indexOf(operatorType) === -1
 }
