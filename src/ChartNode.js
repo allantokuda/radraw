@@ -48,6 +48,10 @@ class ChartNode extends Component {
       dispatch(actions.selectRelation(node.id))
     }
 
+    const handleContentEditableClick = (event) => {
+      event.stopPropagation()
+    }
+
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg centerBehind' })
 
     const relationClasses = classNames({
@@ -83,6 +87,7 @@ class ChartNode extends Component {
             <div className={relationClasses}>
               <ContentEditable className='noDrag relationEdit'
                                html={relation.name}
+                               onClick={handleContentEditableClick}
                                onChange={handleEditName}/>
             </div>
           </div>
