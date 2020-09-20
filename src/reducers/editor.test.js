@@ -78,6 +78,18 @@ describe('editor reducer', () => {
     })
   })
 
+  it('avoids changing the selection at mouseup on end of drag operation', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [7], noSelectAfterDrag: true } },
+        { type: 'SELECT_RELATION', nodeId: 8 } // dragging a not-selected node
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [7]
+    })
+  })
+
   it('can deselect a relation', () => {
     expect(
       reducer(
@@ -119,6 +131,19 @@ describe('editor reducer', () => {
     ).toEqual({
       action: 'select',
       selectedRelationNodeIds: [7]
+    })
+  })
+
+  it('remembers a flag to not select at the end of a drag operation', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [] } },
+        { type: 'MOVE_NODE' }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [],
+      noSelectAfterDrag: true
     })
   })
 })
