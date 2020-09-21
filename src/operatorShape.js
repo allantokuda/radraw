@@ -70,8 +70,8 @@ const operatorKeypoints = ({ shape, width, height }) => {
     case OPERATOR_SHAPES.TRIANGLE:
       points = [
         { x:  0, y: 0, connection: true },
-        { x:  w, y: height },
-        { x: -w, y: height, connection: true },
+        { x:  w, y: height, connection: true },
+        { x: -w, y: height },
       ].concat(boxBottom)
       break
 
@@ -133,6 +133,8 @@ export const titleY = (operator) => {
     return 0
   } else if (operator.shape.match('HalfHouse')) {
     return (operator.width || 100) * 0.1 + 20
+  } else if (operator.shape.match('Triangle')) {
+    return (operator.width || 100) * 0.3 + 20
   } else if (operator.params === undefined) {
     return 20
   } else {

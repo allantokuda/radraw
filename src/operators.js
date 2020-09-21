@@ -24,11 +24,11 @@ const operators = [
   { numInputs: 2, type: UNION,       shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT },
   { numInputs: 2, type: INTERSECT,   shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT },
   { numInputs: 2, type: MINUS,       shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT },
-  { numInputs: 2, type: MATCH_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid: \nBid: ' },
-  { numInputs: 2, type: OUTER_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid: \nBid: ' },
-  { numInputs: 2, type: FULL_MINUS,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid: \nBid: ' },
+  { numInputs: 2, type: MATCH_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },
+  { numInputs: 2, type: OUTER_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },
+  { numInputs: 2, type: FULL_MINUS,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },
   { numInputs: 2, type: DIVIDE,      shape: OPERATOR_SHAPES.TRIANGLE },
-  { numInputs: 2, type: FULL_DIVIDE, shape: OPERATOR_SHAPES.TRIANGLE },
+  { numInputs: 2, type: FULL_DIVIDE, shape: OPERATOR_SHAPES.TRIANGLE, defaultParams: 'Aid(): \nBid(): \nResult id: ' },
 ]
 
 export default operators
@@ -38,5 +38,5 @@ export function operatorTypeProperties(operatorType) {
 }
 
 export function operatorHasParams(operatorType) {
-  return operatorType && [TIMES, UNION, INTERSECT, MINUS].indexOf(operatorType) === -1
+  return operatorType && [TIMES, UNION, INTERSECT, MINUS, DIVIDE].indexOf(operatorType) === -1
 }
