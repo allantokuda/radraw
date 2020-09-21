@@ -2,8 +2,6 @@ import nodes from './nodes'
 import arrows from './arrows'
 import editor from './editor'
 import relations from './relations'
-
-// temporary
 import initialState from '../initial-state'
 
 export function maxPlusOne(objects) {
