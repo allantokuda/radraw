@@ -5,8 +5,6 @@ import * as actions from './actions'
 
 const iconWidth = 40
 const iconHeight = 35
-const buttonWidth = iconWidth + 20
-const buttonHeight = iconHeight + 40
 
 export default ({ category, type, shape }) => {
   const dispatch = useDispatch()
