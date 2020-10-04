@@ -41,8 +41,7 @@ describe('editor reducer', () => {
       reducer(
         { editor: { action: 'select' } },
         { type: 'NEW_RELATION_MODE' }
-      ).action
-    ).toEqual('new_relation')
+      ).action).toEqual('new_relation')
   })
 
   it('should switch back to select mode', () => {
@@ -66,15 +65,51 @@ describe('editor reducer', () => {
     })
   })
 
-  it('can select a second relation', () => {
+  it('can change the selected relation', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [6] } },
+        { type: 'SELECT_RELATION', nodeId: 7 }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [7]
+    })
+  })
+
+  it('can toggle-select a second relation', () => {
     expect(
       reducer(
         { editor: { action: 'select', selectedRelationNodeIds: [7] } },
-        { type: 'SELECT_RELATION', nodeId: 8 }
+        { type: 'TOGGLE_SELECT_RELATION', nodeId: 8 }
       )
     ).toEqual({
       action: 'select',
       selectedRelationNodeIds: [7, 8]
+    })
+  })
+
+  it('can toggle-deselect a relation', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [6, 7] } },
+        { type: 'TOGGLE_SELECT_RELATION', nodeId: 7 }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [6]
+    })
+  })
+
+  it('can toggle-deselect one of several relations', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [7, 8, 9] } },
+        { type: 'TOGGLE_SELECT_RELATION', nodeId: 8 }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: [7, 9]
     })
   })
 
@@ -89,31 +124,6 @@ describe('editor reducer', () => {
       selectedRelationNodeIds: [7]
     })
   })
-
-  it('can deselect a relation', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [7] } },
-        { type: 'SELECT_RELATION', nodeId: 7 }
-      )
-    ).toEqual({
-      action: 'select',
-      selectedRelationNodeIds: []
-    })
-  })
-
-  it('can deselect one of several relations', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [7, 8, 9] } },
-        { type: 'SELECT_RELATION', nodeId: 8 }
-      )
-    ).toEqual({
-      action: 'select',
-      selectedRelationNodeIds: [7, 9]
-    })
-  })
-
 
   it('selects the newest relation after creating an operator', () => {
     expect(

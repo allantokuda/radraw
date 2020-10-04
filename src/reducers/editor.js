@@ -3,6 +3,7 @@ const initialState = { editor: { action: 'select' } }
 export default (state = initialState, action) => {
   let changes = {}
   let baselineEditor = state.editor
+  let noSelectAfterDrag, restOfEditorState
 
   switch(action.type) {
     case 'NEW_RELATION_MODE':
@@ -19,9 +20,18 @@ export default (state = initialState, action) => {
 
     case 'SELECT_RELATION':
       // use destructuring to remove 'noSelectAfterDrag' key immutably from the baseline state
-      let { noSelectAfterDrag, ...restOfEditorState } = state.editor
+      ({ noSelectAfterDrag, ...restOfEditorState } = state.editor)
       baselineEditor = restOfEditorState
+      if (noSelectAfterDrag) break
 
+      changes = { selectedRelationNodeIds: [action.nodeId] }
+
+      break
+
+    case 'TOGGLE_SELECT_RELATION':
+      // use destructuring to remove 'noSelectAfterDrag' key immutably from the baseline state
+      ({ noSelectAfterDrag, ...restOfEditorState } = state.editor)
+      baselineEditor = restOfEditorState
       if (noSelectAfterDrag) break
 
       const ids = state.editor.selectedRelationNodeIds

@@ -45,8 +45,12 @@ class ChartNode extends Component {
       dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
-    const handleRelationClick = (node) => {
-      dispatch(actions.selectRelation(node.id))
+    const handleRelationClick = (node, event) => {
+      if (event.shiftKey) {
+        dispatch(actions.toggleSelectRelation(node.id))
+      } else {
+        dispatch(actions.selectRelation(node.id))
+      }
     }
 
     const handleContentEditableClick = (event) => {
