@@ -66,8 +66,11 @@ button {
   width: 0;
 }
 
-[contenteditable]:hover,
-[contenteditable]:focus {
+
+[contenteditable] {
+  min-height: 20px;
+}
+.selected [contenteditable="true"]:focus {
   background: white;
 }
 
@@ -94,9 +97,9 @@ button {
   border-color: #ccc;
 }
 
-.relation.selected {
+.selected .relation {
   border-color: black;
-  background-color: #ccc;
+  background-color: #ffe200;
 }
 
 .relationButtonIcon {
@@ -118,6 +121,10 @@ button {
   stroke: black;
   stroke-width: 1;
 }
+.selected .operatorSvg {
+  fill: #7d9eff;
+}
+
 
 .underlay {
   position: absolute;

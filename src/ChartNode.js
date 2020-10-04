@@ -29,6 +29,7 @@ class ChartNode extends Component {
   render() {
     const { node, relation, state, dispatch } = this.props
     const operator = node.operator
+    const selected = state.editor.selectedRelationNodeIds.indexOf(node.id) > -1
 
     const handleEditName = (event) => {
       dispatch(actions.renameRelation(node.resultRelationId, event.target.value))
@@ -49,15 +50,11 @@ class ChartNode extends Component {
     }
 
     const handleContentEditableClick = (event) => {
-      event.stopPropagation()
+      // keep node selected, don't deselect
+      if (selected) event.stopPropagation()
     }
 
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg underlay' })
-
-    const relationClasses = classNames({
-      relation: true,
-      selected: state.editor.selectedRelationNodeIds.indexOf(node.id) > -1
-    })
 
     return (
       <Draggable
@@ -66,30 +63,31 @@ class ChartNode extends Component {
         onDrag={handleDrag}
         position={{ x: node.x, y: node.y }}>
 
-        <div ref={nodeRef => this.nodeRef = nodeRef} className="chartNode">
-          <div className="operator centeredOnZeroWidthParent">
+        <div ref={nodeRef => this.nodeRef = nodeRef} className={classNames({ chartNode: true, selected })}>
+          <div className="operator centeredOnZeroWidthParent" onClick={handleRelationClick.bind(this, node)}>
             <div className="operatorContent bottomFix dragHandle"
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
 
               <div className="operatorName">{operator.type}</div>
               { operatorHasParams(operator.type) &&
-                <ContentEditable className="operatorParams noDrag"
+                <ContentEditable className={classNames({ noDrag: selected, operatorParams: true })}
                                  html={operator.params}
                                  tagName='pre'
+                                 disabled={!selected}
+                                 onClick={handleContentEditableClick}
                                  onChange={handleEditParams.bind(this)}/>
               }
             </div>
             {svgShape(svgParams)}
           </div>
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <div className="relationClickArea dragHandle centeredOnZeroWidthParent" onClick={handleRelationClick.bind(this, node)}>
-            <div className={relationClasses} ref={ref => this.relationRef = ref}>
-              <ContentEditable className='noDrag relationEdit'
-                               html={relation.name}
-                               onClick={handleContentEditableClick}
-                               onChange={handleEditName}/>
-            </div>
+          <div className="relation dragHandle" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this, node)}>
+            <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
+                             html={relation.name}
+                             disabled={!selected}
+                             onClick={handleContentEditableClick}
+                             onChange={handleEditName}/>
           </div>
         </div>
       </Draggable>
