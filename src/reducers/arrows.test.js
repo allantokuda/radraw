@@ -89,4 +89,29 @@ describe('arrows reducer', () => {
       { from: 2, to: 3, connection: 1, x1: 300, x2: 200, y1: 230, y2: 460 },
     ])
   })
+
+  it('cleans up disconnected arrows', () => {
+    let editor = {
+      selectedRelationNodeIds: [2]
+    }
+    let nodes = [
+      { id: 1, x: 100, y: 100, height: 120, relation: {} },
+      // supposing node 2 has been deleted
+      { id: 3, x: 200, y: 460, height: 100, relation: {} },
+    ]
+    let arrows = [
+      { from: 1, to: 2 },
+      { from: 2, to: 3 },
+      { from: 1, to: 3 },
+    ]
+    let action = {
+      type: actions.DELETE_SELECTED
+    }
+    expect(
+      reducer({ editor, nodes, arrows }, action)
+    ).toEqual([
+      { from: 1, to: 3 },
+    ])
+
+  })
 })

@@ -85,11 +85,14 @@ export default (state, action) => {
         y: bottomY + 30
       })
       break
+
+    case 'DELETE_SELECTED':
+      nodes = state.nodes.filter(node => state.editor.selectedRelationNodeIds.indexOf(node.id) === -1)
+      break
     
     default:
 
   }
-
   
   return nodes
 }

@@ -184,4 +184,25 @@ describe('node reducer', () => {
       { id: 9, resultRelationId: 15, operator: { shape: "HalfHouseLeft", type: "Match Join", params: 'Aid(): \nBid(): ' }, x: 200, y: 580 }
     ])
   })
+
+  it('deletes selected nodes', () => {
+    expect(
+      reducer(
+        {
+          relations: [{ id: 13 }, {id: 14 }],
+          nodes: [
+            { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300 },
+            { id: 7, resultRelationId: 14, x: 100, y: 200, height: 300 },
+            { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300 },
+            { id: 9, resultRelationId: 16, x: 100, y: 200, height: 300 }
+          ],
+          editor: { selectedRelationNodeIds: [7, 9] }
+        },
+        { type: 'DELETE_SELECTED' }
+      )
+    ).toEqual([
+      { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300 },
+      { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300 }
+    ])
+  })
 })

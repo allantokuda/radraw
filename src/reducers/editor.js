@@ -9,6 +9,10 @@ export default (state = initialState, action) => {
       changes = { action: 'new_relation' }
       break
 
+    case 'DELETION_MODE':
+      changes = { action: 'delete_node' }
+      break
+
     case 'CREATE_RELATION':
       changes = { action: 'select' }
       break

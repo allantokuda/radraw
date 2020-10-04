@@ -11,80 +11,52 @@ export default {
       y: 100,
       height: 111,
       operator: {},
-      resultRelationId: 6,
-    },
-    {
-      id: 3,
-      x: 300,
-      y: 100,
-      height: 111,
-      operator: {},
-      resultRelationId: 7,
+      resultRelationId: 1,
     },
     {
       id: 2,
-      x: 200,
-      y: 250,
-      height: 212,
-      operator: {
-        type: 'Match Join',
-        shape: 'HalfHouseLeft',
-        params: 'Aid: XYZ_Skill_code\nBid: Skill_code'
-      },
-      resultRelationId: 5,
+      x: 250,
+      y: 100,
+      height: 111,
+      operator: {},
+      resultRelationId: 2,
+    },
+    {
+      id: 3,
+      x: 400,
+      y: 100,
+      height: 111,
+      operator: {},
+      resultRelationId: 3,
     },
     {
       id: 4,
-      x: 450,
-      y: 550,
-      height: 212,
-      operator: {
-        type: 'Times',
-        shape: 'FullHouse',
-      },
-      resultRelationId: 9,
+      x: 550,
+      y: 100,
+      height: 111,
+      operator: {},
+      resultRelationId: 4,
     },
-    {
-      id: 5,
-      x: 450,
-      y: 750,
-      height: 212,
-      operator: {
-        type: 'Project',
-        shape: 'Pill',
-        params: ''
-      },
-      resultRelationId: 10,
-    }
   ],
   arrows: [
-    { from: 1, to: 2, connection: 0, x1: 100, y1: 211, x2: 200, y2: 230 },
-    { from: 3, to: 2, connection: 1, x1: 300, y1: 211, x2: 200, y2: 230 },
-    { from: 2, to: 4, connection: 0, x1: 300, y1: 211, x2: 200, y2: 230 },
-    { from: 3, to: 4, connection: 1, x1: 300, y1: 211, x2: 200, y2: 230 },
-    { from: 4, to: 5, connection: 0, x1: 300, y1: 211, x2: 200, y2: 230 },
   ],
   relations: [
     {
-      id: 6,
-      name: 'Achievement'
+      id: 1,
+      name: 'Creature'
     },
     {
-      id: 7,
+      id: 2,
       name: 'Skill'
     },
     {
-      id: 5,
-      name: 'Achievement with Skill data'
+      id: 3,
+      name: 'Achievement'
     },
     {
-      id: 9,
-      name: 'Something'
+      id: 4,
+      name: 'Aspiration'
     },
-    {
-      id: 10,
-      name: 'Another Thing'
-    }
   ]
 }
 

@@ -32,6 +32,14 @@ export default (state, action) => {
       )
       break
 
+    case 'DELETE_SELECTED':
+      let existingNodeIds = state.nodes.map(node => node.id)
+      arrows = state.arrows.filter(arrow =>
+        existingNodeIds.indexOf(arrow.to) !== -1 &&
+        existingNodeIds.indexOf(arrow.from) !== -1
+      )
+      break
+
     default:
       const changedNode = state.nodes.find(node => node.id === action.nodeId) || {}
 

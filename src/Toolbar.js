@@ -7,9 +7,8 @@ import operators from './operators'
 
 let Toolbar = ({ state }) => {
   const dispatch = useDispatch()
-  let newRelation = () => {
-    dispatch(actions.newRelationMode())
-  }
+  let newRelation = () => { dispatch(actions.newRelationMode()) }
+  let deleteRelation = () => { dispatch(actions.deleteSelected()) }
 
   return (
     <header className="toolbar">
@@ -17,6 +16,11 @@ let Toolbar = ({ state }) => {
         <div className="relation" style={{ boxSizing: 'border-box', height: '25px', width: '50px', marginTop: '10px' }}>
         </div>
         <label className="">New Relation</label>
+      </button>
+      <button onClick={deleteRelation} className={classNames({ operatorButton: true })}>
+        <div className="relation" style={{ boxSizing: 'border-box', height: '25px', width: '50px', marginTop: '10px' }}>
+        </div>
+        <label className="">Delete</label>
       </button>
       {
         operators.filter(operator =>
