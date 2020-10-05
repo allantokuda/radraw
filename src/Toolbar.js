@@ -26,7 +26,7 @@ let Toolbar = ({ state }) => {
     <header className="toolbar">
       <button onClick={newRelation} className={classNames({ operatorButton: true, selected: state.editor.action === 'new_relation' })}>
         <div className="buttonContents">
-          <div className="relation" aria-hidden={true} style={{ boxSizing: 'border-box', height: '25px', width: '50px', padding: 4, margin: '5px 0' }}>
+          <div className="relation" aria-hidden={true} style={{ boxSizing: 'border-box', height: '25px', width: '50px', padding: 1, margin: '5px 0' }}>
             &#10133;
           </div>
           <label className="">New Relation</label>
@@ -36,7 +36,7 @@ let Toolbar = ({ state }) => {
       { state.editor.selectedRelationNodeIds.length === 1 &&
         <button onClick={deleteRelation} className="operatorButton">
           <span className="buttonContents">
-            <div className="relation" aria-hidden={true} style={{ background: '#fcc', borderColor: '#c99', color: 'black', boxSizing: 'border-box', height: '25px', width: '50px', padding: 4, margin: '5px 0' }}>
+            <div className="relation" aria-hidden={true} style={{ background: '#fcc', borderColor: '#c99', color: 'black', boxSizing: 'border-box', height: '25px', width: '50px', padding: 1, margin: '5px 0' }}>
               &#10060;
             </div>
             <label className="">Delete</label>

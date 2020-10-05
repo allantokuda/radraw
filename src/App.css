@@ -32,16 +32,13 @@
 
 .toolbar button {
   min-height: 30px;
+  background: none;
+  border: none;
+  color: white;
 }
 
 .toolbar button.selected {
   background: #999;
-}
-
-button {
-  background: none;
-  border: none;
-  color: white;
 }
 
 .react-draggable {
@@ -83,6 +80,7 @@ button {
   padding: 8px 10px;
   border: 2px solid #999;
   background: #eee;
+  font-size: 16px;
 }
 
 .relationClickArea {
