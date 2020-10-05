@@ -16,7 +16,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
   }
 
   return <div className="precedenceChart" onClick={handleChartClick}>
-    <pre id='statewatch'>{ JSON.stringify(state, null, 2) }</pre>
+    {false && <pre id='statewatch'>{ JSON.stringify(state, null, 2) }</pre> }
 
     {state.nodes.map(node => {
       const relation = state.relations.find(relation => relation.id === node.resultRelationId)
