@@ -21,8 +21,8 @@ const operators = [
   { numInputs: 1, type: GROUP,       shape: OPERATOR_SHAPES.HEXAGON, defaultParams: 'over: ' },
 
   { numInputs: 2, type: TIMES,       shape: OPERATOR_SHAPES.FULL_HOUSE },
-  { numInputs: 2, type: UNION,       shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT },
-  { numInputs: 2, type: INTERSECT,   shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT },
+  { numInputs: 2, type: UNION,       shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT_SYMMETRIC },
+  { numInputs: 2, type: INTERSECT,   shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT_SYMMETRIC },
   { numInputs: 2, type: MINUS,       shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT },
   { numInputs: 2, type: MATCH_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },
   { numInputs: 2, type: OUTER_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },

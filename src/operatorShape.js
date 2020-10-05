@@ -5,6 +5,7 @@ export const OPERATOR_SHAPES = {
   HEXAGON: 'Hexagon',
   FULL_HOUSE: 'FullHouse',
   HALF_HOUSE_LEFT: 'HalfHouseLeft',
+  HALF_HOUSE_LEFT_SYMMETRIC: 'HalfHouseLeftSymmetric',
   HALF_HOUSE_RIGHT: 'HalfHouseRight',
   TRIANGLE: 'Triangle',
 }
@@ -49,6 +50,14 @@ const operatorKeypoints = ({ shape, width, height }) => {
       points = [
         { x: -w, y:  0, connection: true },
         { x:  w, y: h2, connection: true },
+      ].concat(boxBottom)
+      break
+
+    case OPERATOR_SHAPES.HALF_HOUSE_LEFT_SYMMETRIC:
+      points = [
+        { x: -w, y:  0, connection: true },
+        { x: -w, y:  0, connection: true },
+        { x:  w, y: h2 },
       ].concat(boxBottom)
       break
 
