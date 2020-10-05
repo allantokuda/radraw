@@ -33,7 +33,7 @@ let Toolbar = ({ state }) => {
         </div>
       </button>
 
-      { state.editor.selectedRelationNodeIds.length === 1 &&
+      { state.editor.selectedRelationNodeIds.length >= 1 &&
         <button onClick={deleteRelation} className="operatorButton">
           <span className="buttonContents">
             <div className="relation" aria-hidden={true} style={{ background: '#fcc', borderColor: '#c99', color: 'black', boxSizing: 'border-box', height: '25px', width: '50px', padding: 1, margin: '5px 0' }}>
