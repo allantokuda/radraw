@@ -68,7 +68,7 @@ class ChartNode extends Component {
         position={{ x: node.x, y: node.y }}>
 
         <div ref={nodeRef => this.nodeRef = nodeRef} className={classNames({ chartNode: true, selected })}>
-          <div className="operator centeredOnZeroWidthParent" onClick={handleRelationClick.bind(this, node)}>
+          <div className={"operator centeredOnZeroWidthParent " + operator.type} onClick={handleRelationClick.bind(this, node)}>
             <div className="operatorContent bottomFix dragHandle"
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>

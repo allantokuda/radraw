@@ -156,6 +156,12 @@
   margin-top: 0px;
 }
 
+.operator.Project .operatorParams,
+.operator.Filter .operatorParams {
+  min-width: 70px;
+  text-align: center;
+}
+
 .precedenceChart > .arrow {
   position: absolute;
 }
