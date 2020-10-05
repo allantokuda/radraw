@@ -13,7 +13,9 @@ export default ({ category, type, shape }) => {
   }
   return (
     <button className="operatorButton" onClick={handleClick}>
-      {svgShape({ shape: shape, width: iconWidth, height: iconHeight })}
+      <span className="iconContainer">
+        {svgShape({ shape: shape, width: iconWidth, height: iconHeight })}
+      </span>
       <label>{ type }</label>
     </button>
   )

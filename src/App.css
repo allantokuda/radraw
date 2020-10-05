@@ -178,6 +178,13 @@ button {
   text-align: center;
   margin: 4px;
   height: 75px;
+  vertical-align: bottom;
+}
+
+.buttonContents {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .operatorButton label {

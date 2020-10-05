@@ -13,15 +13,23 @@ let Toolbar = ({ state }) => {
   return (
     <header className="toolbar">
       <button onClick={newRelation} className={classNames({ operatorButton: true, selected: state.editor.action === 'new_relation' })}>
-        <div className="relation" style={{ boxSizing: 'border-box', height: '25px', width: '50px', marginTop: '10px' }}>
+        <div className="buttonContents">
+          <div className="relation" aria-hidden={true} style={{ boxSizing: 'border-box', height: '25px', width: '50px', padding: 4, margin: '5px 0' }}>
+            &#10133;
+          </div>
+          <label className="">New Relation</label>
         </div>
-        <label className="">New Relation</label>
       </button>
+      { state.editor.selectedRelationNodeIds.length === 1 &&
       <button onClick={deleteRelation} className={classNames({ operatorButton: true })}>
-        <div className="relation" style={{ boxSizing: 'border-box', height: '25px', width: '50px', marginTop: '10px' }}>
-        </div>
-        <label className="">Delete</label>
+        <span className="buttonContents">
+          <div className="relation" aria-hidden={true} style={{ background: '#fcc', borderColor: '#c99', color: 'black', boxSizing: 'border-box', height: '25px', width: '50px', padding: 4, margin: '5px 0' }}>
+            &#10060;
+          </div>
+          <label className="">Delete</label>
+        </span>
       </button>
+      }
       {
         operators.filter(operator =>
           operator.numInputs === state.editor.selectedRelationNodeIds.length
