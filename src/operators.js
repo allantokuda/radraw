@@ -27,8 +27,8 @@ const operators = [
   { numInputs: 2, type: MATCH_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },
   { numInputs: 2, type: OUTER_JOIN,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },
   { numInputs: 2, type: FULL_MINUS,  shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT, defaultParams: 'Aid(): \nBid(): ' },
-  { numInputs: 2, type: DIVIDE,      shape: OPERATOR_SHAPES.TRIANGLE },
-  { numInputs: 2, type: FULL_DIVIDE, shape: OPERATOR_SHAPES.TRIANGLE, defaultParams: 'Aid(): \nBid(): \nResult id: ' },
+  { numInputs: 2, type: DIVIDE,      shape: OPERATOR_SHAPES.TRIANGLE_LEFT },
+  { numInputs: 2, type: FULL_DIVIDE, shape: OPERATOR_SHAPES.TRIANGLE_LEFT, defaultParams: 'Aid(): \nBid(): \nResult id: ' },
 ]
 
 export default operators

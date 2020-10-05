@@ -205,4 +205,22 @@ describe('node reducer', () => {
       { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300 }
     ])
   })
+
+  it('flips flippable operator', () => {
+    expect(
+      reducer(
+        {
+          relations: [{ id: 13 }, {id: 14 }],
+          nodes: [
+            { id: 6, resultRelationId: 13, operator: { shape: 'HalfHouseLeft' } },
+          ],
+          editor: { selectedRelationNodeIds: [6] }
+        },
+        { type: 'FLIP_OPERATOR' }
+      )
+    ).toEqual([
+      { id: 6, resultRelationId: 13, operator: { shape: 'HalfHouseRight' } },
+    ])
+
+  })
 })

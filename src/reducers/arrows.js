@@ -41,12 +41,14 @@ export default (state, action) => {
       break
 
     default:
-      const changedNode = state.nodes.find(node => node.id === action.nodeId) || {}
+      let implicitNodeId = (action.type === 'FLIP_OPERATOR' && state.editor.selectedRelationNodeIds[0])
+      let actionNodeId = (action.nodeId || implicitNodeId)
+      const changedNode = state.nodes.find(node => node.id === actionNodeId) || {}
 
       arrows = state.arrows.map(arrow => {
-        if (arrow.from === action.nodeId) {
+        if (arrow.from === actionNodeId) {
           return Object.assign({}, arrow, { x1: changedNode.x, y1: changedNode.y + (changedNode.height || 0) })
-        } else if (arrow.to === action.nodeId) {
+        } else if (arrow.to === actionNodeId) {
           let points = connectionPoints(changedNode.operator)
           let connectionPoint = points[arrow.connection]
           return Object.assign({}, arrow, { x2: changedNode.x + connectionPoint.x, y2: changedNode.y + connectionPoint.y })

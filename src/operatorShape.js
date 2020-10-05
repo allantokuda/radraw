@@ -7,7 +7,21 @@ export const OPERATOR_SHAPES = {
   HALF_HOUSE_LEFT: 'HalfHouseLeft',
   HALF_HOUSE_LEFT_SYMMETRIC: 'HalfHouseLeftSymmetric',
   HALF_HOUSE_RIGHT: 'HalfHouseRight',
-  TRIANGLE: 'Triangle',
+  HALF_HOUSE_RIGHT_SYMMETRIC: 'HalfHouseRightSymmetric',
+  TRIANGLE_LEFT: 'TriangleLeft',
+  TRIANGLE_RIGHT: 'TriangleRight',
+}
+
+export const flip = (shape) => {
+  switch (shape) {
+    case OPERATOR_SHAPES.HALF_HOUSE_LEFT: return OPERATOR_SHAPES.HALF_HOUSE_RIGHT
+    case OPERATOR_SHAPES.HALF_HOUSE_RIGHT: return OPERATOR_SHAPES.HALF_HOUSE_LEFT
+    case OPERATOR_SHAPES.HALF_HOUSE_LEFT_SYMMETRIC: return OPERATOR_SHAPES.HALF_HOUSE_RIGHT_SYMMETRIC
+    case OPERATOR_SHAPES.HALF_HOUSE_RIGHT_SYMMETRIC: return OPERATOR_SHAPES.HALF_HOUSE_LEFT_SYMMETRIC
+    case OPERATOR_SHAPES.TRIANGLE_LEFT: return OPERATOR_SHAPES.TRIANGLE_RIGHT
+    case OPERATOR_SHAPES.TRIANGLE_RIGHT: return OPERATOR_SHAPES.TRIANGLE_LEFT
+    default: return null
+  }
 }
 
 const operatorKeypoints = ({ shape, width, height }) => {
@@ -68,6 +82,14 @@ const operatorKeypoints = ({ shape, width, height }) => {
       ].concat(boxBottom)
       break
 
+    case OPERATOR_SHAPES.HALF_HOUSE_RIGHT_SYMMETRIC:
+      points = [
+        { x: -w, y: h2 },
+        { x:  w, y:  0, connection: true },
+        { x:  w, y:  0, connection: true },
+      ].concat(boxBottom)
+      break
+
     case OPERATOR_SHAPES.FULL_HOUSE:
       points = [
         { x: -w, y: h2, connection: true },
@@ -76,11 +98,19 @@ const operatorKeypoints = ({ shape, width, height }) => {
       ].concat(boxBottom)
       break
 
-    case OPERATOR_SHAPES.TRIANGLE:
+    case OPERATOR_SHAPES.TRIANGLE_LEFT:
       points = [
         { x:  0, y: 0, connection: true },
         { x:  w, y: height, connection: true },
         { x: -w, y: height },
+      ].concat(boxBottom)
+      break
+
+    case OPERATOR_SHAPES.TRIANGLE_RIGHT:
+      points = [
+        { x:  0, y: 0, connection: true },
+        { x:  w, y: height },
+        { x: -w, y: height, connection: true },
       ].concat(boxBottom)
       break
 

@@ -13,6 +13,7 @@ export const DESELECT_ALL = 'DESELECT_ALL'
 export const NEW_RELATION_MODE = 'NEW_RELATION_MODE'
 export const CREATE_RELATION = 'CREATE_RELATION'
 export const ADD_OPERATOR = 'ADD_OPERATOR'
+export const FLIP_OPERATOR = 'FLIP_OPERATOR'
 
 /*
  * action creators
@@ -60,4 +61,8 @@ export function createRelation(x, y) {
 
 export function addOperator(operatorType) {
   return { type: ADD_OPERATOR, operatorType }
+}
+
+export function flipOperator(operatorType) {
+  return { type: FLIP_OPERATOR }
 }

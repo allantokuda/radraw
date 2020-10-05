@@ -1,6 +1,7 @@
 import * as actions from '../actions'
 import { maxPlusOne } from './index'
 import { operatorTypeProperties } from '../operators'
+import { flip } from '../operatorShape'
 
 function average(nums) {
   return nums.reduce((a, b) => (a + b)) / nums.length;
@@ -88,6 +89,17 @@ export default (state, action) => {
 
     case 'DELETE_SELECTED':
       nodes = state.nodes.filter(node => state.editor.selectedRelationNodeIds.indexOf(node.id) === -1)
+      break
+
+    case 'FLIP_OPERATOR':
+      nodes = state.nodes.map(node => {
+        if (state.editor.selectedRelationNodeIds.indexOf(node.id) !== -1) {
+          const operator = Object.assign({}, node.operator, { shape: flip(node.operator.shape) })
+          return Object.assign({}, node, { operator })
+        } else {
+          return node
+        }
+      })
       break
     
     default:
