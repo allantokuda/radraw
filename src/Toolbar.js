@@ -9,7 +9,12 @@ import { flip } from './operatorShape'
 let Toolbar = ({ state }) => {
   const dispatch = useDispatch()
   let newRelation = () => { dispatch(actions.newRelationMode()) }
-  let deleteRelation = () => { dispatch(actions.deleteSelected()) }
+  let deleteRelation = () => {
+    let confirmed = window.confirm('This will delete ' + state.editor.selectedRelationNodeIds.length + ' selected item(s).')
+    if (confirmed) {
+      dispatch(actions.deleteSelected())
+    }
+  }
   let flipOperator = () => { dispatch(actions.flipOperator()) }
 
   const ids = state.editor.selectedRelationNodeIds
