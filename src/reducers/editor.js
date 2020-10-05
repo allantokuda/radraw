@@ -58,6 +58,7 @@ export default (state = initialState, action) => {
       break
 
     case 'DESELECT_ALL':
+    case 'DELETE_SELECTED':
       changes = { selectedRelationNodeIds: [] }
       break
 

@@ -156,4 +156,16 @@ describe('editor reducer', () => {
       noSelectAfterDrag: true
     })
   })
+
+  it('clears selection upon delete', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selectedRelationNodeIds: [4, 5] } },
+        { type: 'DELETE_SELECTED' }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: []
+    })
+  })
 })
