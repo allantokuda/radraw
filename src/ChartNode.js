@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ContentEditable from 'react-contenteditable'
 import Draggable from 'react-draggable'
 import * as actions from './actions'
-import { svgShape, titleY } from './operatorShape'
+import { svgShape, titleY, connectionPoints } from './operatorShape'
 import { operatorHasParams } from './operators'
 import Arrow from './Arrow'
 import classNames from 'classnames'
@@ -60,6 +60,10 @@ class ChartNode extends Component {
 
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg underlay' })
 
+    const inboundArrows = state.arrows.filter(arrow => arrow.to === node.id)
+    const filledConnections = inboundArrows.map(arrow => arrow.connection)
+    const openPoints = connectionPoints(operator).filter((point, i) => filledConnections.indexOf(i) === -1)
+
     return (
       <Draggable
         cancel=".noDrag"
@@ -68,6 +72,15 @@ class ChartNode extends Component {
         position={{ x: node.x, y: node.y }}>
 
         <div ref={nodeRef => this.nodeRef = nodeRef} className={classNames({ chartNode: true, selected })}>
+          {openPoints.map((point, i) =>
+            <button
+              key={i}
+              className="missingInput"
+              style={{marginLeft: point.x * 2, top: point.y}}
+              aria-label={"missing input " + (i+1) + " to node " + node.id}
+            >!</button>
+          )}
+
           <div className={"operator centeredOnZeroWidthParent " + operator.type} onClick={handleRelationClick.bind(this, node)}>
             <div className="operatorContent bottomFix dragHandle"
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}

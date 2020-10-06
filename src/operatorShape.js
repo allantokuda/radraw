@@ -118,8 +118,8 @@ const operatorKeypoints = ({ shape, width, height }) => {
 
     default:
       points = [
-        { x: -w, y: 0, connection: true },
-        { x:  w, y: 0, connection: true },
+        { x: -w, y: 0 },
+        { x:  w, y: 0 },
       ].concat(boxBottom)
   }
 
