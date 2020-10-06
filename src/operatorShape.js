@@ -36,10 +36,12 @@ const operatorKeypoints = ({ shape, width, height }) => {
   let h2 = width * 0.2 // for drawing house shapes
   let points
 
-  let boxBottom = [
+  const boxBottom = [
     { x:  w, y: height },
     { x: -w, y: height }
   ]
+
+  const boxBottomReverse = [boxBottom[1], boxBottom[0]]
 
   switch(shape) {
     case OPERATOR_SHAPES.PILL:
@@ -77,17 +79,17 @@ const operatorKeypoints = ({ shape, width, height }) => {
 
     case OPERATOR_SHAPES.HALF_HOUSE_RIGHT:
       points = [
-        { x: -w, y: h2, connection: true },
         { x:  w, y:  0, connection: true },
-      ].concat(boxBottom)
+        { x: -w, y: h2, connection: true },
+      ].concat(boxBottomReverse)
       break
 
     case OPERATOR_SHAPES.HALF_HOUSE_RIGHT_SYMMETRIC:
       points = [
+        { x:  w, y:  0, connection: true },
+        { x:  w, y:  0, connection: true },
         { x: -w, y: h2 },
-        { x:  w, y:  0, connection: true },
-        { x:  w, y:  0, connection: true },
-      ].concat(boxBottom)
+      ].concat(boxBottomReverse)
       break
 
     case OPERATOR_SHAPES.FULL_HOUSE:
@@ -109,9 +111,9 @@ const operatorKeypoints = ({ shape, width, height }) => {
     case OPERATOR_SHAPES.TRIANGLE_RIGHT:
       points = [
         { x:  0, y: 0, connection: true },
-        { x:  w, y: height },
         { x: -w, y: height, connection: true },
-      ].concat(boxBottom)
+        { x:  w, y: height },
+      ].concat(boxBottomReverse)
       break
 
     default:

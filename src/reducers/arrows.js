@@ -40,17 +40,29 @@ export default (state, action) => {
       )
       break
 
-    default:
-      let implicitNodeId = (action.type === 'FLIP_OPERATOR' && state.editor.selectedRelationNodeIds[0])
-      let actionNodeId = (action.nodeId || implicitNodeId)
-      const changedNode = state.nodes.find(node => node.id === actionNodeId) || {}
+    case 'FLIP_OPERATOR':
+      const flipNodeId = state.editor.selectedRelationNodeIds[0]
+      const flipNode = state.nodes.find(node => node.id === flipNodeId)
 
       arrows = state.arrows.map(arrow => {
-        if (arrow.from === actionNodeId) {
+        if (arrow.to === flipNodeId) {
+          const newConnection = 1 - arrow.connection // binary only for now
+          const connectionPoint = connectionPoints(flipNode.operator)[newConnection]
+          return Object.assign({}, arrow, { connection: newConnection, x2: flipNode.x + connectionPoint.x, y2: flipNode.y + connectionPoint.y })
+        } else {
+          return arrow
+        }
+      })
+      break
+
+    default:
+      const changedNode = state.nodes.find(node => node.id === action.nodeId) || {}
+
+      arrows = state.arrows.map(arrow => {
+        if (arrow.from === action.nodeId) {
           return Object.assign({}, arrow, { x1: changedNode.x, y1: changedNode.y + (changedNode.height || 0) })
-        } else if (arrow.to === actionNodeId) {
-          let points = connectionPoints(changedNode.operator)
-          let connectionPoint = points[arrow.connection]
+        } else if (arrow.to === action.nodeId) {
+          const connectionPoint = connectionPoints(changedNode.operator)[arrow.connection]
           return Object.assign({}, arrow, { x2: changedNode.x + connectionPoint.x, y2: changedNode.y + connectionPoint.y })
         } else {
           return arrow
@@ -58,7 +70,6 @@ export default (state, action) => {
       })
       break
   }
-  
 
   return arrows
 }

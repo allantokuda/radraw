@@ -90,6 +90,30 @@ describe('arrows reducer', () => {
     ])
   })
 
+  it('flips arrows on binary operator', () => {
+    let editor = {
+      selectedRelationNodeIds: [3]
+    }
+    let nodes = [
+      { id: 1, x: 100, y: 100, height: 120, operator: {} },
+      { id: 2, x: 300, y: 100, height: 130, operator: {} },
+      { id: 3, x: 200, y: 460, height: 100, operator: { type: 'MINUS' } },
+    ]
+    let arrows = [
+      { from: 1, to: 3, x1: 100, y1: 0, x2: 200, y2: 100, connection: 0 },
+      { from: 2, to: 3, x1: 400, y1: 0, x2: 300, y2: 142, connection: 1 },
+    ]
+    let action = {
+      type: actions.FLIP_OPERATOR
+    }
+    expect(
+      reducer({ editor, nodes, arrows }, action)
+    ).toEqual([
+      { from: 1, to: 3, x1: 100, y1: 0, x2: 250, y2: 460, connection: 1 },
+      { from: 2, to: 3, x1: 400, y1: 0, x2: 150, y2: 460, connection: 0 },
+    ])
+  })
+
   it('cleans up disconnected arrows', () => {
     let editor = {
       selectedRelationNodeIds: [2]
