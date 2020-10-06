@@ -8,7 +8,7 @@ describe('arrows reducer', () => {
     let nodes = [
       { id: 1, x: 100, y:   0, operator: {} },
       { id: 2, x: 200, y:   0, operator: {} },
-      { id: 3, x: 150, y: 200, operator: { type: 'HalfHouseLeft', width: 160, height: 120 } }
+      { id: 3, x: 150, y: 200, operator: { shape: 'HalfHouseLeft', width: 160, height: 120 } }
     ]
     let arrows = [
       { from: 1, to: 3, connection: 0 },
@@ -23,7 +23,7 @@ describe('arrows reducer', () => {
       reducer({ nodes, arrows }, action)
     ).toEqual([
       { from: 1, to: 3, connection: 0, x2: 71, y2: 200 },
-      { from: 2, to: 3, connection: 1, x2: 229, y2: 200 }
+      { from: 2, to: 3, connection: 1, x2: 229, y2: 231.6 }
     ])
   })
 
@@ -97,7 +97,7 @@ describe('arrows reducer', () => {
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, operator: {} },
       { id: 2, x: 300, y: 100, height: 130, operator: {} },
-      { id: 3, x: 200, y: 460, height: 100, operator: { type: 'MINUS' } },
+      { id: 3, x: 200, y: 460, height: 100, operator: { type: 'MINUS', shape: 'HalfHouseLeft' } },
     ]
     let arrows = [
       { from: 1, to: 3, x1: 100, y1: 0, x2: 200, y2: 100, connection: 0 },
@@ -109,7 +109,7 @@ describe('arrows reducer', () => {
     expect(
       reducer({ editor, nodes, arrows }, action)
     ).toEqual([
-      { from: 1, to: 3, x1: 100, y1: 0, x2: 250, y2: 460, connection: 1 },
+      { from: 1, to: 3, x1: 100, y1: 0, x2: 250, y2: 480, connection: 1 },
       { from: 2, to: 3, x1: 400, y1: 0, x2: 150, y2: 460, connection: 0 },
     ])
   })
