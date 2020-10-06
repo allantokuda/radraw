@@ -23,7 +23,7 @@ export default (state, action) => {
     case 'ADD_OPERATOR':
       const fromNodes = state.editor.selectedRelationNodeIds.map(
         nodeId => state.nodes.find(node => node.id === nodeId)
-      ).sort((n1, n2) => n1.x > n2.x)
+      ).sort((n1, n2) => n1.x - n2.x)
 
       const toNode = state.nodes.slice(-1)[0] // assume newly created node is last item in the array
 
