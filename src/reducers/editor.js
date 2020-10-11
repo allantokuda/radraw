@@ -24,7 +24,14 @@ export default (state = initialState, action) => {
       baselineEditor = restOfEditorState
       if (noSelectAfterDrag) break
 
-      changes = { selectedRelationNodeIds: [action.nodeId] }
+      switch (state.editor.action) {
+        case 'connect_from':
+          changes = { action: 'select' }
+          break
+
+        default:
+          changes = { selectedRelationNodeIds: [action.nodeId] }
+      }
 
       break
 
@@ -55,6 +62,10 @@ export default (state = initialState, action) => {
 
     case 'ADD_OPERATOR':
       changes = { selectedRelationNodeIds: [Math.max(...state.nodes.map(node => node.id))] }
+      break
+
+    case 'INIT_CONNECT':
+      changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId } }
       break
 
     case 'DESELECT_ALL':

@@ -45,6 +45,10 @@ class ChartNode extends Component {
       dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
+    const initConnect = (event, connection) => {
+      dispatch(actions.initConnect(node.id, connection))
+    }
+
     const handleRelationClick = (node, event) => {
       if (event.shiftKey) {
         dispatch(actions.toggleSelectRelation(node.id))
@@ -77,6 +81,7 @@ class ChartNode extends Component {
               key={i}
               className="missingInput"
               style={{marginLeft: point.x * 2, top: point.y}}
+              onClick={initConnect}
               aria-label={"missing input " + (i+1) + " to node " + node.id}
             >!</button>
           )}
