@@ -6,16 +6,19 @@ export default (state, action) => {
   }
 
   let arrows
+  let toNode
+  let fromNode
 
   function newArrow(fromNode, toNode, connection) {
+    const connectionPoint = connectionPoints(toNode.operator)[connection]
     return {
       from: fromNode.id,
       to: toNode.id,
       connection: connection,
       x1: fromNode.x,
       y1: fromNode.y + fromNode.height,
-      x2: toNode.x,
-      y2: toNode.y
+      x2: toNode.x + connectionPoint.x,
+      y2: toNode.y + connectionPoint.y
     }
   }
 
@@ -25,12 +28,20 @@ export default (state, action) => {
         nodeId => state.nodes.find(node => node.id === nodeId)
       ).sort((n1, n2) => n1.x - n2.x)
 
-      const toNode = state.nodes.slice(-1)[0] // assume newly created node is last item in the array
+      toNode = state.nodes.slice(-1)[0] // assume newly created node is last item in the array
 
+      // Add 1 or 2 new arrows depending on cardinality of operator being added
       arrows = state.arrows.concat(
         fromNodes.map((fromNode, i) => newArrow(fromNode, toNode, i))
       )
       break
+
+    case 'FINISH_CONNECT':
+      fromNode = state.nodes.find(node => node.id === action.sourceNodeId)
+      toNode = state.nodes.find(node => node.id === state.editor.connectTo.nodeId)
+      arrows = [...state.arrows, newArrow(fromNode, toNode, state.editor.connectTo.connection)]
+      break
+
 
     case 'DELETE_SELECTED':
       let existingNodeIds = state.nodes.map(node => node.id)
@@ -47,8 +58,8 @@ export default (state, action) => {
       arrows = state.arrows.map(arrow => {
         if (arrow.to === flipNodeId) {
           const newConnection = 1 - arrow.connection // binary only for now
-          const connectionPoint = connectionPoints(flipNode.operator)[newConnection]
-          return Object.assign({}, arrow, { connection: newConnection, x2: flipNode.x + connectionPoint.x, y2: flipNode.y + connectionPoint.y })
+          fromNode = state.nodes.find(node => node.id === arrow.from)
+          return newArrow(fromNode, flipNode, newConnection)
         } else {
           return arrow
         }

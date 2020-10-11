@@ -45,12 +45,24 @@ class ChartNode extends Component {
       dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
-    const initConnect = (event, connection) => {
+    const initConnect = (connection, event) => {
       dispatch(actions.initConnect(node.id, connection))
     }
 
-    const handleRelationClick = (node, event) => {
-      if (event.shiftKey) {
+    const handleOperatorClick = (event) => {
+      selectNode(event.shiftKey)
+    }
+
+    const handleRelationClick = (event) => {
+      if (state.editor.action === 'connect') {
+        dispatch(actions.finishConnect(node.id))
+      } else {
+        selectNode(event.shiftKey)
+      }
+    }
+
+    const selectNode = (toggleMode) => {
+      if (toggleMode) {
         dispatch(actions.toggleSelectRelation(node.id))
       } else {
         dispatch(actions.selectRelation(node.id))
@@ -81,12 +93,12 @@ class ChartNode extends Component {
               key={i}
               className="missingInput"
               style={{marginLeft: point.x * 2, top: point.y}}
-              onClick={initConnect}
+              onClick={initConnect.bind(this, i)}
               aria-label={"missing input " + (i+1) + " to node " + node.id}
             >!</button>
           )}
 
-          <div className={"operator centeredOnZeroWidthParent " + operator.type} onClick={handleRelationClick.bind(this, node)}>
+          <div className={"operator centeredOnZeroWidthParent " + operator.type} onClick={handleOperatorClick.bind(this)}>
             <div className="operatorContent bottomFix dragHandle"
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
@@ -104,7 +116,7 @@ class ChartNode extends Component {
             {svgShape(svgParams)}
           </div>
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <button className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this, node)}>
+          <button className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this)}>
             <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
                              html={relation.name}
                              disabled={!selected}

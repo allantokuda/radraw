@@ -15,6 +15,7 @@ export const CREATE_RELATION = 'CREATE_RELATION'
 export const ADD_OPERATOR = 'ADD_OPERATOR'
 export const FLIP_OPERATOR = 'FLIP_OPERATOR'
 export const INIT_CONNECT = 'INIT_CONNECT'
+export const FINISH_CONNECT = 'FINISH_CONNECT'
 
 /*
  * action creators
@@ -70,4 +71,8 @@ export function flipOperator(operatorType) {
 
 export function initConnect(nodeId, connection) {
   return { type: INIT_CONNECT, nodeId, connection }
+}
+
+export function finishConnect(sourceNodeId) {
+  return { type: FINISH_CONNECT, sourceNodeId }
 }

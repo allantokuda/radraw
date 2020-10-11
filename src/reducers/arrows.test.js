@@ -54,7 +54,7 @@ describe('arrows reducer', () => {
     }
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },
-      { id: 2, x: 100, y: 300, height: 120, relation: {} }, // last node should have been created in the same ADD_OPERATOR action
+      { id: 2, x: 100, y: 300, height: 120, operator: { shape: 'Hexagon', width: 100, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
     ]
     let arrows = []
     let action = {
@@ -75,7 +75,7 @@ describe('arrows reducer', () => {
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },
       { id: 2, x: 300, y: 100, height: 130, relation: {} },
-      { id: 3, x: 200, y: 460, height: 100, relation: { type: 'TIMES' } }, // last node should have been created in the same ADD_OPERATOR action
+      { id: 3, x: 200, y: 460, height: 100, operator: { shape: 'FullHouse', width: 200, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
     ]
     let arrows = []
     let action = {
@@ -85,8 +85,8 @@ describe('arrows reducer', () => {
     expect(
       reducer({ editor, nodes, arrows }, action)
     ).toEqual([
-      { from: 1, to: 3, connection: 0, x1: 100, x2: 200, y1: 220, y2: 460 }, // TODO: find out if real coordinates appear in next loop or what
-      { from: 2, to: 3, connection: 1, x1: 300, x2: 200, y1: 230, y2: 460 },
+      { from: 1, to: 3, connection: 0, x1: 100, x2: 101, y1: 220, y2: 499.6 },
+      { from: 2, to: 3, connection: 1, x1: 300, x2: 299, y1: 230, y2: 499.6 },
     ])
   })
 
@@ -97,7 +97,7 @@ describe('arrows reducer', () => {
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, operator: {} },
       { id: 2, x: 300, y: 100, height: 130, operator: {} },
-      { id: 3, x: 200, y: 460, height: 100, operator: { type: 'MINUS', shape: 'HalfHouseLeft' } },
+      { id: 3, x: 200, y: 460, height: 100, operator: { shape: 'HalfHouseLeft', width: 100, height: 100 } },
     ]
     let arrows = [
       { from: 1, to: 3, x1: 100, y1: 0, x2: 200, y2: 100, connection: 0 },
@@ -109,8 +109,8 @@ describe('arrows reducer', () => {
     expect(
       reducer({ editor, nodes, arrows }, action)
     ).toEqual([
-      { from: 1, to: 3, x1: 100, y1: 0, x2: 250, y2: 480, connection: 1 },
-      { from: 2, to: 3, x1: 400, y1: 0, x2: 150, y2: 460, connection: 0 },
+      { from: 1, to: 3, x1: 100, x2: 249, y1: 220, y2: 479.6, connection: 1 },
+      { from: 2, to: 3, x1: 300, x2: 151, y1: 230, y2: 460, connection: 0 },
     ])
   })
 
@@ -137,5 +137,23 @@ describe('arrows reducer', () => {
       { from: 1, to: 3 },
     ])
 
+  })
+
+  it('adds new arrow connecting to operator that is missing an input', () => {
+    let editor = { action: 'connect', connectTo: { connection: 1, nodeId: 7 } }
+    let nodes = [
+      { id: 6, x: 200, y: 200, height: 100 },
+      { id: 7, x: 300, y: 400, operator: { shape: 'HalfHouseRight', width: 100, height: 100 } }
+    ]
+    let arrows = []
+    let action = {
+      type: actions.FINISH_CONNECT,
+      sourceNodeId: 6
+    }
+    expect(
+      reducer({ editor, nodes, arrows }, action)
+    ).toEqual([
+      { from: 6, to: 7, x1: 200, x2: 251, y1: 300, y2: 419.6, connection: 1 },
+    ])
   })
 })
