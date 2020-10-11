@@ -182,9 +182,25 @@
   stroke-width: 1;
 }
 
+.arrow.selected .arrowLine {
+  stroke: blue;
+  stroke-width: 5;
+}
+
+
+.arrowClickArea {
+  stroke: transparent;
+  stroke-width: 25;
+}
+
 .arrowHead {
   stroke: none;
   fill: black;
+}
+
+.arrow.selected .arrowHead {
+  stroke: none;
+  fill: blue;
 }
 
 .operatorButton {

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ChartNode from './ChartNode'
 import Arrow from './Arrow'
+import { arrowId } from './reducers/arrows'
 
 let PrecedenceChart = ({ state, dispatch }) => {
   let handleChartClick = (event, a, b) => {
@@ -15,6 +16,10 @@ let PrecedenceChart = ({ state, dispatch }) => {
     }
   }
 
+  let isSelectedArrow = (arrow) => {
+    return state.editor.selection.indexOf(arrowId(arrow)) !== -1
+  }
+
   return <div className="precedenceChart" onClick={handleChartClick}>
     {false && <pre id='statewatch'>{ JSON.stringify(state, null, 2) }</pre> }
 
@@ -22,7 +27,11 @@ let PrecedenceChart = ({ state, dispatch }) => {
       const relation = state.relations.find(relation => relation.id === node.resultRelationId)
       return <ChartNode key={node.id} node={node} relation={relation} />
     })}
-    {state.arrows.map(arrow => <Arrow {...arrow} key={arrow.from + '-' + arrow.to} />)}
+    {state.arrows.map(arrow => (
+      <Arrow {...arrow}
+        key={arrowId(arrow)}
+        selected={isSelectedArrow(arrow)}/>
+    ))}
   </div>
 }
 

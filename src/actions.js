@@ -37,12 +37,12 @@ export function updateOperatorParams(nodeId, value) {
   return { type: UPDATE_OPERATOR_PARAMS, nodeId, value }
 }
 
-export function select(selectableId) {
-  return { type: SELECT, selectableId }
-}
-
-export function toggleSelect(selectableId) {
-  return { type: TOGGLE_SELECT, selectableId }
+export function select(selectableId, toggle = false) {
+  if (toggle) {
+    return { type: TOGGLE_SELECT, selectableId }
+  } else {
+    return { type: SELECT, selectableId }
+  }
 }
 
 export function renameRelation(relationId, name) {

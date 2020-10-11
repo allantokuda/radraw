@@ -71,6 +71,7 @@ export default (state = initialState, action) => {
     case 'FINISH_CONNECT':
       ({ connectTo, ...restOfEditorState } = state.editor)
       baselineEditor = restOfEditorState
+      if (connectTo) // no-op, silence the linter
       changes = { action: 'select' }
       break
 

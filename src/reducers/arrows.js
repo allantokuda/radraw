@@ -1,5 +1,7 @@
 import { connectionPoints } from '../operatorShape'
 
+export function arrowId(arrow) { return 'a' + arrow.to + ':' + arrow.connection }
+
 export default (state, action) => {
   if (state.arrows === undefined) {
     return []

@@ -50,22 +50,14 @@ class ChartNode extends Component {
     }
 
     const handleOperatorClick = (event) => {
-      selectNode(event.shiftKey)
+      dispatch(actions.select(node.id, event.shiftKey))
     }
 
     const handleRelationClick = (event) => {
       if (state.editor.action === 'connect') {
         dispatch(actions.finishConnect(node.id))
       } else {
-        selectNode(event.shiftKey)
-      }
-    }
-
-    const selectNode = (toggleMode) => {
-      if (toggleMode) {
-        dispatch(actions.toggleSelect(node.id))
-      } else {
-        dispatch(actions.select(node.id))
+        dispatch(actions.select(node.id, event.shiftKey))
       }
     }
 
