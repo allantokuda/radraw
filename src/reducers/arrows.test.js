@@ -114,19 +114,21 @@ describe('arrows reducer', () => {
     ])
   })
 
-  it('cleans up disconnected arrows', () => {
+  it('deletes arrows and cleans up disconnected arrows', () => {
     let editor = {
-      selection: [2]
+      selection: [2, 'a4:0'] // a node 2 and an arrow to connection 0 of node 4
     }
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },
       // supposing node 2 has been deleted
       { id: 3, x: 200, y: 460, height: 100, relation: {} },
+      { id: 4, x: 300, y: 280, height: 100, relation: {} },
     ]
     let arrows = [
       { from: 1, to: 2 },
       { from: 2, to: 3 },
       { from: 1, to: 3 },
+      { from: 1, to: 4, connection: 0 },
     ]
     let action = {
       type: actions.DELETE_SELECTED

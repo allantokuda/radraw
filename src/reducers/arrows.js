@@ -49,7 +49,8 @@ export default (state, action) => {
       let existingNodeIds = state.nodes.map(node => node.id)
       arrows = state.arrows.filter(arrow =>
         existingNodeIds.indexOf(arrow.to) !== -1 &&
-        existingNodeIds.indexOf(arrow.from) !== -1
+        existingNodeIds.indexOf(arrow.from) !== -1 &&
+        state.editor.selection.indexOf(arrowId(arrow)) === -1
       )
       break
 
