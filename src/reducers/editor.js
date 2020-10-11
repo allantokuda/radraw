@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
       break
 
     case 'INIT_CONNECT':
-      changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId } }
+      changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId }, selectedRelationNodeIds: [] }
       break
 
     case 'FINISH_CONNECT':

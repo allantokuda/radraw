@@ -172,7 +172,7 @@ describe('editor reducer', () => {
   it('remembers an operator input connection for subsequently adding an input arrow', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [] } },
+        { editor: { action: 'select', selectedRelationNodeIds: [8] } },
         { type: 'INIT_CONNECT', nodeId: 3, connection: 1 }
       )
     ).toEqual({
