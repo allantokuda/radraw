@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Toolbar from './Toolbar'
 import PrecedenceChart from './PrecedenceChart'
 import './App.css'
+import './z-index.css'
 
 let App = ({ state }) => (
   <div className="App">

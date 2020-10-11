@@ -163,7 +163,8 @@
 }
 
 .missingInput {
-  background: #fcc;
+  background: #faa;
+  opacity: 0.7;
   border: none;
   position: absolute;
   font-size: 14px;
