@@ -24,7 +24,7 @@ export default (state, action) => {
 
   switch(action.type) {
     case 'ADD_OPERATOR':
-      const fromNodes = state.editor.selectedRelationNodeIds.map(
+      const fromNodes = state.editor.selection.map(
         nodeId => state.nodes.find(node => node.id === nodeId)
       ).sort((n1, n2) => n1.x - n2.x)
 
@@ -52,7 +52,7 @@ export default (state, action) => {
       break
 
     case 'FLIP_OPERATOR':
-      const flipNodeId = state.editor.selectedRelationNodeIds[0]
+      const flipNodeId = state.editor.selection[0]
       const flipNode = state.nodes.find(node => node.id === flipNodeId)
 
       arrows = state.arrows.map(arrow => {

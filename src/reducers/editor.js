@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
       changes = { action: 'select' }
       break
 
-    case 'SELECT_RELATION':
+    case 'SELECT':
       // use destructuring to remove 'noSelectAfterDrag' key immutably from the baseline state
       ({ noSelectAfterDrag, ...restOfEditorState } = state.editor)
       baselineEditor = restOfEditorState
@@ -30,28 +30,28 @@ export default (state = initialState, action) => {
           break
 
         default:
-          changes = { selectedRelationNodeIds: [action.nodeId] }
+          changes = { selection: [action.selectableId] }
       }
 
       break
 
-    case 'TOGGLE_SELECT_RELATION':
+    case 'TOGGLE_SELECT':
       // use destructuring to remove 'noSelectAfterDrag' key immutably from the baseline state
       ({ noSelectAfterDrag, ...restOfEditorState } = state.editor)
       baselineEditor = restOfEditorState
       if (noSelectAfterDrag) break
 
-      const ids = state.editor.selectedRelationNodeIds
-      const existingIndex = ids.indexOf(action.nodeId)
+      const ids = state.editor.selection
+      const existingIndex = ids.indexOf(action.selectableId)
       if (existingIndex > -1) {
         changes = {
-          selectedRelationNodeIds: [
+          selection: [
             ...ids.slice(0, existingIndex),
             ...ids.slice(existingIndex + 1)
           ]
         }
       } else {
-        changes = { selectedRelationNodeIds: ids.concat(action.nodeId) }
+        changes = { selection: ids.concat(action.selectableId) }
       }
 
       break
@@ -61,11 +61,11 @@ export default (state = initialState, action) => {
       break
 
     case 'ADD_OPERATOR':
-      changes = { selectedRelationNodeIds: [Math.max(...state.nodes.map(node => node.id))] }
+      changes = { selection: [Math.max(...state.nodes.map(node => node.id))] }
       break
 
     case 'INIT_CONNECT':
-      changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId }, selectedRelationNodeIds: [] }
+      changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId }, selection: [] }
       break
 
     case 'FINISH_CONNECT':
@@ -76,7 +76,7 @@ export default (state = initialState, action) => {
 
     case 'DESELECT_ALL':
     case 'DELETE_SELECTED':
-      changes = { selectedRelationNodeIds: [] }
+      changes = { action: 'select', selection: [] }
       break
 
     default:

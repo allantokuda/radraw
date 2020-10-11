@@ -29,7 +29,7 @@ class ChartNode extends Component {
   render() {
     const { node, relation, state, dispatch } = this.props
     const operator = node.operator
-    const selected = state.editor.selectedRelationNodeIds.indexOf(node.id) > -1
+    const selected = state.editor.selection.indexOf(node.id) > -1
 
     const handleEditName = (event) => {
       dispatch(actions.renameRelation(node.resultRelationId, event.target.value))
@@ -63,9 +63,9 @@ class ChartNode extends Component {
 
     const selectNode = (toggleMode) => {
       if (toggleMode) {
-        dispatch(actions.toggleSelectRelation(node.id))
+        dispatch(actions.toggleSelect(node.id))
       } else {
-        dispatch(actions.selectRelation(node.id))
+        dispatch(actions.select(node.id))
       }
     }
 

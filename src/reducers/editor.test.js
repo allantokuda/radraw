@@ -56,72 +56,72 @@ describe('editor reducer', () => {
   it('can select a relation', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [] } },
-        { type: 'SELECT_RELATION', nodeId: 7 }
+        { editor: { action: 'select', selection: [] } },
+        { type: 'SELECT', selectableId: 7 }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [7]
+      selection: [7]
     })
   })
 
   it('can change the selected relation', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [6] } },
-        { type: 'SELECT_RELATION', nodeId: 7 }
+        { editor: { action: 'select', selection: [6] } },
+        { type: 'SELECT', selectableId: 7 }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [7]
+      selection: [7]
     })
   })
 
   it('can toggle-select a second relation', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [7] } },
-        { type: 'TOGGLE_SELECT_RELATION', nodeId: 8 }
+        { editor: { action: 'select', selection: [7] } },
+        { type: 'TOGGLE_SELECT', selectableId: 8 }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [7, 8]
+      selection: [7, 8]
     })
   })
 
   it('can toggle-deselect a relation', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [6, 7] } },
-        { type: 'TOGGLE_SELECT_RELATION', nodeId: 7 }
+        { editor: { action: 'select', selection: [6, 7] } },
+        { type: 'TOGGLE_SELECT', selectableId: 7 }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [6]
+      selection: [6]
     })
   })
 
   it('can toggle-deselect one of several relations', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [7, 8, 9] } },
-        { type: 'TOGGLE_SELECT_RELATION', nodeId: 8 }
+        { editor: { action: 'select', selection: [7, 8, 9] } },
+        { type: 'TOGGLE_SELECT', selectableId: 8 }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [7, 9]
+      selection: [7, 9]
     })
   })
 
   it('avoids changing the selection at mouseup on end of drag operation', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [7], noSelectAfterDrag: true } },
-        { type: 'SELECT_RELATION', nodeId: 8 } // dragging a not-selected node
+        { editor: { action: 'select', selection: [7], noSelectAfterDrag: true } },
+        { type: 'SELECT', selectableId: 8 } // dragging a not-selected node
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [7]
+      selection: [7]
     })
   })
 
@@ -129,7 +129,7 @@ describe('editor reducer', () => {
     expect(
       reducer(
         {
-          editor: { action: 'select', selectedRelationNodeIds: [6] },
+          editor: { action: 'select', selection: [6] },
           nodes: [
             { id: 6, x: 100, y: 200, resultRelationId: 1 },
             { id: 7, x: 100, y: 400, resultRelationId: 2 } // assumed new node+relation
@@ -140,19 +140,19 @@ describe('editor reducer', () => {
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [7]
+      selection: [7]
     })
   })
 
   it('remembers a flag to not select at the end of a drag operation', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [] } },
+        { editor: { action: 'select', selection: [] } },
         { type: 'MOVE_NODE' }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: [],
+      selection: [],
       noSelectAfterDrag: true
     })
   })
@@ -160,24 +160,24 @@ describe('editor reducer', () => {
   it('clears selection upon delete', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [4, 5] } },
+        { editor: { action: 'select', selection: [4, 5] } },
         { type: 'DELETE_SELECTED' }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: []
+      selection: []
     })
   })
 
   it('remembers an operator input connection for subsequently adding an input arrow', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selectedRelationNodeIds: [8] } },
+        { editor: { action: 'select', selection: [8] } },
         { type: 'INIT_CONNECT', nodeId: 3, connection: 1 }
       )
     ).toEqual({
       action: 'connect',
-      selectedRelationNodeIds: [],
+      selection: [],
       connectTo: { nodeId: 3, connection: 1 }
     })
   })
@@ -185,12 +185,12 @@ describe('editor reducer', () => {
   it('resets to select mode when connecting', () => {
     expect(
       reducer(
-        { editor: { action: 'connect', connectTo: { foo: 'bar' }, selectedRelationNodeIds: [] } },
+        { editor: { action: 'connect', connectTo: { foo: 'bar' }, selection: [] } },
         { type: 'FINISH_CONNECT', sourceNodeId: 3 }
       )
     ).toEqual({
       action: 'select',
-      selectedRelationNodeIds: []
+      selection: []
     })
   })
 })

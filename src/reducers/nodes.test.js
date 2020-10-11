@@ -155,7 +155,7 @@ describe('node reducer', () => {
         {
           relations: [{ id: 13 }],
           nodes: [{ id: 7, resultRelationId: 13, x: 100, y: 200, height: 350 }],
-          editor: { selectedRelationNodeIds: [7] }
+          editor: { selection: [7] }
         },
         { type: 'ADD_OPERATOR', operatorType: REDUCE }
       )
@@ -174,7 +174,7 @@ describe('node reducer', () => {
             { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300 },
             { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330 }
           ],
-          editor: { selectedRelationNodeIds: [7, 8] }
+          editor: { selection: [7, 8] }
         },
         { type: 'ADD_OPERATOR', operatorType: MATCH_JOIN }
       )
@@ -196,7 +196,7 @@ describe('node reducer', () => {
             { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300 },
             { id: 9, resultRelationId: 16, x: 100, y: 200, height: 300 }
           ],
-          editor: { selectedRelationNodeIds: [7, 9] }
+          editor: { selection: [7, 9] }
         },
         { type: 'DELETE_SELECTED' }
       )
@@ -214,7 +214,7 @@ describe('node reducer', () => {
           nodes: [
             { id: 6, resultRelationId: 13, operator: { shape: 'HalfHouseLeft' } },
           ],
-          editor: { selectedRelationNodeIds: [6] }
+          editor: { selection: [6] }
         },
         { type: 'FLIP_OPERATOR' }
       )

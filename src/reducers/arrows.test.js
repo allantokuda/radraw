@@ -50,7 +50,7 @@ describe('arrows reducer', () => {
 
   it('adds arrow to newly created unary operator', () => {
     let editor = {
-      selectedRelationNodeIds: [1]
+      selection: [1]
     }
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },
@@ -70,7 +70,7 @@ describe('arrows reducer', () => {
 
   it('adds arrows to newly created binary operator', () => {
     let editor = {
-      selectedRelationNodeIds: [1, 2]
+      selection: [1, 2]
     }
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },
@@ -92,7 +92,7 @@ describe('arrows reducer', () => {
 
   it('flips arrows on binary operator', () => {
     let editor = {
-      selectedRelationNodeIds: [3]
+      selection: [3]
     }
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, operator: {} },
@@ -116,7 +116,7 @@ describe('arrows reducer', () => {
 
   it('cleans up disconnected arrows', () => {
     let editor = {
-      selectedRelationNodeIds: [2]
+      selection: [2]
     }
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },

@@ -7,8 +7,8 @@ export const RENAME_RELATION = 'RENAME_RELATION'
 export const RESIZE_NODE = 'RESIZE_NODE'
 export const DELETE_SELECTED = 'DELETE_SELECTED'
 export const UPDATE_OPERATOR_PARAMS = 'UPDATE_OPERATOR_PARAMS'
-export const SELECT_RELATION = 'SELECT_RELATION'
-export const TOGGLE_SELECT_RELATION = 'TOGGLE_SELECT_RELATION'
+export const SELECT = 'SELECT'
+export const TOGGLE_SELECT = 'TOGGLE_SELECT'
 export const DESELECT_ALL = 'DESELECT_ALL'
 export const NEW_RELATION_MODE = 'NEW_RELATION_MODE'
 export const CREATE_RELATION = 'CREATE_RELATION'
@@ -37,12 +37,12 @@ export function updateOperatorParams(nodeId, value) {
   return { type: UPDATE_OPERATOR_PARAMS, nodeId, value }
 }
 
-export function selectRelation(nodeId) {
-  return { type: SELECT_RELATION, nodeId }
+export function select(selectableId) {
+  return { type: SELECT, selectableId }
 }
 
-export function toggleSelectRelation(nodeId) {
-  return { type: TOGGLE_SELECT_RELATION, nodeId }
+export function toggleSelect(selectableId) {
+  return { type: TOGGLE_SELECT, selectableId }
 }
 
 export function renameRelation(relationId, name) {

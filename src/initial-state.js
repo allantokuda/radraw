@@ -2,7 +2,7 @@
 export default {
   editor: {
     action: 'select',
-    selectedRelationNodeIds: []
+    selection: []
   },
   nodes: [
     {

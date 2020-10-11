@@ -66,8 +66,8 @@ export default (state, action) => {
       break
 
     case 'ADD_OPERATOR':
-      let selectedRelationNodes = state.editor.selectedRelationNodeIds.map(relationId =>
-        state.nodes.find(node => node.id === relationId)
+      let selectedRelationNodes = state.editor.selection.map(selectableId =>
+        state.nodes.find(node => node.id === selectableId)
       )
       let averageX = average(selectedRelationNodes.map(node => node.x))
       let bottomY = Math.max(...selectedRelationNodes.map(node => node.y + node.height))
@@ -88,12 +88,12 @@ export default (state, action) => {
       break
 
     case 'DELETE_SELECTED':
-      nodes = state.nodes.filter(node => state.editor.selectedRelationNodeIds.indexOf(node.id) === -1)
+      nodes = state.nodes.filter(node => state.editor.selection.indexOf(node.id) === -1)
       break
 
     case 'FLIP_OPERATOR':
       nodes = state.nodes.map(node => {
-        if (state.editor.selectedRelationNodeIds.indexOf(node.id) !== -1) {
+        if (state.editor.selection.indexOf(node.id) !== -1) {
           const operator = Object.assign({}, node.operator, { shape: flip(node.operator.shape) })
           return Object.assign({}, node, { operator })
         } else {
