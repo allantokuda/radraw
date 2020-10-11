@@ -128,7 +128,7 @@ const operatorKeypoints = ({ shape, width, height }) => {
 
 export const connectionPoints = (operator) => {
   let points = operatorKeypoints(operator)
-  return points.filter(point => point.connection)
+  return points.filter(point => point.connection).map((point, i) => Object.assign({}, point, { connection: i }))
 }
 
 export const polygonPoints = (operator) => {

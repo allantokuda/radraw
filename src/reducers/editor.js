@@ -3,7 +3,7 @@ const initialState = { editor: { action: 'select' } }
 export default (state = initialState, action) => {
   let changes = {}
   let baselineEditor = state.editor
-  let noSelectAfterDrag, restOfEditorState
+  let connectTo, noSelectAfterDrag, restOfEditorState
 
   switch(action.type) {
     case 'NEW_RELATION_MODE':
@@ -66,6 +66,12 @@ export default (state = initialState, action) => {
 
     case 'INIT_CONNECT':
       changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId } }
+      break
+
+    case 'FINISH_CONNECT':
+      ({ connectTo, ...restOfEditorState } = state.editor)
+      baselineEditor = restOfEditorState
+      changes = { action: 'select' }
       break
 
     case 'DESELECT_ALL':

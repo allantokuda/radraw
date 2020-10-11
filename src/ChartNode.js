@@ -78,7 +78,7 @@ class ChartNode extends Component {
 
     const inboundArrows = state.arrows.filter(arrow => arrow.to === node.id)
     const filledConnections = inboundArrows.map(arrow => arrow.connection)
-    const openPoints = connectionPoints(operator).filter((point, i) => filledConnections.indexOf(i) === -1)
+    const openPoints = connectionPoints(operator).filter(point => filledConnections.indexOf(point.connection) === -1)
 
     return (
       <Draggable
@@ -88,13 +88,13 @@ class ChartNode extends Component {
         position={{ x: node.x, y: node.y }}>
 
         <div ref={nodeRef => this.nodeRef = nodeRef} className={classNames({ chartNode: true, selected })}>
-          {openPoints.map((point, i) =>
+          {openPoints.map((point) =>
             <button
-              key={i}
+              key={point.connection}
               className="missingInput"
               style={{marginLeft: point.x * 2, top: point.y}}
-              onClick={initConnect.bind(this, i)}
-              aria-label={"missing input " + (i+1) + " to node " + node.id}
+              onClick={initConnect.bind(this, point.connection)}
+              aria-label={"missing input " + (point.connection+1) + " to node " + node.id}
             >!</button>
           )}
 

@@ -181,4 +181,16 @@ describe('editor reducer', () => {
       connectTo: { nodeId: 3, connection: 1 }
     })
   })
+
+  it('resets to select mode when connecting', () => {
+    expect(
+      reducer(
+        { editor: { action: 'connect', connectTo: { foo: 'bar' }, selectedRelationNodeIds: [] } },
+        { type: 'FINISH_CONNECT', sourceNodeId: 3 }
+      )
+    ).toEqual({
+      action: 'select',
+      selectedRelationNodeIds: []
+    })
+  })
 })
