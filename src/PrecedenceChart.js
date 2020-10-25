@@ -31,6 +31,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
     <div className="precedenceChart" onClick={handleChartClick}>
       <TransformWrapper
         options={{limitToBounds: false, minScale: 0.2 }}
+        doubleClick={{disabled: true}}
         wheel={{step: 100}}
         pan={{velocity: false}}
         defaultScale={state.editor.scale}
