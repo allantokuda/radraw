@@ -7,8 +7,6 @@ import { arrowId } from './reducers/arrows'
 
 let PrecedenceChart = ({ state, dispatch }) => {
   let handleChartClick = (event, a, b) => {
-    console.log(event.target.className)
-    if (!((event.target || {}).className || '').match('react-transform-component')) return
     let x = event.clientX - event.target.getBoundingClientRect()['x']
     let y = event.clientY - event.target.getBoundingClientRect()['y']
     if (state.editor.action === 'new_relation') {

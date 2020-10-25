@@ -46,15 +46,18 @@ class ChartNode extends Component {
       dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
-    const initConnect = (connection, event) => {
+    const handleConnectionButtonClick = (connection, event) => {
+      event.stopPropagation()
       dispatch(actions.initConnect(node.id, connection))
     }
 
     const handleOperatorClick = (event) => {
+      event.stopPropagation()
       dispatch(actions.select(node.id, event.shiftKey))
     }
 
     const handleRelationClick = (event) => {
+      event.stopPropagation()
       if (state.editor.action === 'connect') {
         dispatch(actions.finishConnect(node.id))
       } else {
@@ -86,7 +89,7 @@ class ChartNode extends Component {
               key={point.connection}
               className="missingInput"
               style={{marginLeft: point.x * 2, top: point.y}}
-              onClick={initConnect.bind(this, point.connection)}
+              onClick={handleConnectionButtonClick.bind(this, point.connection)}
               aria-label={"missing input " + (point.connection+1) + " to node " + node.id}
             >!</button>
           )}
