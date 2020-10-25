@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import ChartNode from './ChartNode'
 import Arrow from './Arrow'
 import { arrowId } from './reducers/arrows'
 
 let PrecedenceChart = ({ state, dispatch }) => {
   let handleChartClick = (event, a, b) => {
-    if (event.target.className !== 'precedenceChart') return
+    console.log(event.target.className)
+    if (!((event.target || {}).className || '').match('react-transform-component')) return
     let x = event.clientX - event.target.getBoundingClientRect()['x']
     let y = event.clientY - event.target.getBoundingClientRect()['y']
     if (state.editor.action === 'new_relation') {
@@ -19,20 +21,45 @@ let PrecedenceChart = ({ state, dispatch }) => {
   let isSelectedArrow = (arrow) => {
     return state.editor.selection.indexOf(arrowId(arrow)) !== -1
   }
+  let handlePan = (e) => {
+    dispatch({ type: 'PAN', x: e.positionX, y: e.positionY })
+  }
+  let handleZoom = (e) => {
+    console.log(e)
+    //dispatch({ type: 'ZOOM', scale: e.scale })
+  }
 
-  return <div className="precedenceChart" onClick={handleChartClick}>
-    {false && <pre id='statewatch'>{ JSON.stringify(state, null, 2) }</pre> }
+  return (
+    <div className="precedenceChart" onClick={handleChartClick}>
+      <TransformWrapper
+        options={{limitToBounds: false, minScale: 0.2 }}
+        wheel={{step: 100}}
+        pan={{velocity: false}}
+        defaultScale={state.editor.scale}
+        defaultPositionX={state.editor.panX}
+        defaultPositionY={state.editor.panY}
+        onPanning={handlePan}
+        onZoomChange={handleZoom}
+      >
 
-    {state.nodes.map(node => {
-      const relation = state.relations.find(relation => relation.id === node.resultRelationId)
-      return <ChartNode key={node.id} node={node} relation={relation} />
-    })}
-    {state.arrows.map(arrow => (
-      <Arrow {...arrow}
-        key={arrowId(arrow)}
-        selected={isSelectedArrow(arrow)}/>
-    ))}
-  </div>
+        <TransformComponent>
+          <div className="chartCanvas">
+            {false && <pre id='statewatch'>{ JSON.stringify(state, null, 2) }</pre> }
+
+            {state.nodes.map(node => {
+              const relation = state.relations.find(relation => relation.id === node.resultRelationId)
+              return <ChartNode key={node.id} node={node} relation={relation} />
+            })}
+            {state.arrows.map(arrow => (
+              <Arrow {...arrow}
+                key={arrowId(arrow)}
+                selected={isSelectedArrow(arrow)}/>
+            ))}
+          </div>
+        </TransformComponent>
+      </TransformWrapper>
+    </div>
+  )
 }
 
 PrecedenceChart = connect(state => ({state}))(PrecedenceChart);

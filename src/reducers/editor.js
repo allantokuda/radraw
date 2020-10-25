@@ -6,6 +6,15 @@ export default (state = initialState, action) => {
   let connectTo, noSelectAfterDrag, restOfEditorState
 
   switch(action.type) {
+    case 'PAN':
+      if (action.x === undefined) break
+      changes = { panX: action.x, panY: action.y }
+      break
+
+    case 'SCALE':
+      changes = { scale: action.scale }
+      break
+
     case 'NEW_RELATION_MODE':
       changes = { action: 'new_relation' }
       break

@@ -42,6 +42,7 @@ class ChartNode extends Component {
     }
 
     const handleDrag = (event, data) => {
+      event.stopPropagation()
       dispatch(actions.moveNode(node.id, data.deltaX, data.deltaY))
     }
 
