@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
       changes = { panX: action.x, panY: action.y }
       break
 
-    case 'SCALE':
+    case 'ZOOM':
       changes = { scale: action.scale }
       break
 

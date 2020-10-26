@@ -23,8 +23,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
     dispatch({ type: 'PAN', x: e.positionX, y: e.positionY })
   }
   let handleZoom = (e) => {
-    console.log(e)
-    //dispatch({ type: 'ZOOM', scale: e.scale })
+    dispatch({ type: 'ZOOM', scale: e.scale })
   }
 
   return (
@@ -32,13 +31,15 @@ let PrecedenceChart = ({ state, dispatch }) => {
       <TransformWrapper
         options={{limitToBounds: false, minScale: 0.2 }}
         doubleClick={{disabled: true}}
-        wheel={{step: 100}}
+
         pan={{velocity: false}}
-        defaultScale={state.editor.scale}
+        onPanning={handlePan}
         defaultPositionX={state.editor.panX}
         defaultPositionY={state.editor.panY}
-        onPanning={handlePan}
-        onZoomChange={handleZoom}
+
+        wheel={{step: 100}}
+        onWheel={handleZoom}
+        scale={state.editor.scale}
       >
 
         <TransformComponent>

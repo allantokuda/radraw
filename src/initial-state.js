@@ -2,7 +2,10 @@
 export default {
   editor: {
     action: 'select',
-    selection: []
+    selection: [],
+    panX: 1, // would use 0 for initial state but react-pinch-pan-zoom behavior depends on this value being truthy :(
+    panY: 1,
+    scale: 1
   },
   nodes: [
     {
