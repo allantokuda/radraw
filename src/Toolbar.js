@@ -5,6 +5,7 @@ import OperatorButton from './OperatorButton'
 import * as actions from './actions'
 import operators from './operators'
 import { flip } from './operatorShape'
+import FileMenu from './FileMenu'
 
 let Toolbar = ({ state }) => {
   const dispatch = useDispatch()
@@ -29,6 +30,8 @@ let Toolbar = ({ state }) => {
 
   return (
     <header className="toolbar">
+      <FileMenu/>
+
       <button onClick={newRelation} className={classNames({ operatorButton: true, selected: state.editor.action === 'new_relation' })}>
         <div className="buttonContents">
           <div className="relation" aria-hidden={true} style={{ boxSizing: 'border-box', height: '25px', width: '50px', padding: 1, margin: '5px 0' }}>

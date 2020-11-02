@@ -13,6 +13,10 @@ export function maxPlusOne(objects) {
 }
 
 export default function reducer(state = initialState, action) {
+  if (action.type === 'NEW_CHART') {
+    return initialState
+  }
+
   //console.log(state, action)
   const newNodes = nodes(state, action)
   const stateWithNewNodes = Object.assign({}, state, { nodes: newNodes })
