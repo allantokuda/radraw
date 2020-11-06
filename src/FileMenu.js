@@ -16,7 +16,7 @@ let FileMenu = ({ state }) => {
   }
 
   const options = [
-    { value: 'NEW_CHART', label: 'New Chart' },
+    { value: 'NEW_CHART', label: 'Clear Chart' },
   ]
 
   const menuPick = (option) => {
@@ -30,9 +30,7 @@ let FileMenu = ({ state }) => {
 
   return (
     <button className={classNames({ operatorButton: true })} style={{position: 'relative'}}>
-      <Select options={options} styles={styles} value={null} onChange={menuPick}>
-        <option>New Chart</option>
-      </Select>
+      <Select options={options} styles={styles} value={null} onChange={menuPick}/>
       <div className="buttonContents">
         <span style={{fontSize: 30, padding: '0 10px' }}>&#128462;</span>
         <label className="">File</label>
