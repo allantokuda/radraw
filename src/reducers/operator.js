@@ -23,7 +23,6 @@ export default (operator, action) => {
       }
 
       return Object.assign({}, operator, { params: action.value, shape, type })
-      break
 
     default:
       return operator;

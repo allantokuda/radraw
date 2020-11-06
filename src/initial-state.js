@@ -46,19 +46,27 @@ export default {
   relations: [
     {
       id: 1,
-      name: 'Creature'
+      name: 'Creature',
+      columns: ['C_id', 'C_name', 'C_type'],
+      pkey: ['C_id'],
     },
     {
       id: 2,
-      name: 'Skill'
+      name: 'Skill',
+      columns: ['S_code', 'S_description'],
+      pkey: ['S_code'],
     },
     {
       id: 3,
-      name: 'Achievement'
+      name: 'Achievement',
+      columns: ['C_id', 'S_code', 'Score'],
+      pkey: ['C_id', 'S_code'],
     },
     {
       id: 4,
-      name: 'Aspiration'
+      name: 'Aspiration',
+      columns: ['C_id', 'S_code', 'Score'],
+      pkey: ['C_id', 'S_code'],
     },
   ]
 }
