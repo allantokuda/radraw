@@ -2,6 +2,7 @@ import * as actions from '../actions'
 import { maxPlusOne } from './index'
 import { operatorTypeProperties } from '../operators'
 import { flip } from '../operatorShape'
+import operator from './operator'
 
 function average(nums) {
   return nums.reduce((a, b) => (a + b)) / nums.length;
@@ -30,17 +31,13 @@ export const updateNode = (node, action) => {
       }
       break
 
-    case actions.UPDATE_OPERATOR_PARAMS:
-      changes = {
-        operator: Object.assign({}, node.operator, { params: action.value })
-      }
-      break
-
     default:
       changes = {}
   }
 
-  return Object.assign({}, node, changes)
+  const operatorChanges = { operator: operator(node.operator, action) }
+
+  return Object.assign({}, node, operatorChanges, changes)
 }
 
 export default (state, action) => {

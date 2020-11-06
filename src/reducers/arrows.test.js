@@ -75,7 +75,7 @@ describe('arrows reducer', () => {
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },
       { id: 2, x: 300, y: 100, height: 130, relation: {} },
-      { id: 3, x: 200, y: 460, height: 100, operator: { shape: 'FullHouse', width: 200, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
+      { id: 3, x: 200, y: 460, height: 100, operator: { type: 'Times', shape: 'FullHouseLeft', width: 200, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
     ]
     let arrows = []
     let action = {

@@ -3,7 +3,8 @@ import React from 'react'
 export const OPERATOR_SHAPES = {
   PILL: 'Pill',
   HEXAGON: 'Hexagon',
-  FULL_HOUSE: 'FullHouse',
+  FULL_HOUSE_LEFT: 'FullHouseLeft',
+  FULL_HOUSE_RIGHT: 'FullHouseRight',
   HALF_HOUSE_LEFT: 'HalfHouseLeft',
   HALF_HOUSE_LEFT_SYMMETRIC: 'HalfHouseLeftSymmetric',
   HALF_HOUSE_RIGHT: 'HalfHouseRight',
@@ -92,12 +93,20 @@ const operatorKeypoints = ({ shape, width, height }) => {
       ].concat(boxBottomReverse)
       break
 
-    case OPERATOR_SHAPES.FULL_HOUSE:
+    case OPERATOR_SHAPES.FULL_HOUSE_LEFT:
       points = [
         { x: -w, y: h2, connection: true },
         { x:  0, y: 0 },
         { x:  w, y: h2, connection: true },
       ].concat(boxBottom)
+      break
+
+    case OPERATOR_SHAPES.FULL_HOUSE_RIGHT:
+      points = [
+        { x:  w, y: h2, connection: true },
+        { x:  0, y: 0 },
+        { x: -w, y: h2, connection: true },
+      ].concat(boxBottomReverse)
       break
 
     case OPERATOR_SHAPES.TRIANGLE_LEFT:
@@ -172,7 +181,7 @@ export const svgShape = (operator) => {
 export const titleY = (operator) => {
   if (!operator.shape) {
     return 0
-  } else if (operator.shape.match('HalfHouse')) {
+  } else if (operator.shape.match('House')) {
     return (operator.width || 100) * 0.1 + 20
   } else if (operator.shape.match('Triangle')) {
     return (operator.width || 100) * 0.3 + 20
