@@ -51,7 +51,7 @@
   flex: 1;
 }
 .chartCanvas,
-.react-transform-component {
+.precedenceChart .react-transform-component {
   width: 100%;
   height: 100%;
   position: relative;
