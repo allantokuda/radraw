@@ -21,6 +21,8 @@ export default function reducer(state = initialState, action) {
   const newNodes = nodes(state, action)
   const stateWithNewNodes = Object.assign({}, state, { nodes: newNodes })
   return {
+    id: state.id,
+    name: state.name,
     editor: editor(stateWithNewNodes, action),
     nodes: newNodes,
     arrows: arrows(stateWithNewNodes, action),

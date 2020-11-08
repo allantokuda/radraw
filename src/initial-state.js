@@ -1,5 +1,9 @@
+import uuid from './reducers/uuid'
+
 // temporary
 export default {
+  id: uuid(),
+  name: 'Untitled',
   editor: {
     action: 'select',
     selection: [],
