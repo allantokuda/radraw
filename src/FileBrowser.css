@@ -6,6 +6,7 @@
   bottom: 0;
   background: rgba(0,0,0,0.7);
   z-index: 1;
+  overflow-y: auto;
 }
 
 .FileBrowser {
@@ -13,7 +14,8 @@
   margin-right: auto;
   margin-top: 100px;
   max-width: 600px;
-  width: 90%;
+  width: 95%;
+  box-sizing: border-box;
   padding: 20px;
   background: #eee;
   border: 1px solid #888;
