@@ -12,7 +12,7 @@ let FileBrowser = ({ state, dispatch }) => {
     dispatch({ type: 'DESELECT_ALL' })
   }
 
-  const allFiles = Object.keys(localStorage).filter(key => key.length === 36).map(key => JSON.parse(localStorage.getItem(key))).sort((a,b) => a.updatedAt > b.updatedAt)
+  const allFiles = Object.keys(localStorage).filter(key => key.length === 36).map(key => JSON.parse(localStorage.getItem(key))).sort((a,b) => b.updatedAt - a.updatedAt)
 
   return (
     <div className="shroud">
