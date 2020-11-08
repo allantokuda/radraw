@@ -19,4 +19,17 @@ describe('index reducer', () => {
     let state = reducer(existingState, {})
     expect(state).toEqual(existingState)
   })
+
+  it('renames current chart', () => {
+    let existingState = {
+      id: '123456-7890-4123-4567-890123456',
+      name: 'Cool Chart',
+      editor: { action: 'select' },
+      nodes: [ { x: 3, y: 4, operator: {} } ],
+      arrows: [],
+      relations: [ { name: 'foo' } ]
+    }
+    let state = reducer(existingState, { type: 'RENAME_CHART', newName: 'Cool Chat' })
+    expect(state).toEqual(Object.assign(existingState, { name: 'Cool Chat' }))
+  })
 })

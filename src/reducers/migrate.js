@@ -10,6 +10,7 @@ export default (state) => {
   })
 
   if (state.id === undefined) { state.id = uuid() }
+  if (state.name === undefined) { state.name = 'Untitled' }
 
   return state
 }

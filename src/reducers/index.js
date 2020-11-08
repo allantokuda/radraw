@@ -14,10 +14,14 @@ export function maxPlusOne(objects) {
 }
 
 export default function reducer(state = initialState, action) {
+  let chartName = state.name
+
   if (action.type === 'NEW_CHART') {
     return initialState
-  } else if (action.type == 'OPEN_CHART') {
+  } else if (action.type === 'OPEN_CHART') {
     return migrate(JSON.parse(localStorage.getItem(action.fileId)))
+  } else if (action.type === 'RENAME_CHART') {
+    chartName = action.newName
   }
 
   //console.log(state, action)
@@ -25,7 +29,7 @@ export default function reducer(state = initialState, action) {
   const stateWithNewNodes = Object.assign({}, state, { nodes: newNodes })
   return {
     id: state.id,
-    name: state.name,
+    name: chartName,
     editor: editor(stateWithNewNodes, action),
     nodes: newNodes,
     arrows: arrows(stateWithNewNodes, action),
