@@ -6,10 +6,11 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import raApp from './reducers/index'
+import migrate from './reducers/migrate'
 import { loadState, saveState } from './lib/localStorage'
 import throttle from './lib/throttle';
 
-const persistedState = loadState()
+const persistedState = migrate(loadState())
 const store = createStore(raApp, persistedState)
 
 store.subscribe(throttle(() => {
