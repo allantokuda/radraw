@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import Toolbar from './Toolbar'
 import PrecedenceChart from './PrecedenceChart'
+import FileBrowser from './FileBrowser'
 import './App.css'
 import './z-index.css'
 
@@ -12,6 +13,7 @@ let App = ({ state }) => {
 
   return (
     <div className={classNames(classNamesObj)}>
+      { state.editor.action === 'open' && <FileBrowser /> }
       <Toolbar />
       <PrecedenceChart />
     </div>

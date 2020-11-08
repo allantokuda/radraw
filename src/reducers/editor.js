@@ -6,6 +6,10 @@ export default (state = initialState, action) => {
   let connectTo, noSelectAfterDrag, restOfEditorState
 
   switch(action.type) {
+    case 'BROWSE':
+      changes = { action: 'open' }
+      break
+
     case 'PAN':
       if (action.x === undefined) break
       changes = { panX: action.x, panY: action.y }

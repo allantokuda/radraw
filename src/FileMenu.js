@@ -16,15 +16,15 @@ let FileMenu = ({ state }) => {
   }
 
   const options = [
-    { value: 'NEW_CHART', label: 'Clear Chart' },
+    { value: 'NEW_CHART', label: 'New Chart' },
+    { value: 'BROWSE', label: 'Open Chart...' },
   ]
 
   const menuPick = (option) => {
+    dispatch({ type: option.value })
+
     if (option.value === 'NEW_CHART') {
-      if(window.confirm('This will clear the chart. Continue?')) {
-        dispatch({ type: option.value })
-        dispatch({ type: 'PAN', x: 0, y: 0 })
-      }
+      dispatch({ type: 'PAN', x: 0, y: 0 })
     }
   }
 

@@ -1,0 +1,56 @@
+.shroud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1;
+}
+
+.FileBrowser {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  max-width: 600px;
+  width: 90%;
+  padding: 20px;
+  background: #eee;
+  border: 1px solid #888;
+  border-radius: 10px;
+  position: relative;
+}
+
+.FileBrowser .closeButton {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.FileBrowser h1 {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.FileBrowser ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.FileBrowser .fileButton {
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 18px;
+  padding: 4px;
+  padding-left: 32px;
+  padding-right: 6px;
+}
+
+.FileBrowser .fileDelete {
+  margin-left: 32px;
+}
+
+.FileBrowser .fileButton:hover {
+  background: #ddd;
+}

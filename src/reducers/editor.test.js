@@ -193,4 +193,16 @@ describe('editor reducer', () => {
       selection: []
     })
   })
+
+  it('opens file browse', () => {
+    expect(
+      reducer(
+        { editor: { action: 'select', selection: [] } },
+        { type: 'BROWSE' }
+      )
+    ).toEqual({
+      action: 'open',
+      selection: []
+    })
+  })
 })

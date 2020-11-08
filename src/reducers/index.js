@@ -3,6 +3,7 @@ import arrows from './arrows'
 import editor from './editor'
 import relations from './relations'
 import initialState from '../initial-state'
+import migrate from './migrate'
 
 export function maxPlusOne(objects) {
   if (objects.length === 0) {
@@ -15,6 +16,8 @@ export function maxPlusOne(objects) {
 export default function reducer(state = initialState, action) {
   if (action.type === 'NEW_CHART') {
     return initialState
+  } else if (action.type == 'OPEN_CHART') {
+    return migrate(JSON.parse(localStorage.getItem(action.fileId)))
   }
 
   //console.log(state, action)

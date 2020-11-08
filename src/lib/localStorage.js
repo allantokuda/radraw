@@ -20,6 +20,7 @@ export const loadState = () => {
 
 export const saveState = (state) => {
   try {
+    state.updatedAt = (new Date()).getTime()
     const serializedState = JSON.stringify(state);
     localStorage.setItem('openChartId', state.id);
     localStorage.setItem(state.id, serializedState);
