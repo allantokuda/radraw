@@ -112,17 +112,17 @@ describe('node reducer', () => {
       reducer(
         {
           nodes: [
-            { id: 1, x: 0, operator: { params: 'Aid(E): Skill_code\nBid(E): Skill_code', type: 'Match Join', shape: 'HalfHouseLeft' } }
+            { id: 1, x: 0, operator: { params: 'Aid(S): Skill_code\nBid(E): Skill_code', type: 'Match Join', shape: 'HalfHouseLeft' } }
           ]
         },
         {
           type: actions.UPDATE_OPERATOR_PARAMS,
           nodeId: 1,
-          value: 'Aid(E): Skill_code\nBid(E): Least_Aspired_to_skill_code'
+          value: 'Aid(S): Skill_code\nBid(E): Least_Aspired_to_skill_code'
         }
       )
     ).toEqual([
-      { id: 1, x: 0, operator: { params: 'Aid(E): Skill_code\nBid(E): Least_Aspired_to_skill_code', type: 'Match Join', shape: 'HalfHouseLeft' }}
+      { id: 1, x: 0, operator: { params: 'Aid(S): Skill_code\nBid(E): Least_Aspired_to_skill_code', type: 'Match Join', shape: 'HalfHouseLeft' }}
     ])
   })
 

@@ -17,6 +17,8 @@ export default (operator, action) => {
 
         if (search.match(/aid\([sod]\)/) && search.match(/bid\([sod]\)/)) {
           shape = 'FullHouse' + orientation
+        } else if (search.match(/aid\([em]\)/) && search.match(/bid\([em]\)/)) {
+          shape = 'HalfHouse' + orientation + 'Symmetric'
         } else if (search.match(/bid\([em]\)/)) {
           shape = 'HalfHouse' + orientation
         }
