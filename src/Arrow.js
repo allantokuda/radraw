@@ -33,7 +33,7 @@ const Arrow = (arrow) => {
   return <svg className={"arrow " + (selected ? 'selected' : '')} style={svgPosition}>
     <g transform={"translate(" + headWidth * 1.5 + ", 0)"}>
       <line className="arrowLine" x1="0" x2="0" y1="0" y2={length-headLength} />
-      <line className="arrowClickArea" x1="0" x2="0" y1="0" y2={length-headLength-20} onClick={handleClick}/>
+      <line className="arrowClickArea" x1="0" x2="0" y1="0" y2={length-headLength} onClick={handleClick}/>
       <polygon className="arrowHead" points={arrowPoints} />
     </g>
   </svg>
