@@ -23,6 +23,7 @@ export const saveState = (state) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('openChartId', state.id);
     localStorage.setItem(state.id, serializedState);
+    localStorage.removeItem('state');
   } catch {
     // ignore write errors
   }
