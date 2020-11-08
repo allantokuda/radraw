@@ -11,18 +11,19 @@ let Toolbar = ({ state }) => {
   const dispatch = useDispatch()
   let newRelation = () => { dispatch(actions.newRelationMode()) }
   let deleteRelation = () => {
-    let confirmed = window.confirm('This will delete ' + state.editor.selection.length + ' selected item(s).')
+    let confirmed = window.confirm('This will delete the selected item(s).')
     if (confirmed) {
       dispatch(actions.deleteSelected())
     }
   }
   let flipOperator = () => { dispatch(actions.flipOperator()) }
 
-  const ids = state.editor.selection
-  const oneNode = ids.length === 1
+  const selectedNodes = state.nodes.filter(node => node.selected)
+  const selectedArrows = state.arrows.filter(arrow => arrow.selected)
+  const selectionSize = selectedNodes.length + selectedArrows.length
   let flippable
-  if (oneNode) {
-    let selectedNode = state.nodes.find(node => node.id === ids[0])
+  if (selectedNodes.length === 1) {
+    let selectedNode = selectedNodes[0]
     flippable = selectedNode && selectedNode.operator && selectedNode.operator.shape && flip(selectedNode.operator.shape)
   } else {
     flippable = false
@@ -41,7 +42,7 @@ let Toolbar = ({ state }) => {
         </div>
       </button>
 
-      { state.editor.selection.length >= 1 &&
+      { selectionSize >= 1 &&
         <button onClick={deleteRelation} className="operatorButton">
           <span className="buttonContents">
             <div className="relation" aria-hidden={true} style={{ background: '#fcc', borderColor: '#c99', color: 'black', boxSizing: 'border-box', height: '25px', width: '50px', padding: 1, margin: '5px 0' }}>
@@ -65,7 +66,7 @@ let Toolbar = ({ state }) => {
 
       {
         operators.filter(operator =>
-          operator.numInputs === state.editor.selection.length
+          operator.numInputs === selectedNodes.length
         ).map(operator =>
           <OperatorButton key={operator.type} {...operator}/>
         )

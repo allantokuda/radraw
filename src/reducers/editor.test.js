@@ -53,131 +53,37 @@ describe('editor reducer', () => {
     ).toEqual('select')
   })
 
-  it('can select a relation', () => {
+  it('at end of drag operation, clears flag for avoiding select at mouseup', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selection: [] } },
-        { type: 'SELECT', selectableId: 7 }
-      )
-    ).toEqual({
-      action: 'select',
-      selection: [7]
-    })
-  })
-
-  it('can change the selected relation', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selection: [6] } },
-        { type: 'SELECT', selectableId: 7 }
-      )
-    ).toEqual({
-      action: 'select',
-      selection: [7]
-    })
-  })
-
-  it('can toggle-select a second relation', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selection: [7] } },
-        { type: 'TOGGLE_SELECT', selectableId: 8 }
-      )
-    ).toEqual({
-      action: 'select',
-      selection: [7, 8]
-    })
-  })
-
-  it('can toggle-deselect a relation', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selection: [6, 7] } },
-        { type: 'TOGGLE_SELECT', selectableId: 7 }
-      )
-    ).toEqual({
-      action: 'select',
-      selection: [6]
-    })
-  })
-
-  it('can toggle-deselect one of several relations', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selection: [7, 8, 9] } },
-        { type: 'TOGGLE_SELECT', selectableId: 8 }
-      )
-    ).toEqual({
-      action: 'select',
-      selection: [7, 9]
-    })
-  })
-
-  it('avoids changing the selection at mouseup on end of drag operation', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selection: [7], noSelectAfterDrag: true } },
+        { editor: { action: 'select', noSelectAfterDrag: true } },
         { type: 'SELECT', selectableId: 8 } // dragging a not-selected node
       )
     ).toEqual({
       action: 'select',
-      selection: [7]
-    })
-  })
-
-  it('selects the newest relation after creating an operator', () => {
-    expect(
-      reducer(
-        {
-          editor: { action: 'select', selection: [6] },
-          nodes: [
-            { id: 6, x: 100, y: 200, resultRelationId: 1 },
-            { id: 7, x: 100, y: 400, resultRelationId: 2 } // assumed new node+relation
-          ],
-          relations: [{ id: 2 }, { id: 3 }]
-        },
-        { type: 'ADD_OPERATOR' }
-      )
-    ).toEqual({
-      action: 'select',
-      selection: [7]
     })
   })
 
   it('remembers a flag to not select at the end of a drag operation', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selection: [] } },
+        { editor: { action: 'select' } },
         { type: 'MOVE_NODE' }
       )
     ).toEqual({
       action: 'select',
-      selection: [],
       noSelectAfterDrag: true
-    })
-  })
-
-  it('clears selection upon delete', () => {
-    expect(
-      reducer(
-        { editor: { action: 'select', selection: [4, 5] } },
-        { type: 'DELETE_SELECTED' }
-      )
-    ).toEqual({
-      action: 'select',
-      selection: []
     })
   })
 
   it('remembers an operator input connection for subsequently adding an input arrow', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selection: [8] } },
+        { editor: { action: 'select' } },
         { type: 'INIT_CONNECT', nodeId: 3, connection: 1 }
       )
     ).toEqual({
       action: 'connect',
-      selection: [],
       connectTo: { nodeId: 3, connection: 1 }
     })
   })
@@ -185,24 +91,18 @@ describe('editor reducer', () => {
   it('resets to select mode when connecting', () => {
     expect(
       reducer(
-        { editor: { action: 'connect', connectTo: { foo: 'bar' }, selection: [] } },
+        { editor: { action: 'connect', connectTo: { foo: 'bar' }, } },
         { type: 'FINISH_CONNECT', sourceNodeId: 3 }
       )
-    ).toEqual({
-      action: 'select',
-      selection: []
-    })
+    ).toEqual({ action: 'select' })
   })
 
   it('opens file browse', () => {
     expect(
       reducer(
-        { editor: { action: 'select', selection: [] } },
+        { editor: { action: 'select', } },
         { type: 'BROWSE' }
       )
-    ).toEqual({
-      action: 'open',
-      selection: []
-    })
+    ).toEqual({ action: 'open' })
   })
 })

@@ -10,7 +10,7 @@ import * as actions from './actions'
 
 const mockStore = configureStore([])
 let store = mockStore({
-  editor: { selection: [7] },
+  editor: {},
   nodes: [ { id: 7, operator: { params: {} }, resultRelationId: 1 } ],
   arrows: [],
   relations: [ { id: 1, name: 'Test Relation' } ]

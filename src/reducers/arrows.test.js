@@ -34,8 +34,8 @@ describe('arrows reducer', () => {
       { id: 3, relation: {} },
     ]
     let arrows = [
-      { from: 1, to: 3, connection: 0 },
-      { from: 2, to: 3, connection: 1 },
+      { from: 1, to: 3, connection: 0, selected: true },
+      { from: 2, to: 3, connection: 1, selected: true },
     ]
     let action = {
       type: actions.DESELECT_ALL
@@ -43,17 +43,14 @@ describe('arrows reducer', () => {
     expect(
       reducer({ nodes, arrows }, action)
     ).toEqual([
-      { from: 1, to: 3, connection: 0 },
-      { from: 2, to: 3, connection: 1 }
+      { from: 1, to: 3, connection: 0, selected: false },
+      { from: 2, to: 3, connection: 1, selected: false }
     ])
   })
 
   it('adds arrow to newly created unary operator', () => {
-    let editor = {
-      selection: [1]
-    }
     let nodes = [
-      { id: 1, x: 100, y: 100, height: 120, relation: {} },
+      { id: 1, x: 100, y: 100, height: 120, relation: {}, selected: true },
       { id: 2, x: 100, y: 300, height: 120, operator: { shape: 'Hexagon', width: 100, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
     ]
     let arrows = []
@@ -62,19 +59,16 @@ describe('arrows reducer', () => {
       operatorType: REDUCE
     }
     expect(
-      reducer({ editor, nodes, arrows }, action)
+      reducer({ nodes, arrows }, action)
     ).toEqual([
       { from: 1, to: 2, connection: 0, x1: 100, y1: 220, x2: 100, y2: 300 },
     ])
   })
 
   it('adds arrows to newly created binary operator', () => {
-    let editor = {
-      selection: [1, 2]
-    }
     let nodes = [
-      { id: 1, x: 100, y: 100, height: 120, relation: {} },
-      { id: 2, x: 300, y: 100, height: 130, relation: {} },
+      { id: 1, x: 100, y: 100, height: 120, relation: {}, selected: true },
+      { id: 2, x: 300, y: 100, height: 130, relation: {}, selected: true },
       { id: 3, x: 200, y: 460, height: 100, operator: { type: 'Times', shape: 'FullHouseLeft', width: 200, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
     ]
     let arrows = []
@@ -83,7 +77,7 @@ describe('arrows reducer', () => {
       operatorType: TIMES
     }
     expect(
-      reducer({ editor, nodes, arrows }, action)
+      reducer({ nodes, arrows }, action)
     ).toEqual([
       { from: 1, to: 3, connection: 0, x1: 100, x2: 101, y1: 220, y2: 499.6 },
       { from: 2, to: 3, connection: 1, x1: 300, x2: 299, y1: 230, y2: 499.6 },
@@ -91,13 +85,10 @@ describe('arrows reducer', () => {
   })
 
   it('flips arrows on binary operator', () => {
-    let editor = {
-      selection: [3]
-    }
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, operator: {} },
       { id: 2, x: 300, y: 100, height: 130, operator: {} },
-      { id: 3, x: 200, y: 460, height: 100, operator: { shape: 'HalfHouseLeft', width: 100, height: 100 } },
+      { id: 3, x: 200, y: 460, height: 100, operator: { shape: 'HalfHouseLeft', width: 100, height: 100 }, selected: true },
     ]
     let arrows = [
       { from: 1, to: 3, x1: 100, y1: 0, x2: 200, y2: 100, connection: 0 },
@@ -107,17 +98,58 @@ describe('arrows reducer', () => {
       type: actions.FLIP_OPERATOR
     }
     expect(
-      reducer({ editor, nodes, arrows }, action)
+      reducer({ nodes, arrows }, action)
     ).toEqual([
       { from: 1, to: 3, x1: 100, x2: 249, y1: 220, y2: 479.6, connection: 1 },
       { from: 2, to: 3, x1: 300, x2: 151, y1: 230, y2: 460, connection: 0 },
     ])
   })
 
-  it('deletes arrows and cleans up disconnected arrows', () => {
-    let editor = {
-      selection: [2, 'a4:0'] // a node 2 and an arrow to connection 0 of node 4
+  it('selects an arrow', () => {
+    let nodes = [
+      { id: 1, x: 100, y: 100, height: 120, relation: {} },
+      { id: 2, x: 200, y: 460, height: 100, relation: {} },
+      { id: 3, x: 300, y: 460, height: 100, relation: {} },
+    ]
+    let arrows = [
+      { from: 1, to: 2, connection: 0, selected: false },
+      { from: 1, to: 3, connection: 0, selected: true },
+    ]
+    let action = {
+      type: actions.SELECT,
+      selectableId: 'a2:0'
     }
+    expect(
+      reducer({ nodes, arrows }, action)
+    ).toEqual([
+      { from: 1, to: 2, connection: 0, selected: true },
+      { from: 1, to: 3, connection: 0, selected: false },
+    ])
+  })
+
+  it('toggle-selects an arrow', () => {
+    let nodes = [
+      { id: 1, x: 100, y: 100, height: 120, relation: {} },
+      { id: 2, x: 200, y: 460, height: 100, relation: {} },
+      { id: 3, x: 300, y: 460, height: 100, relation: {} },
+    ]
+    let arrows = [
+      { from: 1, to: 2, connection: 0, selected: false },
+      { from: 1, to: 3, connection: 0, selected: true },
+    ]
+    let action = {
+      type: actions.TOGGLE_SELECT,
+      selectableId: 'a2:0'
+    }
+    expect(
+      reducer({ nodes, arrows }, action)
+    ).toEqual([
+      { from: 1, to: 2, connection: 0, selected: true },
+      { from: 1, to: 3, connection: 0, selected: true },
+    ])
+  })
+
+  it('deletes arrows and cleans up disconnected arrows', () => {
     let nodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {} },
       // supposing node 2 has been deleted
@@ -128,13 +160,13 @@ describe('arrows reducer', () => {
       { from: 1, to: 2 },
       { from: 2, to: 3 },
       { from: 1, to: 3 },
-      { from: 1, to: 4, connection: 0 },
+      { from: 1, to: 4, connection: 0, selected: true },
     ]
     let action = {
       type: actions.DELETE_SELECTED
     }
     expect(
-      reducer({ editor, nodes, arrows }, action)
+      reducer({ nodes, arrows }, action)
     ).toEqual([
       { from: 1, to: 3 },
     ])

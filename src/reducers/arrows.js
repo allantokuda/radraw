@@ -26,9 +26,7 @@ export default (state, action) => {
 
   switch(action.type) {
     case 'ADD_OPERATOR':
-      const fromNodes = state.editor.selection.map(
-        nodeId => state.nodes.find(node => node.id === nodeId)
-      ).sort((n1, n2) => n1.x - n2.x)
+      const fromNodes = state.nodes.filter(node => node.selected).sort((n1, n2) => n1.x - n2.x)
 
       toNode = state.nodes.slice(-1)[0] // assume newly created node is last item in the array
 
@@ -46,20 +44,33 @@ export default (state, action) => {
 
 
     case 'DELETE_SELECTED':
-      let existingNodeIds = state.nodes.map(node => node.id)
-      arrows = state.arrows.filter(arrow =>
-        existingNodeIds.indexOf(arrow.to) !== -1 &&
-        existingNodeIds.indexOf(arrow.from) !== -1 &&
-        state.editor.selection.indexOf(arrowId(arrow)) === -1
-      )
+      arrows = state.arrows.filter(arrow => {
+        const fromNode = state.nodes.find(node => node.id === arrow.from)
+        const toNode = state.nodes.find(node => node.id === arrow.to)
+        return fromNode && toNode && !arrow.selected
+      })
+      break
+
+    case 'DESELECT_ALL':
+      arrows = state.arrows.map(arrow => Object.assign({}, arrow, { selected: false }))
+      break
+
+    case 'SELECT':
+      arrows = state.arrows.map(arrow => Object.assign({}, arrow, { selected: arrowId(arrow) === action.selectableId }))
+      break
+
+    case 'TOGGLE_SELECT':
+      arrows = state.arrows.map(arrow => {
+        if (action.selectableId !== arrowId(arrow)) return arrow
+        return Object.assign({}, arrow, { selected: !arrow.selected })
+      })
       break
 
     case 'FLIP_OPERATOR':
-      const flipNodeId = state.editor.selection[0]
-      const flipNode = state.nodes.find(node => node.id === flipNodeId)
+      const flipNode = state.nodes.find(node => node.selected)
 
       arrows = state.arrows.map(arrow => {
-        if (arrow.to === flipNodeId) {
+        if (arrow.to === flipNode.id) {
           const newConnection = 1 - arrow.connection // binary only for now
           fromNode = state.nodes.find(node => node.id === arrow.from)
           return newArrow(fromNode, flipNode, newConnection)

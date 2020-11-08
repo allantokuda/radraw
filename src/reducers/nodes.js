@@ -63,15 +63,13 @@ export default (state, action) => {
       break
 
     case 'ADD_OPERATOR':
-      let selectedRelationNodes = state.editor.selection.map(selectableId =>
-        state.nodes.find(node => node.id === selectableId)
-      )
+      let selectedRelationNodes = state.nodes.filter(node => node.selected)
       let averageX = average(selectedRelationNodes.map(node => node.x))
       let bottomY = Math.max(...selectedRelationNodes.map(node => node.y + node.height))
 
       const operatorProperties = operatorTypeProperties(action.operatorType)
 
-      nodes = nodes.concat({
+      nodes = nodes.map(node => Object.assign({}, node, { selected: false })).concat({
         id: maxPlusOne(state.nodes),
         resultRelationId: maxPlusOne(state.relations),
         operator: {
@@ -80,17 +78,34 @@ export default (state, action) => {
           params: operatorProperties.defaultParams
         },
         x: averageX,
-        y: bottomY + 30
+        y: bottomY + 30,
+        selected: true
+      })
+      break
+
+    case 'SELECT':
+      if (state.editor.noSelectAfterDrag) break
+      nodes = state.nodes.map(node => Object.assign({}, node, { selected: node.id === action.selectableId }))
+      break
+
+    case 'TOGGLE_SELECT':
+      nodes = state.nodes.map(node => {
+        if (action.selectableId !== node.id) return node
+        return Object.assign({}, node, { selected: !node.selected })
       })
       break
 
     case 'DELETE_SELECTED':
-      nodes = state.nodes.filter(node => state.editor.selection.indexOf(node.id) === -1)
+      nodes = state.nodes.filter(node => !node.selected)
+      break
+
+    case 'DESELECT_ALL':
+      nodes = state.nodes.map(node => Object.assign({}, node, { selected: false }))
       break
 
     case 'FLIP_OPERATOR':
       nodes = state.nodes.map(node => {
-        if (state.editor.selection.indexOf(node.id) !== -1) {
+        if (node.selected) {
           const operator = Object.assign({}, node.operator, { shape: flip(node.operator.shape) })
           return Object.assign({}, node, { operator })
         } else {

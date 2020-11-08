@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
           break
 
         default:
-          changes = { selection: [action.selectableId] }
+          changes = {}
       }
 
       break
@@ -54,18 +54,7 @@ export default (state = initialState, action) => {
       baselineEditor = restOfEditorState
       if (noSelectAfterDrag) break
 
-      const ids = state.editor.selection
-      const existingIndex = ids.indexOf(action.selectableId)
-      if (existingIndex > -1) {
-        changes = {
-          selection: [
-            ...ids.slice(0, existingIndex),
-            ...ids.slice(existingIndex + 1)
-          ]
-        }
-      } else {
-        changes = { selection: ids.concat(action.selectableId) }
-      }
+      changes = {}
 
       break
 
@@ -73,12 +62,8 @@ export default (state = initialState, action) => {
       changes = { noSelectAfterDrag: true }
       break
 
-    case 'ADD_OPERATOR':
-      changes = { selection: [Math.max(...state.nodes.map(node => node.id))] }
-      break
-
     case 'INIT_CONNECT':
-      changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId }, selection: [] }
+      changes = { action: 'connect', connectTo: { connection: action.connection, nodeId: action.nodeId } }
       break
 
     case 'FINISH_CONNECT':
@@ -90,7 +75,7 @@ export default (state = initialState, action) => {
 
     case 'DESELECT_ALL':
     case 'DELETE_SELECTED':
-      changes = { action: 'select', selection: [] }
+      changes = { action: 'select' }
       break
 
     default:

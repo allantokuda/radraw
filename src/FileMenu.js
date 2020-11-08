@@ -12,7 +12,7 @@ let FileMenu = ({ state }) => {
     container: () => ({ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }),
     control: () => ({ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }),
     menu: (provided) => ({ ...provided, minWidth: 140 }),
-    option: (provided) => ({ ...provided, color: 'black' })
+    option: (provided) => ({ ...provided, color: 'black', textAlign: 'left', paddingLeft: 30 })
   }
 
   const options = [

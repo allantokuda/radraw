@@ -16,9 +16,6 @@ let PrecedenceChart = ({ state, dispatch }) => {
     }
   }
 
-  let isSelectedArrow = (arrow) => {
-    return state.editor.selection.indexOf(arrowId(arrow)) !== -1
-  }
   let handlePan = (e) => {
     dispatch({ type: 'PAN', x: e.positionX, y: e.positionY })
   }
@@ -54,8 +51,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
             })}
             {state.arrows.map(arrow => (
               <Arrow {...arrow}
-                key={arrowId(arrow)}
-                selected={isSelectedArrow(arrow)}/>
+                key={arrowId(arrow)}/>
             ))}
           </div>
         </TransformComponent>

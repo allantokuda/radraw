@@ -29,7 +29,7 @@ class ChartNode extends Component {
   render() {
     const { node, relation, state, dispatch } = this.props
     const operator = node.operator
-    const selected = state.editor.selection.indexOf(node.id) > -1
+    const selected = node.selected
 
     const handleEditName = (event) => {
       dispatch(actions.renameRelation(node.resultRelationId, event.target.value))

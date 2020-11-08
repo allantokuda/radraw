@@ -149,19 +149,67 @@ describe('node reducer', () => {
     ])
   })
 
+  it('marks node selected', () => {
+    expect(
+      reducer(
+        { editor: {}, nodes: [
+          { id: 7, resultRelationId: 13, selected: true },
+          { id: 8, resultRelationId: 14, selected: false }
+        ], relations: [{ id: 13 }, { id: 14 }] },
+        { type: 'SELECT', selectableId: 8 }
+      )
+    ).toEqual([
+      { id: 7, resultRelationId: 13, selected: false },
+      { id: 8, resultRelationId: 14, selected: true }
+    ])
+  })
+
+  it('toggles node select state', () => {
+    expect(
+      reducer(
+        { nodes: [
+          { id: 7, resultRelationId: 13, selected: true },
+          { id: 8, resultRelationId: 14, selected: false }
+        ], relations: [{ id: 13 }, { id: 14 }] },
+        { type: 'TOGGLE_SELECT', selectableId: 8 }
+      )
+    ).toEqual([
+      { id: 7, resultRelationId: 13, selected: true },
+      { id: 8, resultRelationId: 14, selected: true }
+    ])
+  })
+
+  it('deselects all nodes', () => {
+    expect(
+      reducer(
+        {
+          relations: [{ id: 13 }, {id: 14 }],
+          nodes: [
+            { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300, selected: false },
+            { id: 7, resultRelationId: 14, x: 100, y: 200, height: 300, selected: true },
+          ]
+        },
+        { type: 'DESELECT_ALL' }
+      )
+    ).toEqual([
+      { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300, selected: false },
+      { id: 7, resultRelationId: 14, x: 100, y: 200, height: 300, selected: false },
+    ])
+
+  })
+
   it('adds a new unary operator node with default params at a Y coordinate that below the operand relation', () => {
     expect(
       reducer(
         {
           relations: [{ id: 13 }],
-          nodes: [{ id: 7, resultRelationId: 13, x: 100, y: 200, height: 350 }],
-          editor: { selection: [7] }
+          nodes: [{ id: 7, resultRelationId: 13, x: 100, y: 200, height: 350, selected: true }],
         },
         { type: 'ADD_OPERATOR', operatorType: REDUCE }
       )
     ).toEqual([
-      { id: 7, resultRelationId: 13, x: 100, y: 200, height: 350 },
-      { id: 8, resultRelationId: 14, operator: { shape: "Hexagon", type: "Reduce", params: 'id: ' }, x: 100, y: 580 }
+      { id: 7, resultRelationId: 13, x: 100, y: 200, height: 350, selected: false },
+      { id: 8, resultRelationId: 14, operator: { shape: "Hexagon", type: "Reduce", params: 'id: ' }, x: 100, y: 580, selected: true }
     ])
   })
 
@@ -171,17 +219,16 @@ describe('node reducer', () => {
         {
           relations: [{ id: 13 }, {id: 14 }],
           nodes: [
-            { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300 },
-            { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330 }
-          ],
-          editor: { selection: [7, 8] }
+            { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300, selected: true },
+            { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330, selected: true }
+          ]
         },
         { type: 'ADD_OPERATOR', operatorType: MATCH_JOIN }
       )
     ).toEqual([
-      { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300 },
-      { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330 },
-      { id: 9, resultRelationId: 15, operator: { shape: "HalfHouseLeft", type: "Match Join", params: 'Aid(): \nBid(): ' }, x: 200, y: 580 }
+      { id: 7, resultRelationId: 13, x: 100, y: 200, height: 300, selected: false },
+      { id: 8, resultRelationId: 14, x: 300, y: 220, height: 330, selected: false },
+      { id: 9, resultRelationId: 15, operator: { shape: "HalfHouseLeft", type: "Match Join", params: 'Aid(): \nBid(): ' }, x: 200, y: 580, selected: true }
     ])
   })
 
@@ -191,18 +238,17 @@ describe('node reducer', () => {
         {
           relations: [{ id: 13 }, {id: 14 }],
           nodes: [
-            { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300 },
-            { id: 7, resultRelationId: 14, x: 100, y: 200, height: 300 },
-            { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300 },
-            { id: 9, resultRelationId: 16, x: 100, y: 200, height: 300 }
-          ],
-          editor: { selection: [7, 9] }
+            { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300, selected: false },
+            { id: 7, resultRelationId: 14, x: 100, y: 200, height: 300, selected: true },
+            { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300, selected: false },
+            { id: 9, resultRelationId: 16, x: 100, y: 200, height: 300, selected: true }
+          ]
         },
         { type: 'DELETE_SELECTED' }
       )
     ).toEqual([
-      { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300 },
-      { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300 }
+      { id: 6, resultRelationId: 13, x: 100, y: 200, height: 300, selected: false },
+      { id: 8, resultRelationId: 15, x: 100, y: 200, height: 300, selected: false }
     ])
   })
 
@@ -212,14 +258,13 @@ describe('node reducer', () => {
         {
           relations: [{ id: 13 }, {id: 14 }],
           nodes: [
-            { id: 6, resultRelationId: 13, operator: { shape: 'HalfHouseLeft' } },
+            { id: 6, resultRelationId: 13, operator: { shape: 'HalfHouseLeft' }, selected: true },
           ],
-          editor: { selection: [6] }
         },
         { type: 'FLIP_OPERATOR' }
       )
     ).toEqual([
-      { id: 6, resultRelationId: 13, operator: { shape: 'HalfHouseRight' } },
+      { id: 6, resultRelationId: 13, operator: { shape: 'HalfHouseRight' }, selected: true },
     ])
 
   })
