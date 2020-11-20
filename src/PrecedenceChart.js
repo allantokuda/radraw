@@ -26,7 +26,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
   return (
     <div className="precedenceChart" onClick={handleChartClick}>
       <TransformWrapper
-        options={{limitToBounds: false, minScale: 0.2 }}
+        options={{limitToBounds: false, minScale: 0.2, disabled: state.nodes.find(node => node.selected) }}
         doubleClick={{disabled: true}}
 
         pan={{velocity: false}}
