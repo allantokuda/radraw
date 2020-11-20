@@ -2,7 +2,7 @@ import { connectionPoints } from '../operatorShape'
 
 export function arrowId(arrow) { return 'a' + arrow.to + ':' + arrow.connection }
 
-export default (state, action) => {
+export default (state, action, oldNodes) => {
   if (state.arrows === undefined) {
     return []
   }
@@ -26,7 +26,7 @@ export default (state, action) => {
 
   switch(action.type) {
     case 'ADD_OPERATOR':
-      const fromNodes = state.nodes.filter(node => node.selected).sort((n1, n2) => n1.x - n2.x)
+      const fromNodes = oldNodes.filter(node => node.selected).sort((n1, n2) => n1.x - n2.x)
 
       toNode = state.nodes.slice(-1)[0] // assume newly created node is last item in the array
 

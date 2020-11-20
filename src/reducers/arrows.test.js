@@ -20,7 +20,7 @@ describe('arrows reducer', () => {
     }
 
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, [])
     ).toEqual([
       { from: 1, to: 3, connection: 0, x2: 71, y2: 200 },
       { from: 2, to: 3, connection: 1, x2: 229, y2: 231.6 }
@@ -41,7 +41,7 @@ describe('arrows reducer', () => {
       type: actions.DESELECT_ALL
     }
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, [])
     ).toEqual([
       { from: 1, to: 3, connection: 0, selected: false },
       { from: 2, to: 3, connection: 1, selected: false }
@@ -49,9 +49,12 @@ describe('arrows reducer', () => {
   })
 
   it('adds arrow to newly created unary operator', () => {
-    let nodes = [
+    let oldNodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {}, selected: true },
-      { id: 2, x: 100, y: 300, height: 120, operator: { shape: 'Hexagon', width: 100, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
+    ]
+    let nodes = [
+      { id: 1, x: 100, y: 100, height: 120, relation: {} },
+      { id: 2, x: 100, y: 300, height: 120, operator: { shape: 'Hexagon', width: 100, height: 100 }, selected: true }
     ]
     let arrows = []
     let action = {
@@ -59,17 +62,21 @@ describe('arrows reducer', () => {
       operatorType: REDUCE
     }
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, oldNodes)
     ).toEqual([
       { from: 1, to: 2, connection: 0, x1: 100, y1: 220, x2: 100, y2: 300 },
     ])
   })
 
   it('adds arrows to newly created binary operator', () => {
-    let nodes = [
+    let oldNodes = [
       { id: 1, x: 100, y: 100, height: 120, relation: {}, selected: true },
       { id: 2, x: 300, y: 100, height: 130, relation: {}, selected: true },
-      { id: 3, x: 200, y: 460, height: 100, operator: { type: 'Times', shape: 'FullHouseLeft', width: 200, height: 100 } }, // last node should have been created in the same ADD_OPERATOR action
+    ]
+    let nodes = [
+      { id: 1, x: 100, y: 100, height: 120, relation: {} },
+      { id: 2, x: 300, y: 100, height: 130, relation: {} },
+      { id: 3, x: 200, y: 460, height: 100, operator: { type: 'Times', shape: 'FullHouseLeft', width: 200, height: 100 }, selected: true }
     ]
     let arrows = []
     let action = {
@@ -77,7 +84,7 @@ describe('arrows reducer', () => {
       operatorType: TIMES
     }
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, oldNodes)
     ).toEqual([
       { from: 1, to: 3, connection: 0, x1: 100, x2: 101, y1: 220, y2: 499.6 },
       { from: 2, to: 3, connection: 1, x1: 300, x2: 299, y1: 230, y2: 499.6 },
@@ -98,7 +105,7 @@ describe('arrows reducer', () => {
       type: actions.FLIP_OPERATOR
     }
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, [])
     ).toEqual([
       { from: 1, to: 3, x1: 100, x2: 249, y1: 220, y2: 479.6, connection: 1 },
       { from: 2, to: 3, x1: 300, x2: 151, y1: 230, y2: 460, connection: 0 },
@@ -120,7 +127,7 @@ describe('arrows reducer', () => {
       selectableId: 'a2:0'
     }
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, [])
     ).toEqual([
       { from: 1, to: 2, connection: 0, selected: true },
       { from: 1, to: 3, connection: 0, selected: false },
@@ -142,7 +149,7 @@ describe('arrows reducer', () => {
       selectableId: 'a2:0'
     }
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, [])
     ).toEqual([
       { from: 1, to: 2, connection: 0, selected: true },
       { from: 1, to: 3, connection: 0, selected: true },
@@ -166,7 +173,7 @@ describe('arrows reducer', () => {
       type: actions.DELETE_SELECTED
     }
     expect(
-      reducer({ nodes, arrows }, action)
+      reducer({ nodes, arrows }, action, [])
     ).toEqual([
       { from: 1, to: 3 },
     ])
@@ -185,7 +192,7 @@ describe('arrows reducer', () => {
       sourceNodeId: 6
     }
     expect(
-      reducer({ editor, nodes, arrows }, action)
+      reducer({ editor, nodes, arrows }, action, [])
     ).toEqual([
       { from: 6, to: 7, x1: 200, x2: 251, y1: 300, y2: 419.6, connection: 1 },
     ])

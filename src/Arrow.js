@@ -30,7 +30,7 @@ const Arrow = (arrow) => {
     dispatch(select(arrowId(arrow), event.shiftKey))
   }
 
-  return <svg className={"arrow " + (arrow.selected ? 'selected' : '')} style={svgPosition}>
+  return <svg className={"arrow " + (selected ? 'selected' : '')} style={svgPosition}>
     <g transform={"translate(" + headWidth * 1.5 + ", 0)"}>
       <line className="arrowLine" x1="0" x2="0" y1="0" y2={length-headLength} />
       <line className="arrowClickArea" x1="0" x2="0" y1="0" y2={length-headLength} onClick={handleClick}/>

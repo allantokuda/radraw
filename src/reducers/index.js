@@ -26,6 +26,7 @@ export default function reducer(state = initialState, action) {
   }
 
   //console.log(state, action)
+  const oldNodes = state.nodes
   const newNodes = nodes(state, action)
   const stateWithNewNodes = Object.assign({}, state, { nodes: newNodes })
   return {
@@ -33,7 +34,7 @@ export default function reducer(state = initialState, action) {
     name: chartName,
     editor: editor(stateWithNewNodes, action),
     nodes: newNodes,
-    arrows: arrows(stateWithNewNodes, action),
+    arrows: arrows(stateWithNewNodes, action, oldNodes),
     relations: relations(state, action),
   }
 }
