@@ -75,7 +75,15 @@
 
 [contenteditable] {
   min-height: 20px;
+
+  /* Safari has this set to 'none' by default */
+  -webkit-user-select: text;
+  user-select: text;
+
+  /* Safari changes text color to white when :active by default; keep it black all the time */
+  color: black;
 }
+
 .selected [contenteditable="true"]:focus {
   background: white;
 }
