@@ -8,7 +8,7 @@ describe('operator reducer', () => {
         { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'test new params' }
       )
     ).toEqual(
-      { type: 'Match Join', shape: 'HalfHouseLeft', params: 'test new params' }
+      { type: 'Match Join', shape: 'HalfHouseLeft', params: 'test new params', style: {} }
     )
   })
 
@@ -19,7 +19,7 @@ describe('operator reducer', () => {
         { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid(E): C_id, Bid(E): C_id' }
       )
     ).toEqual(
-      { type: 'Match Join', shape: 'HalfHouseLeftSymmetric', params: 'Aid(E): C_id, Bid(E): C_id' }
+      { type: 'Match Join', shape: 'HalfHouseLeftSymmetric', params: 'Aid(E): C_id, Bid(E): C_id', style: {} }
     )
   })
 
@@ -30,7 +30,7 @@ describe('operator reducer', () => {
         { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid(S): C_id, Bid(D): C_id' }
       )
     ).toEqual(
-      { type: 'Match Join', shape: 'FullHouseLeft', params: 'Aid(S): C_id, Bid(D): C_id' }
+      { type: 'Match Join', shape: 'FullHouseLeft', params: 'Aid(S): C_id, Bid(D): C_id', style: {} }
     )
   })
 
@@ -41,7 +41,18 @@ describe('operator reducer', () => {
         { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid(S): C_id, Bid(E): C_id' }
       )
     ).toEqual(
-      { type: 'Match Join', shape: 'HalfHouseRight', params: 'Aid(S): C_id, Bid(E): C_id' }
+      { type: 'Match Join', shape: 'HalfHouseRight', params: 'Aid(S): C_id, Bid(E): C_id', style: {} }
+    )
+  })
+
+  it('sets the Non-Symmetric-Either dashed style for Aid(E), Bid(M) or vice-versa', () => {
+    expect(
+      reducer(
+        { type: 'Match Join', shape: 'FullHouseRight', params: 'test params' },
+        { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid(M): C_id, S_code, Bid(E): C_id, S_code' }
+      )
+    ).toEqual(
+      { type: 'Match Join', shape: 'HalfHouseRight', params: 'Aid(M): C_id, S_code, Bid(E): C_id, S_code', style: { strokeDasharray: '5 5' } }
     )
   })
 
@@ -49,10 +60,21 @@ describe('operator reducer', () => {
     expect(
       reducer(
         { type: 'Match Join', shape: 'FullHouseRight', params: 'test params' },
-        { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid(M): C_id, Bid(O): C_id' }
+        { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid (M): C_id, Bid( O): C_id' }
       )
     ).toEqual(
-      { type: 'Bad Match Join', shape: 'FullHouseRight', params: 'Aid(M): C_id, Bid(O): C_id' }
+      { type: 'Bad Match Join', shape: 'FullHouseRight', params: 'Aid (M): C_id, Bid( O): C_id', style: { fill: '#fee', stroke: 'red' } }
+    )
+  })
+
+  it('renames to Bad Match Join when any letters other than DEMOS used', () => {
+    expect(
+      reducer(
+        { type: 'Match Join', shape: 'HalfHouseRight', params: 'test params' },
+        { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid (N): C_id, Bid(E): C_id' }
+      )
+    ).toEqual(
+      { type: 'Bad Match Join', shape: 'HalfHouseRight', params: 'Aid (N): C_id, Bid(E): C_id', style: { fill: '#fee', stroke: 'red' } }
     )
   })
 })
