@@ -65,11 +65,6 @@ class ChartNode extends Component {
       }
     }
 
-    const handleContentEditableClick = (event) => {
-      // keep node selected, don't deselect
-      if (selected) event.stopPropagation()
-    }
-
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg underlay' })
 
     const inboundArrows = state.arrows.filter(arrow => arrow.to === node.id)
@@ -105,7 +100,6 @@ class ChartNode extends Component {
                                  html={operator.params}
                                  tagName='pre'
                                  disabled={!selected}
-                                 onClick={handleContentEditableClick}
                                  onChange={handleEditParams.bind(this)}/>
               }
             </div>
@@ -116,7 +110,6 @@ class ChartNode extends Component {
             <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
                              html={relation.name}
                              disabled={!selected}
-                             onClick={handleContentEditableClick}
                              onChange={handleEditName}/>
           </button>
         </div>
