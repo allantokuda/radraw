@@ -10,13 +10,18 @@ import FileMenu from './FileMenu'
 let Toolbar = ({ state }) => {
   const dispatch = useDispatch()
   let newRelation = () => { dispatch(actions.newRelationMode()) }
+
   let deleteRelation = () => {
     let confirmed = window.confirm('This will delete the selected item(s).')
     if (confirmed) {
       dispatch(actions.deleteSelected())
     }
   }
+
   let flipOperator = () => { dispatch(actions.flipOperator()) }
+
+	let toggleDataPane = () => { dispatch(actions.toggleDataPane()) }
+	const dataButtonLabel = (state.editor.dataPane ? 'Hide' : 'Show') + ' Data'
 
   const selectedNodes = state.nodes.filter(node => node.selected)
   const selectedArrows = state.arrows.filter(arrow => arrow.selected)
@@ -70,6 +75,17 @@ let Toolbar = ({ state }) => {
         ).map(operator =>
           <OperatorButton key={operator.type} {...operator}/>
         )
+      }
+
+      { state.editor.dataPane !== undefined &&
+        <button onClick={toggleDataPane} className="operatorButton" style={{ float: 'right' }}>
+            <span className="buttonContents">
+              <div aria-hidden={true} style={{ fontSize: 30, color: 'white', height: '25px', width: '50px', padding: 4, margin: '-6px 0 8px' }}>
+                &#9638;
+              </div>
+              <label className="">{dataButtonLabel}</label>
+            </span>
+        </button>
       }
     </header>
   )

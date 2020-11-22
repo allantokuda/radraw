@@ -5,6 +5,7 @@ import Toolbar from './Toolbar'
 import PrecedenceChart from './PrecedenceChart'
 import FileNameEditor from './FileNameEditor'
 import FileBrowser from './FileBrowser'
+import DataPane from './DataPane'
 import './App.css'
 import './z-index.css'
 
@@ -17,7 +18,10 @@ let App = ({ state }) => {
       { state.editor.action === 'open' && <FileBrowser /> }
       <FileNameEditor />
       <Toolbar />
-      <PrecedenceChart />
+      <div className="mainArea">
+        <PrecedenceChart />
+        { state.editor.dataPane && <DataPane /> }
+      </div>
     </div>
   )
 }

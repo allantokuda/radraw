@@ -58,6 +58,10 @@ export default (state = initialState, action) => {
 
       break
 
+    case 'TOGGLE_DATA_PANE':
+      changes = { dataPane: !state.editor.dataPane }
+      break
+
     case 'MOVE_NODE':
       changes = { noSelectAfterDrag: true }
       break
