@@ -6,6 +6,7 @@
     "classnames": "^2.2.6",
     "react": "^16.13.1",
     "react-contenteditable": "^3.3.5",
+    "react-datasheet": "^1.4.8",
     "react-dom": "^16.8.4",
     "react-draggable": "^3.2.1",
     "react-redux": "^7",

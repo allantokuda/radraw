@@ -7,6 +7,14 @@ export default (state, action = {}) => {
         case 'RENAME_RELATION':
           return Object.assign({}, relation, { name: action.name })
 
+        case 'EDIT_DATA':
+          const emptyRelation = [[{ value: null }]]
+          let newData = (relation.data || emptyRelation).map(row => [...row])
+          action.changes.forEach(({ cell, row, col, value }) => {
+            newData[row][col] = { ...newData[row][col], value };
+          });
+          return Object.assign({}, relation, { data: newData })
+
         default:
           return relation
       }
