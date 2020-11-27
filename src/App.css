@@ -144,6 +144,7 @@
 
 .operator {
   position: relative; /* allow SVG to overlap exactly relative to this */
+  padding-bottom: 1px;
 }
 
 .operatorSvg {
