@@ -89,6 +89,8 @@ class ChartNode extends Component {
             >!</button>
           )}
 
+          <button className="keyboardSelectButton" aria-label={"Select: " + relation.name} onClick={handleOperatorClick.bind(this)}></button>
+
           <div className={"operator centeredOnZeroWidthParent " + operator.type} onClick={handleOperatorClick.bind(this)}>
             <div className="operatorContent bottomFix dragHandle"
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
@@ -106,12 +108,12 @@ class ChartNode extends Component {
             {svgShape(svgParams)}
           </div>
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <button className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this)}>
+          <div className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this)}>
             <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
                              html={relation.name}
                              disabled={!selected}
                              onChange={handleEditName}/>
-          </button>
+          </div>
         </div>
       </Draggable>
     )
