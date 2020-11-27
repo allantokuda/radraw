@@ -1,0 +1,11 @@
+.DataPane .data-grid-container .data-grid .value-viewer,
+.DataPane .data-grid-container .data-grid .cell > input {
+  padding: 3px;
+  font-size: 16px;
+  background: white;
+  text-align: center;
+  width: 100px;
+}
+
+
+
