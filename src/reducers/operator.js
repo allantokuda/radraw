@@ -34,7 +34,7 @@ export default (operator, action) => {
           shape = 'HalfHouse' + orientation
           style = { strokeDasharray: '5 5' }
 
-        } else if (bid.match(/[em]/)) {
+        } else {
           shape = 'HalfHouse' + orientation
         }
       }

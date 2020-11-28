@@ -63,7 +63,7 @@ describe('operator reducer', () => {
         { type: 'UPDATE_OPERATOR_PARAMS', nodeId: 1, value: 'Aid (M): C_id, Bid( O): C_id' }
       )
     ).toEqual(
-      { type: 'Bad Match Join', shape: 'FullHouseRight', params: 'Aid (M): C_id, Bid( O): C_id', style: { fill: '#fee', stroke: 'red' } }
+      { type: 'Bad Match Join', shape: 'HalfHouseRight', params: 'Aid (M): C_id, Bid( O): C_id', style: { fill: '#fee', stroke: 'red' } }
     )
   })
 
