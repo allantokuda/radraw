@@ -1,41 +1,35 @@
 import React from 'react'
 import classNames from 'classnames'
-import Select from 'react-select'
 import { connect, useDispatch } from 'react-redux'
+import { Menu, MenuItem } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+
+const menuButton = (
+  <button className={classNames({ operatorButton: true })} style={{position: 'relative'}}>
+    <div className="buttonContents">
+      <span style={{fontSize: 30, padding: '0 10px' }}>&#128462;</span>
+      <label className="">File</label>
+    </div>
+  </button>
+)
 
 let FileMenu = ({ state }) => {
   const dispatch = useDispatch()
 
-  const styles = {
-    dropdownIndicator: () => ({ display: 'none' }),
-    placeholder: () => ({ display: 'none' }),
-    container: () => ({ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }),
-    control: () => ({ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }),
-    menu: (provided) => ({ ...provided, minWidth: 140 }),
-    option: (provided) => ({ ...provided, color: 'black', textAlign: 'left', paddingLeft: 30 })
+  const newChart = () => {
+    dispatch({ type: 'NEW_CHART' })
+    dispatch({ type: 'PAN', x: 0, y: 0 })
   }
 
-  const options = [
-    { value: 'NEW_CHART', label: 'New Chart' },
-    { value: 'BROWSE', label: 'Open Chart...' },
-  ]
-
-  const menuPick = (option) => {
-    dispatch({ type: option.value })
-
-    if (option.value === 'NEW_CHART') {
-      dispatch({ type: 'PAN', x: 0, y: 0 })
-    }
+  const openChart = () => {
+    dispatch({ type: 'BROWSE' })
   }
 
   return (
-    <button className={classNames({ operatorButton: true })} style={{position: 'relative'}}>
-      <Select options={options} styles={styles} value={null} onChange={menuPick}/>
-      <div className="buttonContents">
-        <span style={{fontSize: 30, padding: '0 10px' }}>&#128462;</span>
-        <label className="">File</label>
-      </div>
-    </button>
+    <Menu menuButton={menuButton}>
+      <MenuItem onClick={newChart}>New Chart</MenuItem>
+      <MenuItem onClick={openChart}>Open Chart</MenuItem>
+    </Menu>
   )
 }
 
