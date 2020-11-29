@@ -40,4 +40,17 @@ describe('relations reducer', () => {
       { id: 6, name: '' },
     ])
   })
+
+  it('delegates to datasheet reducer', () => {
+    expect(reducer(
+      {
+        relations: [
+          { id: 1, name: 'Creature', data: [[1,2]] },
+        ]
+      },
+      { type: 'COLUMN_INSERT_RIGHT', relationId: 1, columnId: 1 }
+    )).toEqual([
+      { id: 1, name: 'Creature', data: [[1,2,{ value: null }]] },
+    ])
+  })
 })

@@ -7,5 +7,11 @@
   width: 100px;
 }
 
+.DataPane .data-grid-container .data-grid .cell > input {
+  width: 96px;
+}
 
+.DataPane .data-grid-container .data-grid .value-viewer {
+  height: 100%;
+}
 
