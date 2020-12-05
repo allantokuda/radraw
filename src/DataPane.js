@@ -17,10 +17,6 @@ class DataPane extends React.Component {
       dispatch({ type: 'EDIT_DATA', relationId: relation.id, changes })
     }
 
-    const addRow = (relation) => {
-      dispatch({ type: 'ADD_ROW', relationId: relation.id })
-    }
-
     return (
       <div className="DataPane">
         { selectedRelations.map(relation => {
@@ -46,7 +42,6 @@ class DataPane extends React.Component {
               valueRenderer={cell => cell.value}
               onCellsChanged={handleChanges.bind(this, relation)}
             />
-            <button onClick={addRow.bind(this, relation)}>Add row</button>
           </div>
         })}
       </div>

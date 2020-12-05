@@ -57,18 +57,6 @@
   flex: 1;
 }
 
-.DataPane {
-  width: 50%;
-  background: #f8f8f8;
-  border-left: 1px solid #ccc;
-  padding: 20px;
-}
-
-.DataPane h2 {
-  margin-top: 0;
-  font-size: 18px;
-}
-
 .chartCanvas,
 .precedenceChart .react-transform-component {
   width: 100%;

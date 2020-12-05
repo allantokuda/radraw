@@ -1,5 +1,43 @@
+.DataPane {
+  background: #f8f8f8;
+  border-left: 1px solid #ccc;
+  padding: 20px;
+}
+
+.DataPane h2 {
+  margin-top: 0;
+  margin-bottom: 4px;
+  font-size: 18px;
+}
+
+.DataPane table {
+  margin-bottom: 30px;
+}
+
+.DataPane td {
+  background: red;
+}
+
+.DataPane th {
+  text-align: right;
+}
+
+.columnMenuButton {
+  padding: 0 3px;
+  margin-bottom: 4px;
+}
+
 .DataPane .data-grid-container .data-grid .cell {
   vertical-align: center;
+}
+
+.DataPane .data-grid-container .data-grid .cell {
+  background: white;
+}
+
+.DataPane .data-grid-container .data-grid tr:first-child .cell {
+  background: #f0f3fc;
+  border: 1px solid #bfcbef;
 }
 
 .DataPane .data-grid-container .data-grid .value-viewer,

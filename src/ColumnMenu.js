@@ -2,12 +2,12 @@ import React from 'react'
 import { Menu, MenuItem } from '@szhsin/react-menu';
 import { useDispatch } from 'react-redux'
 
-const menuButton = <button className="columnMenuButton">...</button>
-
 export default ({ sheet, relationId, heading }) => {
   const columnId = heading.props.col
   const dispatch = useDispatch()
   const handleOption = (option) => { dispatch({ type: option, relationId, columnId }) }
+
+  const menuButton = <button className="columnMenuButton" aria-label={"Options for column " + columnId}>...</button>
 
   return (
     <Menu menuButton={menuButton}>
