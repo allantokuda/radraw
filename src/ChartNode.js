@@ -101,7 +101,7 @@ class ChartNode extends Component {
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
 
-              { operator.type &&
+              { (operator.type || operator.shape) &&
                 <ContentEditable className={classNames({ noDrag: selected, operatorName: true })}
                                  html={operator.type}
                                  disabled={!selected}

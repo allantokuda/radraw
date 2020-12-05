@@ -79,15 +79,37 @@ describe('operator reducer', () => {
   })
 
 
-  it('allows operator type edit', () => {
+  it('allows arbitrary operator type edit', () => {
     expect(
       reducer(
-        { type: 'Match Join', shape: 'HalfHouseRight', params: 'test params' },
-        { type: 'UPDATE_OPERATOR_TYPE', nodeId: 1, value: 'March Join' }
+        { type: 'Project', shape: 'Pill' },
+        { type: 'UPDATE_OPERATOR_TYPE', nodeId: 1, value: 'Projec' }
       )
     ).toEqual(
-      { type: 'March Join', shape: 'HalfHouseRight', params: 'test params' }
+      { type: 'Projec', shape: 'Pill' }
     )
+  })
 
+
+  it('leaves current operator shape when name is indeterminate', () => {
+    expect(
+      reducer(
+        { type: 'Redu', shape: 'Pill' },
+        { type: 'UPDATE_OPERATOR_TYPE', nodeId: 1, value: 'Reduc' }
+      )
+    ).toEqual(
+      { type: 'Reduc', shape: 'Pill' }
+    )
+  })
+
+  it('updates operator shape when name matches a known type', () => {
+    expect(
+      reducer(
+        { type: 'Reduc', shape: 'Pill' },
+        { type: 'UPDATE_OPERATOR_TYPE', nodeId: 1, value: 'Reduce' }
+      )
+    ).toEqual(
+      { type: 'Reduce', shape: 'Hexagon' }
+    )
   })
 })

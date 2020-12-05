@@ -1,11 +1,25 @@
+import { operatorTypeProperties } from '../operators'
+
 export default (operator, action) => {
+  let shape, type
+
   switch (action.type) {
     case 'UPDATE_OPERATOR_TYPE':
-      return Object.assign({}, operator, { type: action.value })
+      type = action.value
+
+      // update shape if possible
+      let matchingOperator = operatorTypeProperties(type)
+      if (matchingOperator) {
+        shape = matchingOperator.shape
+      } else {
+        shape = operator.shape
+      }
+
+      return Object.assign({}, operator, { type, shape })
 
     case 'UPDATE_OPERATOR_PARAMS':
-      let shape = operator.shape
-      let type = operator.type
+      shape = operator.shape
+      type = operator.type
       let style = {}
 
       if (operator.type.match(/Match Join/)) {
