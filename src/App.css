@@ -28,6 +28,9 @@
   background-color: #222;
   color: #bbb;
   height: 82px;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .toolbar button {
