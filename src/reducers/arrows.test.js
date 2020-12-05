@@ -177,7 +177,6 @@ describe('arrows reducer', () => {
     ).toEqual([
       { from: 1, to: 3 },
     ])
-
   })
 
   it('adds new arrow connecting to operator that is missing an input', () => {
@@ -195,6 +194,30 @@ describe('arrows reducer', () => {
       reducer({ editor, nodes, arrows }, action, [])
     ).toEqual([
       { from: 6, to: 7, x1: 200, x2: 251, y1: 300, y2: 419.6, connection: 1 },
+    ])
+  })
+
+  it('connects all inputs when a binary operator with two inputs is force-changed to unary', () => {
+    let nodes = [
+      { id: 1, x: 100, y:   0, operator: {} },
+      { id: 2, x: 200, y:   0, operator: {} },
+      { id: 3, x: 150, y: 200, operator: { shape: 'Pill', width: 160, height: 120 } }
+    ]
+    let arrows = [
+      { from: 1, to: 3, connection: 0 },
+      { from: 2, to: 3, connection: 1 },
+    ]
+    let action = {
+      type: actions.UPDATE_OPERATOR_TYPE,
+      nodeId: 3,
+      value: 'Project'
+    }
+
+    expect(
+      reducer({ nodes, arrows }, action, [])
+    ).toEqual([
+      { from: 1, to: 3, connection: 0, x2: 150, y2: 200 },
+      { from: 2, to: 3, connection: 1, x2: 150, y2: 200 }
     ])
   })
 })

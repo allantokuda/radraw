@@ -87,7 +87,8 @@ export default (state, action, oldNodes) => {
         if (arrow.from === action.nodeId) {
           return Object.assign({}, arrow, { x1: changedNode.x, y1: changedNode.y + (changedNode.height || 0) })
         } else if (arrow.to === action.nodeId) {
-          const connectionPoint = connectionPoints(changedNode.operator)[arrow.connection]
+          const points = connectionPoints(changedNode.operator)
+          const connectionPoint = points[arrow.connection] || points[0] // edge case where binary operator is changed to unary
           return Object.assign({}, arrow, { x2: changedNode.x + connectionPoint.x, y2: changedNode.y + connectionPoint.y })
         } else {
           return arrow
