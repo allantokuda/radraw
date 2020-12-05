@@ -6,6 +6,7 @@ export const MOVE_NODE = 'MOVE_NODE'
 export const RENAME_RELATION = 'RENAME_RELATION'
 export const RESIZE_NODE = 'RESIZE_NODE'
 export const DELETE_SELECTED = 'DELETE_SELECTED'
+export const UPDATE_OPERATOR_TYPE = 'UPDATE_OPERATOR_TYPE'
 export const UPDATE_OPERATOR_PARAMS = 'UPDATE_OPERATOR_PARAMS'
 export const SELECT = 'SELECT'
 export const TOGGLE_SELECT = 'TOGGLE_SELECT'
@@ -36,6 +37,10 @@ export function deleteSelected() {
 
 export function updateOperatorParams(nodeId, value) {
   return { type: UPDATE_OPERATOR_PARAMS, nodeId, value }
+}
+
+export function updateOperatorType(nodeId, value) {
+  return { type: UPDATE_OPERATOR_TYPE, nodeId, value }
 }
 
 export function select(selectableId, toggle = false) {

@@ -1,5 +1,8 @@
 export default (operator, action) => {
   switch (action.type) {
+    case 'UPDATE_OPERATOR_TYPE':
+      return Object.assign({}, operator, { type: action.value })
+
     case 'UPDATE_OPERATOR_PARAMS':
       let shape = operator.shape
       let type = operator.type

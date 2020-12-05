@@ -36,6 +36,11 @@ class ChartNode extends Component {
       setTimeout(this.updateSize)
     }
 
+    const handleEditType = (event) => {
+      dispatch(actions.updateOperatorType(node.id, event.target.value))
+      setTimeout(this.updateSize)
+    }
+
     const handleEditParams = (event) => {
       dispatch(actions.updateOperatorParams(node.id, event.target.value))
       setTimeout(this.updateSize)
@@ -96,10 +101,16 @@ class ChartNode extends Component {
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>
 
-              <div className="operatorName">{operator.type}</div>
+              { operator.type &&
+                <ContentEditable className={classNames({ noDrag: selected, operatorName: true })}
+                                 html={operator.type}
+                                 disabled={!selected}
+                                 onChange={handleEditType.bind(this)}/>
+              }
+
               { operatorHasParams(operator.type) &&
                 <ContentEditable className={classNames({ noDrag: selected, operatorParams: true })}
-                                 html={operator.params}
+                                 html={operator.params || ''}
                                  tagName='pre'
                                  disabled={!selected}
                                  onChange={handleEditParams.bind(this)}/>

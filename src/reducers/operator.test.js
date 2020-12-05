@@ -77,4 +77,17 @@ describe('operator reducer', () => {
       { type: 'Bad Match Join', shape: 'HalfHouseRight', params: 'Aid (N): C_id, Bid(E): C_id', style: { fill: '#fee', stroke: 'red' } }
     )
   })
+
+
+  it('allows operator type edit', () => {
+    expect(
+      reducer(
+        { type: 'Match Join', shape: 'HalfHouseRight', params: 'test params' },
+        { type: 'UPDATE_OPERATOR_TYPE', nodeId: 1, value: 'March Join' }
+      )
+    ).toEqual(
+      { type: 'March Join', shape: 'HalfHouseRight', params: 'test params' }
+    )
+
+  })
 })

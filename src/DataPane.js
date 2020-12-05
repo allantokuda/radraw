@@ -11,7 +11,12 @@ class DataPane extends React.Component {
 
     let selectedNodes = state.nodes.filter((node) => node.selected)
     let selectedRelationIds = selectedNodes.map((node) => node.resultRelationId)
-    let selectedRelations = state.relations.filter((relation) => selectedRelationIds.indexOf(relation.id) !== -1)
+		let selectedRelations
+		if (selectedRelationIds.length) {
+			selectedRelations = state.relations.filter((relation) => selectedRelationIds.indexOf(relation.id) !== -1)
+		} else {
+			selectedRelations = state.relations
+		}
 
     const handleChanges = (relation, changes) => {
       dispatch({ type: 'EDIT_DATA', relationId: relation.id, changes })
