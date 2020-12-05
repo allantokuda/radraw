@@ -2,6 +2,7 @@
   background: #f8f8f8;
   border-left: 1px solid #ccc;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .DataPane h2 {
