@@ -50,7 +50,7 @@ describe('relations reducer', () => {
       },
       { type: 'COLUMN_INSERT_RIGHT', relationId: 1, columnId: 1 }
     )).toEqual([
-      { id: 1, name: 'Creature', data: [[1,2,{ value: null }]] },
+      { id: 1, name: 'Creature', data: [[1,2,{ value: '' }]] },
     ])
   })
 })
