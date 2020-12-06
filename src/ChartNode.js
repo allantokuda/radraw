@@ -7,6 +7,7 @@ import { svgShape, titleY, connectionPoints } from './operatorShape'
 import { operatorHasParams } from './operators'
 import Arrow from './Arrow'
 import classNames from 'classnames'
+import RelationBox from './RelationBox'
 
 class ChartNode extends Component {
 
@@ -31,11 +32,6 @@ class ChartNode extends Component {
     const operator = node.operator
     const selected = node.selected
 
-    const handleEditName = (event) => {
-      dispatch(actions.renameRelation(node.resultRelationId, event.target.value))
-      setTimeout(this.updateSize)
-    }
-
     const handleEditType = (event) => {
       dispatch(actions.updateOperatorType(node.id, event.target.value))
       setTimeout(this.updateSize)
@@ -59,23 +55,6 @@ class ChartNode extends Component {
     const handleOperatorClick = (event) => {
       event.stopPropagation()
       dispatch(actions.select(node.id, event.shiftKey))
-    }
-
-    const selectRelation = (toggleMode) => {
-      if (state.editor.action === 'connect') {
-        dispatch(actions.finishConnect(node.id))
-      } else {
-        dispatch(actions.select(node.id, toggleMode))
-      }
-    }
-
-    const handleRelationClick = (event) => {
-      event.stopPropagation()
-      selectRelation(event.shiftKey)
-    }
-
-    const handleRelationTouchStart = (event) => {
-      selectRelation(event.touches.length > 1)
     }
 
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg underlay' })
@@ -118,17 +97,8 @@ class ChartNode extends Component {
           </div>
 
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <div className="relation dragHandle centeredOnZeroWidthParent"
-            ref={ref => this.relationRef = ref}
-            onClick={handleRelationClick}
-            onTouchStart={handleRelationTouchStart}
-            onTouchEnd={e => e.preventDefault()} /* prevent click + touch events from both firing */
-          >
-            <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
-                             html={relation.name}
-                             disabled={!selected}
-                             onChange={handleEditName}/>
-          </div>
+
+          <RelationBox {...this.props} onChange={() => setTimeout(this.updateSize)} />
 
           {openPoints.map((point) =>
             <button
