@@ -114,7 +114,11 @@ class ChartNode extends Component {
           </div>
 
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <div className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this)} onTouchStart={handleRelationTouchStart}>
+          <div className="relation dragHandle centeredOnZeroWidthParent"
+            ref={ref => this.relationRef = ref}
+            onClick={handleRelationClick}
+            onTouchStart={handleRelationTouchStart}
+          >
             <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
                              html={relation.name}
                              disabled={!selected}
