@@ -36,9 +36,9 @@ let Toolbar = ({ state }) => {
 
   return (
     <header className="toolbar">
-      { selectionSize == 0 && <FileMenu/> }
+      { selectionSize === 0 && <FileMenu/> }
 
-      { selectionSize == 0 &&
+      { selectionSize === 0 &&
         <button onClick={newRelation} className={classNames({ operatorButton: true, selected: state.editor.action === 'new_relation' })}>
           <div className="buttonContents">
             <div className="relation" aria-hidden={true} style={{ boxSizing: 'border-box', height: '25px', width: '50px', padding: 1, margin: '5px 0' }}>
