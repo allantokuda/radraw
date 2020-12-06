@@ -4,6 +4,9 @@ import * as actions from './actions'
 import classNames from 'classnames'
 import { useDispatch } from 'react-redux'
 
+// Short touch to select, long touch to edit
+let memo = { wait: false }
+
 export default ({ node, relation, state, onChange }) => {
   const dispatch = useDispatch()
   const selected = node.selected
@@ -21,8 +24,14 @@ export default ({ node, relation, state, onChange }) => {
     selectRelation(event.shiftKey)
   }
 
-  const handleRelationTouchStart = (event) => {
+  const handleTouchStart = (event) => {
+    memo.wait = true
+    setTimeout((() => memo.wait = false), 100)
     selectRelation(event.touches.length > 1)
+  }
+
+  const handleTouchEnd = (event) => {
+    if (memo.wait) event.preventDefault()
   }
 
   const handleEditName = (event) => {
@@ -33,8 +42,8 @@ export default ({ node, relation, state, onChange }) => {
   return (
     <div className="relation dragHandle centeredOnZeroWidthParent"
       onClick={handleClick}
-      onTouchStart={handleRelationTouchStart}
-      onTouchEnd={e => e.preventDefault()} /* prevent click + touch events from both firing */
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
                        html={relation.name}
