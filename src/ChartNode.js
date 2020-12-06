@@ -70,6 +70,10 @@ class ChartNode extends Component {
       }
     }
 
+    const handleRelationTouchStart = (event) => {
+      dispatch(actions.select(node.id, event.touches.length > 1))
+    }
+
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg underlay' })
 
     const inboundArrows = state.arrows.filter(arrow => arrow.to === node.id)
@@ -119,7 +123,7 @@ class ChartNode extends Component {
             {svgShape(svgParams)}
           </div>
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
-          <div className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this)}>
+          <div className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this)} onTouchStart={handleRelationTouchStart}>
             <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
                              html={relation.name}
                              disabled={!selected}

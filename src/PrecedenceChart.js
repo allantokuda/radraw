@@ -23,13 +23,15 @@ let PrecedenceChart = ({ state, dispatch }) => {
     dispatch({ type: 'ZOOM', scale: e.scale })
   }
 
+  const disabled = !!state.nodes.find(node => node.selected)
+
   return (
     <div className="precedenceChart" onClick={handleChartClick}>
       <TransformWrapper
-        options={{limitToBounds: false, minScale: 0.2, disabled: state.nodes.find(node => node.selected) }}
+        options={{ limitToBounds: false, minScale: 0.2, disabled }}
         doubleClick={{disabled: true}}
 
-        pan={{velocity: false}}
+        pan={{ velocity: false, disabled }}
         onPanning={handlePan}
         defaultPositionX={state.editor.panX}
         defaultPositionY={state.editor.panY}
