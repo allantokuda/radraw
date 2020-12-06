@@ -4,7 +4,9 @@ import * as actions from './actions'
 import classNames from 'classnames'
 import { useDispatch } from 'react-redux'
 
-// Short touch to select, long touch to edit
+// Enable mult-touch select: select on touchStart and then
+// wait before registering touchEnd as focus event on contenteditable input
+// so that first tap (start) selects and second tap (end) focuses the input
 let memo = { wait: false }
 
 export default ({ node, relation, state, onChange }) => {
@@ -20,14 +22,20 @@ export default ({ node, relation, state, onChange }) => {
   }
 
   const handleClick = (event) => {
-    event.stopPropagation()
+    event.stopPropagation() // prevent click event from propagating up to the canvas and causing another deselect
     selectRelation(event.shiftKey)
   }
 
   const handleTouchStart = (event) => {
-    memo.wait = true
-    setTimeout((() => memo.wait = false), 100)
     selectRelation(event.touches.length > 1)
+
+    // if not selected, let first tap cause only a select and not a focus of the contenteditable.
+    // signal to the touchEnd event to prevent generating a click event.
+    if (!selected) {
+      clearTimeout(memo.timeout)
+      memo.wait = true
+      memo.timeout = setTimeout((() => memo.wait = false), 100)
+    }
   }
 
   const handleTouchEnd = (event) => {
