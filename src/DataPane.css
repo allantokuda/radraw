@@ -46,7 +46,8 @@
   padding: 3px;
   font-size: 16px;
   text-align: center;
-  width: 100px;
+  min-width: 100px;
+  max-width: 300px;
 }
 
 .DataPane .data-grid-container .data-grid .cell > input {
@@ -54,6 +55,8 @@
 }
 
 .DataPane .data-grid-container .data-grid .value-viewer {
-  height: 20px;
+  min-height: 20px;
+  max-height: 200px;
+  overflow: hidden;
 }
 
