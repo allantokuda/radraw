@@ -7,8 +7,8 @@ import { arrowId } from './reducers/arrows'
 
 let PrecedenceChart = ({ state, dispatch }) => {
   let handleChartClick = (event, a, b) => {
-    let x = event.clientX - event.target.getBoundingClientRect()['x']
-    let y = event.clientY - event.target.getBoundingClientRect()['y']
+    let x = event.clientX - event.target.getBoundingClientRect()['x'] - state.editor.panX
+    let y = event.clientY - event.target.getBoundingClientRect()['y'] - state.editor.panY
     if (state.editor.action === 'new_relation') {
       dispatch({ type: 'CREATE_RELATION', x, y: y - 55 })
     } else {
