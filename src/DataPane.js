@@ -23,7 +23,7 @@ class DataPane extends React.Component {
     }
 
     const handleSelect = (relation, cellSelection) => {
-      dispatch({ type: 'SELECT_CELLS', relationId: relation.id, cellSelection })
+      setTimeout(() => dispatch({ type: 'SELECT_CELLS', relationId: relation.id, cellSelection }))
     }
 
     const handleRawPaste = (relation, str) => {
