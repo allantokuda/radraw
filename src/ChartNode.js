@@ -61,17 +61,21 @@ class ChartNode extends Component {
       dispatch(actions.select(node.id, event.shiftKey))
     }
 
-    const handleRelationClick = (event) => {
-      event.stopPropagation()
+    const selectRelation = (toggleMode) => {
       if (state.editor.action === 'connect') {
         dispatch(actions.finishConnect(node.id))
       } else {
-        dispatch(actions.select(node.id, event.shiftKey))
+        dispatch(actions.select(node.id, toggleMode))
       }
     }
 
+    const handleRelationClick = (event) => {
+      event.stopPropagation()
+      selectRelation(event.shiftKey)
+    }
+
     const handleRelationTouchStart = (event) => {
-      dispatch(actions.select(node.id, event.touches.length > 1))
+      selectRelation(event.touches.length > 1)
     }
 
     const svgParams = Object.assign({}, operator, { width: operator.width || 100, height: operator.height || 42, className: 'operatorSvg underlay' })
