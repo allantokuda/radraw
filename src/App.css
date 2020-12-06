@@ -197,6 +197,10 @@
   margin-top: -20px;
 }
 
+.App.connect .missingInput:focus {
+  background: #f33;
+}
+
 .arrowLine {
   stroke: black;
   stroke-width: 1;

@@ -88,16 +88,6 @@ class ChartNode extends Component {
         position={{ x: node.x, y: node.y }}>
 
         <div ref={nodeRef => this.nodeRef = nodeRef} className={classNames({ chartNode: true, selected })}>
-          {openPoints.map((point) =>
-            <button
-              key={point.connection}
-              className="missingInput"
-              style={{marginLeft: point.x * 2, top: point.y}}
-              onClick={handleConnectionButtonClick.bind(this, point.connection)}
-              aria-label={"missing input " + (point.connection+1) + " to node " + node.id}
-            >!</button>
-          )}
-
           <button className="keyboardSelectButton" aria-label={"Select: " + relation.name} onClick={handleOperatorClick.bind(this)}></button>
 
           <div className={"operator centeredOnZeroWidthParent " + operator.type} onClick={handleOperatorClick.bind(this)}>
@@ -122,6 +112,7 @@ class ChartNode extends Component {
             </div>
             {svgShape(svgParams)}
           </div>
+
           { operator.type && <div className="bottomFix"><Arrow x1={0} y1={0} x2={0} y2={30} /></div> }
           <div className="relation dragHandle centeredOnZeroWidthParent" ref={ref => this.relationRef = ref} onClick={handleRelationClick.bind(this)} onTouchStart={handleRelationTouchStart}>
             <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
@@ -129,6 +120,17 @@ class ChartNode extends Component {
                              disabled={!selected}
                              onChange={handleEditName}/>
           </div>
+
+          {openPoints.map((point) =>
+            <button
+              key={point.connection}
+              className="missingInput"
+              style={{marginLeft: point.x * 2, top: point.y}}
+              onClick={handleConnectionButtonClick.bind(this, point.connection)}
+              aria-label={"missing input " + (point.connection+1) + " to node " + node.id}
+            >!</button>
+          )}
+
         </div>
       </Draggable>
     )
