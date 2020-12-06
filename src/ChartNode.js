@@ -118,6 +118,7 @@ class ChartNode extends Component {
             ref={ref => this.relationRef = ref}
             onClick={handleRelationClick}
             onTouchStart={handleRelationTouchStart}
+            onTouchEnd={e => e.preventDefault()} /* prevent click + touch events from both firing */
           >
             <ContentEditable className={classNames({ noDrag: selected, relationEdit: true })}
                              html={relation.name}
