@@ -91,4 +91,36 @@ describe('datasheet reducer', () => {
       stringSheet(''),
     )
   })
+
+  it('expands from a single cell to accommodate paste', () => {
+    expect(stringSheet('1')).toEqual([[{ value: '1' }]])
+
+    expect(reducer(
+      stringSheet('1'),
+      {
+        type: 'PASTE_EXPAND',
+        relationId: 0,
+        pasteWidth: 2,
+        pasteHeight: 3,
+        cellSelection: { start: { i: 0, j: 0 }, end: { i: 0, j: 0 } }
+      }
+    )).toEqual(
+      stringSheet('1,;,;,'),
+    )
+  })
+
+  it('expands to accommodate paste', () => {
+    expect(reducer(
+      stringSheet('A,B;C,D'),
+      {
+        type: 'PASTE_EXPAND',
+        relationId: 0,
+        pasteWidth: 2,
+        pasteHeight: 2,
+        cellSelection: { start: { i: 1, j: 1 }, end: { i: 1, j: 1 } }
+      }
+    )).toEqual(
+      stringSheet('A,B,;C,D,;,,'),
+    )
+  })
 })

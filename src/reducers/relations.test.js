@@ -41,6 +41,18 @@ describe('relations reducer', () => {
     ])
   })
 
+  it('marks cell selection', () => {
+    let cellSelection = { start: { i: 3, j: 4 }, end: { i: 5, j: 6 } }
+    expect(reducer(
+      {
+        relations: [{ id: 1, name: 'Creature' }]
+      },
+      { type: 'SELECT_CELLS', relationId: 1, cellSelection }
+    )).toEqual([
+      { id: 1, name: 'Creature', cellSelection },
+    ])
+  })
+
   it('delegates to datasheet reducer', () => {
     expect(reducer(
       {

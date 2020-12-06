@@ -22,6 +22,23 @@ class DataPane extends React.Component {
       dispatch({ type: 'EDIT_DATA', relationId: relation.id, changes })
     }
 
+    const handleSelect = (relation, cellSelection) => {
+      dispatch({ type: 'SELECT_CELLS', relationId: relation.id, cellSelection })
+    }
+
+    const handleRawPaste = (relation, str) => {
+      let pasteWidth = 0
+      let pasteHeight = 0
+      const result = str.split(/\r\n|\n|\r/).map(row => {
+        const splitRow = row.split('\t');
+        pasteWidth = Math.max(pasteWidth, splitRow.length)
+        pasteHeight++
+        return splitRow
+      });
+      dispatch({ type: 'PASTE_EXPAND', relationId: relation.id, cellSelection: relation.cellSelection, pasteWidth, pasteHeight })
+      return result
+    }
+
     return (
       <div className="DataPane">
         { selectedRelations.map(relation => {
@@ -29,6 +46,7 @@ class DataPane extends React.Component {
             <h2>{ relation.name || 'Untitled Relation' }</h2>
             <ReactDataSheet
               data={relation.data || [[{ value: '' }]]}
+              parsePaste={handleRawPaste.bind(this, relation)}
               sheetRenderer={props => {
                 let headings = props.children[0].props.children
                 return (
@@ -46,6 +64,7 @@ class DataPane extends React.Component {
               }}
               valueRenderer={cell => cell.value}
               onCellsChanged={handleChanges.bind(this, relation)}
+              onSelect={handleSelect.bind(this, relation)}
             />
           </div>
         })}

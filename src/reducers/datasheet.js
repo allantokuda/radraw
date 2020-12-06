@@ -1,4 +1,19 @@
-const emptySheet = [[{ value: '' }]]
+
+const emptyRow = (width) => {
+  let cells = []
+  let j = width
+  while (j-- > 0) cells.push({ value: '' })
+  return cells
+}
+
+const emptyRows = (height, width) => {
+  let rows = []
+  let i = height
+  while (i-- > 0) rows.push(emptyRow(width))
+  return rows
+}
+
+const emptySheet = emptyRows(1,1)
 
 // immutable splicing
 
@@ -24,6 +39,20 @@ export default (sheet = emptySheet, action = {}) => {
 
     case 'COLUMN_DELETE':
       return sheet.map(row => arrayDelete(row, action.columnId))
+
+    case 'PASTE_EXPAND':
+      let currentHeight = sheet.length
+      let currentWidth = sheet[0].length
+      let selectionStartRow = action.cellSelection.start.i
+      let selectionStartCol = action.cellSelection.start.j
+      let neededHeight = selectionStartRow + action.pasteHeight
+      let neededWidth = selectionStartCol + action.pasteWidth
+      let deltaHeight = neededHeight - currentHeight
+      let deltaWidth = neededWidth - currentWidth
+      return [
+        ...sheet.map(row => [...row, ...emptyRow(deltaWidth)]),
+        ...emptyRows(deltaHeight, neededWidth)
+      ]
 
     case 'EDIT_DATA':
       let newSheet = sheet.map(row => [...row])

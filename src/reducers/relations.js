@@ -8,7 +8,11 @@ export default (state, action = {}) => {
         case 'RENAME_RELATION':
           return Object.assign({}, relation, { name: action.name })
 
+        case 'SELECT_CELLS':
+          return Object.assign({}, relation, { cellSelection: action.cellSelection })
+
         case 'EDIT_DATA':
+        case 'PASTE_EXPAND':
         case 'COLUMN_INSERT_RIGHT':
         case 'COLUMN_INSERT_LEFT':
         case 'COLUMN_DELETE':
