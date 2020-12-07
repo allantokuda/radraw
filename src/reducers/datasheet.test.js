@@ -1,6 +1,5 @@
 import reducer from './datasheet'
-
-const stringSheet = (str) => str.split(';').map(row => row.split(',').map(val => ({ value: val })))
+import stringSheet from './stringSheet'
 
 describe('datasheet reducer', () => {
   it('adds a column after the current column', () => {
