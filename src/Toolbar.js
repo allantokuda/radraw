@@ -36,7 +36,7 @@ let Toolbar = ({ state }) => {
 
   return (
     <header className="toolbar">
-      { selectionSize === 0 && <FileMenu/> }
+      <FileMenu/>
 
       { selectionSize === 0 &&
         <button onClick={newRelation} className={classNames({ operatorButton: true, selected: state.editor.action === 'new_relation' })}>
