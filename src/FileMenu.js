@@ -25,10 +25,21 @@ let FileMenu = ({ state }) => {
     dispatch({ type: 'BROWSE' })
   }
 
+  const exportChart = () => {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(state)));
+    element.setAttribute('download', state.name + '.json');
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+
   return (
     <Menu menuButton={menuButton}>
       <MenuItem onClick={newChart}>New Chart</MenuItem>
       <MenuItem onClick={openChart}>Open Chart</MenuItem>
+      <MenuItem onClick={exportChart}>Export Chart</MenuItem>
     </Menu>
   )
 }
