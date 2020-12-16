@@ -4,7 +4,7 @@ import ContentEditable from 'react-contenteditable'
 
 let FileNameEditor = ({ state, dispatch }) => {
   const handleEdit = (event) => {
-    dispatch({ type: 'RENAME_CHART', newName: event.target.value })
+    dispatch({ type: 'RENAME_CHART', newName: event.target.value.replace(/<br>$/, '') })
   }
 
   return (
