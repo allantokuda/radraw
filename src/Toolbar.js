@@ -102,7 +102,7 @@ let Toolbar = ({ state }) => {
         </button>
       }
 
-      { localStorage.getItem('datapane') &&
+      {
         <button onClick={toggleDataPane} className="operatorButton" style={{ marginLeft: 'auto' }}>
             <span className="buttonContents">
               <div aria-hidden={true} style={{ fontSize: 30, color: 'white', height: '25px', width: '50px', padding: 4, margin: '-6px 0 8px' }}>
