@@ -11,6 +11,7 @@ export const UPDATE_OPERATOR_PARAMS = 'UPDATE_OPERATOR_PARAMS'
 export const SELECT = 'SELECT'
 export const TOGGLE_SELECT = 'TOGGLE_SELECT'
 export const TOGGLE_DATA_PANE = 'TOGGLE_DATA_PANE'
+export const TOGGLE_BINARY = 'TOGGLE_BINARY'
 export const DESELECT_ALL = 'DESELECT_ALL'
 export const NEW_RELATION_MODE = 'NEW_RELATION_MODE'
 export const CREATE_RELATION = 'CREATE_RELATION'
@@ -49,6 +50,10 @@ export function select(selectableId, toggle = false) {
   } else {
     return { type: SELECT, selectableId }
   }
+}
+
+export function toggleBinary() {
+  return { type: TOGGLE_BINARY }
 }
 
 export function toggleDataPane() {

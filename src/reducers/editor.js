@@ -58,6 +58,16 @@ export default (state = initialState, action) => {
 
       break
 
+    case 'TOGGLE_BINARY':
+      switch(state.editor.action) {
+        case 'binary':
+          changes = { action: 'unary' }
+          break
+        default:
+          changes = { action: 'binary' }
+      }
+      break
+
     case 'TOGGLE_DATA_PANE':
       changes = { dataPane: !state.editor.dataPane }
       break

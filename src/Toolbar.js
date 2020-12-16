@@ -19,13 +19,14 @@ let Toolbar = ({ state }) => {
   }
 
   let flipOperator = () => { dispatch(actions.flipOperator()) }
-
+	let toggleBinary = () => { dispatch(actions.toggleBinary()) }
 	let toggleDataPane = () => { dispatch(actions.toggleDataPane()) }
 	const dataButtonLabel = (state.editor.dataPane ? 'Hide' : 'Show') + ' Data'
 
   const selectedNodes = state.nodes.filter(node => node.selected)
   const selectedArrows = state.arrows.filter(arrow => arrow.selected)
   const selectionSize = selectedNodes.length + selectedArrows.length
+  const forceBinary = state.editor.action === 'binary'
   let flippable
   if (selectedNodes.length === 1) {
     let selectedNode = selectedNodes[0]
@@ -73,10 +74,32 @@ let Toolbar = ({ state }) => {
 
       {
         operators.filter(operator =>
-          operator.numInputs === selectedNodes.length
+          (operator.numInputs === selectedNodes.length && !forceBinary) ||
+          (operator.numInputs === 2 && forceBinary)
         ).map(operator =>
           <OperatorButton key={operator.type} {...operator}/>
         )
+      }
+
+      { selectionSize === 1 &&
+        <button onClick={toggleBinary} className="operatorButton">
+          { !forceBinary &&
+            <span className="buttonContents">
+              <div aria-hidden={true} style={{ fontSize: 30, color: 'white', height: '25px', width: '50px', padding: 4, margin: '5px 0' }}>
+                &#8650;
+              </div>
+              <label className="">Binary</label>
+            </span>
+          }
+          { forceBinary &&
+            <span className="buttonContents">
+              <div aria-hidden={true} style={{ fontSize: 30, color: 'white', height: '25px', width: '50px', padding: 4, margin: '5px 0' }}>
+                &#8595;
+              </div>
+              <label className="">Unary</label>
+            </span>
+          }
+        </button>
       }
 
       { localStorage.getItem('datapane') &&
