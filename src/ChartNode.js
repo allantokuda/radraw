@@ -68,6 +68,7 @@ class ChartNode extends Component {
         cancel=".noDrag"
         handle=".dragHandle"
         onDrag={handleDrag}
+        scale={state.editor.scale}
         position={{ x: node.x, y: node.y }}>
 
         <div ref={nodeRef => this.nodeRef = nodeRef} className={classNames({ chartNode: true, selected })}>
