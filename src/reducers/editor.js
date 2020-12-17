@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
       break
 
     case 'ZOOM':
-      changes = { scale: action.scale }
+      changes = { scale: action.scale, panX: action.x, panY: action.y }
       break
 
     case 'NEW_RELATION_MODE':

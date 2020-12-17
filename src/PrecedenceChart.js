@@ -20,7 +20,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
     dispatch({ type: 'PAN', x: e.positionX, y: e.positionY })
   }
   let handleZoom = (e) => {
-    dispatch({ type: 'ZOOM', scale: e.scale })
+    dispatch({ type: 'ZOOM', scale: e.scale, x: e.positionX, y: e.positionY  })
   }
 
   const disabled = !!state.nodes.find(node => node.selected)
@@ -38,7 +38,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
         positionX={state.editor.panX}
         positionY={state.editor.panY}
 
-        wheel={{step: 60}}
+        wheel={{step: 80}}
         onWheel={handleZoom}
         scale={state.editor.scale}
       >
