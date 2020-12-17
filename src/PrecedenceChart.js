@@ -38,7 +38,7 @@ let PrecedenceChart = ({ state, dispatch }) => {
         positionX={state.editor.panX}
         positionY={state.editor.panY}
 
-        wheel={{step: 100}}
+        wheel={{step: 60}}
         onWheel={handleZoom}
         scale={state.editor.scale}
       >
