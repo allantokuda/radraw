@@ -1,5 +1,5 @@
 import uuid from './reducers/uuid'
-import stringSheet from './reducers/stringSheet'
+//import stringSheet from './reducers/stringSheet'
 
 // temporary
 export default {
