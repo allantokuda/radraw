@@ -74,7 +74,7 @@ class ChartNode extends Component {
         <div ref={nodeRef => this.nodeRef = nodeRef} className={classNames({ chartNode: true, selected })}>
           <button className="keyboardSelectButton" aria-label={"Select: " + relation.name} onClick={handleOperatorClick.bind(this)}></button>
 
-          <div className={"operator centeredOnZeroWidthParent " + operator.type} onClick={handleOperatorClick.bind(this)}>
+          <div className={"operator centeredOnZeroWidthParent " + operator.type + ' ' + operator.shape} onClick={handleOperatorClick.bind(this)}>
             <div className="operatorContent bottomFix dragHandle"
                  style={{ paddingTop: titleY(operator), minWidth: 80, minHeight: 20 }}
                  ref={operatorRef => this.operatorRef = operatorRef}>

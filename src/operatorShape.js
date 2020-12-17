@@ -32,7 +32,7 @@ const operatorKeypoints = ({ shape, width, height }) => {
   height = height - 2 || 70
 
   let w = width / 2
-  let w1 = Math.max(w - height * 0.4, w * 0.6)
+  let w1 = Math.max(w - 30, w * 0.6)
   // let h1 = width * 0.1
   let h2 = width * 0.2 // for drawing house shapes
   let points

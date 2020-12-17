@@ -180,10 +180,13 @@
   margin-top: 0px;
 }
 
-.operator.Project .operatorParams,
-.operator.Filter .operatorParams {
+.operator.Pill .operatorParams {
   min-width: 70px;
   text-align: center;
+}
+
+.operator.Hexagon .operatorParams {
+  margin: 0 20px;
 }
 
 .missingInput {

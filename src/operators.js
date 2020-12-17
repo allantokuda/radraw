@@ -18,7 +18,7 @@ const operators = [
   { numInputs: 1, type: PROJECT,     shape: OPERATOR_SHAPES.PILL, defaultParams: '' },
   { numInputs: 1, type: FILTER,      shape: OPERATOR_SHAPES.PILL, defaultParams: '' },
   { numInputs: 1, type: REDUCE,      shape: OPERATOR_SHAPES.HEXAGON, defaultParams: 'id: ' },
-  { numInputs: 1, type: GROUP,       shape: OPERATOR_SHAPES.HEXAGON, defaultParams: 'over: ' },
+  { numInputs: 1, type: GROUP,       shape: OPERATOR_SHAPES.HEXAGON, defaultParams: 'over: \nfunc: ' },
 
   { numInputs: 2, type: TIMES,       shape: OPERATOR_SHAPES.FULL_HOUSE_LEFT },
   { numInputs: 2, type: UNION,       shape: OPERATOR_SHAPES.HALF_HOUSE_LEFT_SYMMETRIC },
